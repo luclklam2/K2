@@ -1,0 +1,2006 @@
+
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Jadon 每日一練</title>
+  <style>
+    :root {
+      --paper: #fbf9ff;
+      --paper-line: #e8e1ff;
+      --page-border: #b7a8ef;
+      --ink: #403764;
+      --muted: #706890;
+      --purple: #9b84e8;
+      --purple-deep: #7a63d9;
+      --blue: #7fb6ff;
+      --yellow: #ffd96a;
+      --pink: #ffbfdc;
+      --mint: #bfeecf;
+      --peach: #ffd4b2;
+      --white: #ffffff;
+      --shadow: 0 16px 40px rgba(79, 62, 136, 0.16);
+      --dash: 2px dashed #b9b0e8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Noto Sans HK", "Microsoft JhengHei", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(var(--paper-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--paper-line) 1px, transparent 1px),
+        linear-gradient(180deg, #f4f0ff, #ecf6ff);
+      background-size: 28px 28px, 28px 28px, 100% 100%;
+      padding: 14px;
+    }
+
+    .sheet {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      background: var(--paper);
+      border: 4px solid var(--page-border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sheet::before,
+    .sheet::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    .sheet::before {
+      top: -30px;
+      right: -20px;
+      background: radial-gradient(circle, #a8cfff 0%, rgba(168, 207, 255, 0) 72%);
+    }
+
+    .sheet::after {
+      bottom: -30px;
+      left: -20px;
+      background: radial-gradient(circle, #ffc4db 0%, rgba(255, 196, 219, 0) 72%);
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .sticker {
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 900;
+      font-size: 0.92rem;
+      border: 2px solid #ffffff;
+      box-shadow: 0 8px 18px rgba(122, 99, 217, 0.18);
+      white-space: nowrap;
+    }
+
+    .sticker {
+      background: linear-gradient(135deg, #d7ecff, #f7deff);
+      color: #5d63aa;
+    }
+
+    .title-badge {
+      text-align: center;
+      padding: 14px 18px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #ccb8ff, #a892f0);
+      border: 4px solid #ede4ff;
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+      width: 100%;
+    }
+
+    .title-badge h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: #3c2e70;
+    }
+
+    .name-strip {
+      margin-top: 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 244, 255, 0.96));
+      border: 2px dashed #b9b0e8;
+      border-radius: 22px;
+      padding: 10px 14px;
+    }
+
+    .name-strip-head {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 6px;
+      min-height: 18px;
+    }
+
+    .name-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .name-field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .name-field label {
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: var(--muted);
+    }
+
+    .name-input {
+      min-height: 50px;
+      border-radius: 14px;
+      border: 2px solid #d9cffd;
+      background: #fff;
+      padding: 10px 14px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .control-panel {
+      margin-top: 18px;
+      background: rgba(255, 255, 255, 0.85);
+      border: var(--dash);
+      border-radius: 22px;
+      padding: 16px;
+    }
+
+    .control-panel-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 0.9rem;
+      font-weight: 900;
+      color: var(--muted);
+    }
+
+    select,
+    input[type="number"] {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 16px;
+      border: 2px solid #d9cffd;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 12px;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .summary {
+      width: 270px;
+      background: linear-gradient(180deg, #fffdf0, #fff7fe);
+      border: 2px solid #f0e2ff;
+      border-radius: 18px;
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .summary-box {
+      background: #ffffff;
+      border: var(--dash);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .summary-box strong {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .summary-box span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      min-height: 50px;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--ink);
+      box-shadow: 0 10px 20px rgba(122, 99, 217, 0.16);
+    }
+
+    .primary {
+      background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+      color: #fff;
+    }
+
+    .secondary {
+      background: linear-gradient(135deg, #ffeeb7, var(--yellow));
+    }
+
+    .ghost {
+      background: linear-gradient(135deg, #def0ff, #bed8ff);
+    }
+
+    .print-btn {
+      background: linear-gradient(135deg, #ffdbe8, #ffc2d7);
+    }
+
+    .lang-btn {
+      background: linear-gradient(135deg, #e5f5d9, #c9efb8);
+    }
+
+    .questions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: #fff;
+      border: var(--dash);
+      border-radius: 22px;
+      padding: 14px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .card.sequence {
+      background: linear-gradient(180deg, #ffffff, #fbf8ff);
+    }
+
+    .card.addsub {
+      background: linear-gradient(180deg, #ffffff, #f8fcff);
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-chip,
+    .theme-mark {
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 900;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .section-chip.sequence {
+      background: linear-gradient(135deg, #bda8ff, #9a81ef);
+      color: #fff;
+    }
+
+    .section-chip.addsub {
+      background: linear-gradient(135deg, #86c0ff, #72a9ff);
+      color: #fff;
+    }
+
+    .theme-mark {
+      min-width: 48px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 1.35rem;
+      background: linear-gradient(135deg, #fff6fb, #ffe9f2);
+      border: 2px solid #f0d6e5;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.18rem;
+      line-height: 1.55;
+    }
+
+    .story {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.55;
+      font-weight: 800;
+    }
+
+    .equation-box {
+      margin-top: 16px;
+      background: #fcfbff;
+      border: 2px solid #e0d8ff;
+      border-radius: 18px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+
+    .equation {
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .visual-math {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .visual-group {
+      min-width: 88px;
+      display: grid;
+      gap: 6px;
+      justify-items: center;
+    }
+
+    .visual-count {
+      font-size: 0.92rem;
+      font-weight: 900;
+      color: var(--muted);
+    }
+
+    .visual-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      max-width: 110px;
+    }
+
+    .visual-icon {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: #fff;
+      border: 2px solid #eadffd;
+      font-size: 1.02rem;
+      line-height: 1;
+    }
+
+    .visual-operator,
+    .visual-equals {
+      align-self: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--ink);
+      padding-top: 16px;
+    }
+
+    .visual-answer-line {
+      width: 40px;
+      height: 24px;
+      border-bottom: 3px solid currentColor;
+      align-self: center;
+      margin-top: 10px;
+    }
+
+    .shape-pattern {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: #574a8f;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .shape-options {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .shape-choice {
+      min-width: 58px;
+      min-height: 48px;
+      border: 3px solid #d9cffd;
+      border-radius: 16px;
+      background: #fff;
+      color: #574a8f;
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+
+    .shape-choice.selected {
+      border-color: #8e72e6;
+      background: #f1ebff;
+    }
+
+    .shape-choice.correct {
+      border-color: #66c480;
+      background: #effcf3;
+    }
+
+    .shape-choice.wrong {
+      border-color: #f08383;
+      background: #fff4f4;
+    }
+
+    .clock-wrap {
+      margin-top: 12px;
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+    }
+
+    .clock-face {
+      position: relative;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background: #fff;
+      border: 4px solid #d9cffd;
+      box-shadow: inset 0 0 0 6px #f7f2ff;
+    }
+
+    .clock-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      background: #574a8f;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+
+    .clock-hand {
+      position: absolute;
+      left: 50%;
+      bottom: 50%;
+      transform-origin: bottom center;
+      border-radius: 999px;
+    }
+
+    .clock-hand.hour {
+      width: 6px;
+      height: 34px;
+      background: #574a8f;
+      margin-left: -3px;
+      z-index: 2;
+    }
+
+    .clock-hand.minute {
+      width: 4px;
+      height: 48px;
+      background: #8bb8ff;
+      margin-left: -2px;
+      z-index: 1;
+    }
+
+    .clock-tick {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 2px;
+      height: 54px;
+      margin-left: -1px;
+      margin-top: -54px;
+      transform-origin: bottom center;
+    }
+
+    .clock-tick::before {
+      content: "";
+      display: block;
+      width: 2px;
+      height: 10px;
+      background: #b7a8ef;
+      border-radius: 999px;
+      margin: 0 auto;
+    }
+
+    .clock-label {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: var(--muted);
+    }
+
+    .clock-number {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 24px;
+      margin-left: -12px;
+      margin-top: -10px;
+      color: #574a8f;
+      font-size: 0.82rem;
+      font-weight: 900;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    .missing-line {
+      display: inline-block;
+      width: 2.2ch;
+      height: 0.9em;
+      margin: 0 0.08em;
+      border-bottom: 3px solid currentColor;
+      vertical-align: middle;
+      transform: translateY(-0.06em);
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .answer {
+      flex: 1;
+      min-width: 140px;
+      font-size: 1.3rem;
+      text-align: center;
+      border-width: 3px;
+    }
+
+    .answer.correct {
+      border-color: #66c480;
+      background: #effcf3;
+      color: #237441;
+    }
+
+    .answer.wrong {
+      border-color: #f08383;
+      background: #fff4f4;
+      color: #ac3838;
+    }
+
+    .card.clock .answer {
+      border: 0;
+      border-bottom: 3px solid #b8acd9;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .tiny {
+      min-height: 46px;
+      background: linear-gradient(135deg, #f1eaff, #dce9ff);
+    }
+
+    .feedback {
+      min-height: 48px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .feedback:empty {
+      display: none;
+    }
+
+    .feedback.good {
+      color: #23884c;
+    }
+
+    .feedback.bad {
+      color: #b34a4a;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      border: var(--dash);
+      border-radius: 22px;
+      padding: 28px 18px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      font-weight: 900;
+    }
+
+    .footer-note {
+      margin: 18px 0 2px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    @page a4-sheet {
+      size: A4 landscape;
+      margin: 6mm;
+    }
+
+    @page a3-sheet {
+      size: A3 landscape;
+      margin: 8mm;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .sheet {
+        page: a4-sheet;
+        width: auto;
+        height: 198mm;
+        margin: 0 auto;
+        border: 2px solid var(--page-border);
+        border-radius: 0;
+        box-shadow: none;
+        padding: 5mm 5mm 4mm;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      body.print-a3 .sheet {
+        page: a3-sheet;
+        height: 281mm;
+      }
+
+      .sheet::before,
+      .sheet::after,
+      .topbar,
+      .control-panel,
+      .footer-note,
+      .family-row,
+      #printBtn {
+        display: none !important;
+      }
+
+      .topbar {
+        margin-bottom: 2mm;
+      }
+
+      .title-badge {
+        padding: 7px 12px;
+      }
+
+      .title-badge h1 {
+        font-size: 21pt;
+      }
+
+      .sticker {
+        padding: 6px 10px;
+        font-size: 9pt;
+      }
+
+      .name-strip {
+        margin-top: 6px;
+        padding: 8px 10px;
+        page-break-inside: avoid;
+      }
+
+      .name-strip-head {
+        display: none;
+      }
+
+      .name-field label {
+        font-size: 8.8pt;
+      }
+
+      .name-input {
+        min-height: 34px;
+        border: 0;
+        border-bottom: 2px solid #b8acd9;
+        border-radius: 0;
+        background: transparent;
+        padding: 4px 2px 2px;
+        font-size: 10pt;
+        box-shadow: none;
+      }
+
+      .questions {
+        flex: 1;
+        gap: 6px;
+        margin-top: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(5, minmax(0, 1fr));
+      }
+
+      .card {
+        min-height: 0;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        border-radius: 14px;
+        padding: 8px 10px;
+      }
+
+      .card-head {
+        margin-bottom: 6px;
+        gap: 6px;
+      }
+
+      .section-chip {
+        padding: 4px 9px;
+        font-size: 8.5pt;
+      }
+
+      .theme-mark {
+        min-width: 29px;
+        min-height: 29px;
+        font-size: 11pt;
+        border-width: 1px;
+      }
+
+      .card h3 {
+        font-size: 10.5pt;
+        line-height: 1.35;
+      }
+
+      .input-row,
+      .story,
+      .feedback {
+        display: none !important;
+      }
+
+      .equation-box {
+        margin-top: 6px;
+        padding: 7px 6px;
+        border-radius: 12px;
+      }
+
+      .equation {
+        font-size: 18pt;
+      }
+
+      .missing-line {
+        width: 18mm;
+        border-bottom-width: 2px;
+        margin: 0 1mm;
+      }
+
+      .visual-math {
+        margin-top: 5px;
+        gap: 6px;
+      }
+
+      .visual-group {
+        min-width: 66px;
+        gap: 4px;
+      }
+
+      .visual-count {
+        font-size: 8pt;
+      }
+
+      .visual-icons {
+        gap: 2px;
+        max-width: 78px;
+      }
+
+      .visual-icon {
+        width: 18px;
+        height: 18px;
+        border-width: 1px;
+        border-radius: 6px;
+        font-size: 9pt;
+      }
+
+      .visual-operator,
+      .visual-equals {
+        font-size: 12pt;
+        padding-top: 10px;
+      }
+
+      .visual-answer-line {
+        width: 10mm;
+        border-bottom-width: 2px;
+        margin-top: 7px;
+      }
+
+      .answer {
+        min-height: 32px;
+        font-size: 10pt;
+        border-width: 2px;
+        padding: 4px 8px;
+      }
+
+      .clock-wrap {
+        margin-top: 2px;
+        gap: 2px;
+      }
+
+      .clock-face {
+        width: 25mm;
+        height: 25mm;
+        border-width: 2px;
+        box-shadow: inset 0 0 0 3px #f7f2ff;
+      }
+
+      .clock-number {
+        transform-origin: center;
+        font-size: 7pt;
+      }
+
+      .clock-label {
+        font-size: 8pt;
+      }
+
+      .shape-options {
+        gap: 6px;
+        margin-top: 6px;
+      }
+
+      .shape-choice {
+        min-width: 10mm;
+        min-height: 8mm;
+        border-width: 2px;
+        border-radius: 8px;
+        font-size: 12pt;
+      }
+
+      body.print-a3 .questions {
+        gap: 8px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: repeat(5, minmax(0, 1fr));
+      }
+
+      body.print-a3 .card {
+        min-height: 0;
+        padding: 10px 11px;
+      }
+
+      body.print-a3 .card h3 {
+        font-size: 11pt;
+      }
+
+      body.print-a3 .equation {
+        font-size: 18pt;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .control-panel-top {
+        grid-template-columns: 1fr;
+      }
+
+      .summary {
+        width: 100%;
+      }
+
+      .controls,
+      .name-fields,
+      .questions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding: 8px;
+      }
+
+      .sheet {
+        padding: 12px;
+      }
+
+      .topbar,
+      .controls,
+      .name-fields,
+      .questions {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        justify-items: center;
+      }
+
+      .title-badge {
+        width: 100%;
+      }
+
+      .button-row,
+      .input-row {
+        flex-direction: column;
+      }
+
+      button,
+      .tiny,
+      .answer {
+        width: 100%;
+      }
+
+      .card-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header class="topbar">
+      <div class="title-badge">
+        <h1 id="pageTitle">每日一練</h1>
+      </div>
+      <div id="pageSticker" class="sticker">K2 數感訓練</div>
+    </header>
+
+    <section class="name-strip">
+      <div class="name-strip-head">
+        <span id="studentInfoHint">A4 列印版頂部姓名欄</span>
+      </div>
+      <div class="name-fields">
+        <div class="name-field">
+          <label id="chineseNameLabel" for="chineseName">中文名</label>
+          <input id="chineseName" class="name-input" type="text" placeholder="" />
+        </div>
+        <div class="name-field">
+          <label id="englishNameLabel" for="englishName">英文名</label>
+          <input id="englishName" class="name-input" type="text" placeholder="" />
+        </div>
+      </div>
+    </section>
+
+    <section class="control-panel">
+      <div class="control-panel-top">
+        <div>
+          <div class="controls">
+            <div class="field">
+              <label id="modeLabel" for="modeSelect">練習模式</label>
+              <select id="modeSelect">
+                <option value="mixed">混合練習</option>
+                <option value="sequence">1-100 順序補漏</option>
+                <option value="clock">時鐘</option>
+                <option value="logic">邏輯推理</option>
+                <option value="add">個位數加</option>
+                <option value="sub">個位數減</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label id="countLabel" for="countSelect">題目數量</label>
+              <select id="countSelect">
+                <option value="10" selected>10 題</option>
+                <option value="12">12 題</option>
+                <option value="14">14 題</option>
+                <option value="16">16 題</option>
+                <option value="18">18 題</option>
+                <option value="20">20 題</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label id="levelLabel" for="sequenceLevel">補漏難度</label>
+              <select id="sequenceLevel">
+                <option value="easy">簡單</option>
+                <option value="normal" selected>普通</option>
+                <option value="challenge">挑戰</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label id="soundLabel" for="soundToggle">讀題提示</label>
+              <select id="soundToggle">
+                <option value="on" selected>開</option>
+                <option value="off">關</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button id="generateBtn" class="primary">出新題目</button>
+            <button id="checkBtn" class="secondary">檢查答案</button>
+            <button id="showBtn" class="ghost">顯示答案</button>
+            <button id="printBtn" class="print-btn">列印 A4 橫向・10題</button>
+            <button id="printA3Btn" class="print-btn">列印 A3 橫向・20題</button>
+            <button id="languageBtn" class="lang-btn">English</button>
+          </div>
+        </div>
+
+        <aside class="summary">
+          <div class="summary-box">
+            <strong id="scoreText">準備開始</strong>
+            <span id="scoreSubtext">先出一組題目，再慢慢陪 Jadon 做。</span>
+          </div>
+          <div class="summary-box">
+            <strong id="missionText">今日任務</strong>
+            <span id="missionSubtext">工作紙風格版面，方便陪讀同即時對答案。</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="questions" class="questions">
+      <div id="emptyState" class="empty">按「出新題目」開始今日練習。</div>
+    </section>
+
+    <p id="footerNote" class="footer-note">Jadon，加油。每日一練，慢慢建立穩陣數感。</p>
+  </main>
+
+  <script>
+    const modeSelect = document.getElementById("modeSelect");
+    const countSelect = document.getElementById("countSelect");
+    const sequenceLevel = document.getElementById("sequenceLevel");
+    const soundToggle = document.getElementById("soundToggle");
+    const questionsEl = document.getElementById("questions");
+    const scoreText = document.getElementById("scoreText");
+    const scoreSubtext = document.getElementById("scoreSubtext");
+    const missionText = document.getElementById("missionText");
+    const missionSubtext = document.getElementById("missionSubtext");
+
+    let currentLanguage = "zh";
+    let currentQuestions = [];
+
+    const i18n = {
+      zh: {
+        pageTitle: "每日一練",
+        pageSticker: "K2 數感訓練",
+        studentInfoTitle: "",
+        studentInfoHint: "A4 列印版頂部姓名欄",
+        chineseNameLabel: "中文名",
+        chineseNamePlaceholder: "",
+        englishNameLabel: "英文名",
+        englishNamePlaceholder: "",
+        modeLabel: "練習模式",
+        countLabel: "題目數量",
+        levelLabel: "補漏難度",
+        soundLabel: "讀題提示",
+        generateBtn: "出新題目",
+        checkBtn: "檢查答案",
+        showBtn: "顯示答案",
+        printBtn: "列印 A4 橫向・10題",
+        printA3Btn: "列印 A3 橫向・20題",
+        languageBtn: "English",
+        footerNote: "Jadon，加油。每日一練，慢慢建立穩陣數感。",
+        emptyState: "按「出新題目」開始今日練習。",
+        answerPlaceholder: "填答案",
+        readQuestion: "讀題目",
+        waiting: "等你作答。",
+        scoreStart: "準備開始",
+        scoreNeedGenerate: "先出題再開始做。",
+        scoreEmpty: "未有題目",
+        scoreReady: "題目準備好",
+        scoreReadySub: (count) => `今次有 ${count} 題，做完再檢查答案。`,
+        missionDefault: "今日任務",
+        missionMixed: "混合練習",
+        missionSequence: "順序補漏",
+        missionClock: "時鐘",
+        missionLogic: "邏輯推理",
+        missionAdd: "個位數加",
+        missionSub: "個位數減",
+        missionSubtext: "工作紙風格版面，方便陪讀同即時對答案。",
+        sequenceTitle: "順序補漏",
+        clockTitle: "看時鐘",
+        logicTitle: "邏輯推理",
+        addTitle: "加法應用",
+        subTitle: "減法應用",
+        sequencePrompt: (main, helper, item) => `${main} 同 ${helper} 一齊排${item}，請填返漏咗嘅數字。`,
+        sequenceSpeech: (main, helper, item) => `${main} 同 ${helper} 一齊排${item}。請填上漏咗嘅數字。`,
+        sequenceClue: (start, end) => `由 ${start} 順住數到 ${end}`,
+        clockPrompt: (main, helper) => `${main} 同 ${helper} 一齊睇時鐘。依家係幾點？請填上鐘點數字。`,
+        clockSpeech: (main, helper) => `${main} 同 ${helper} 一齊睇時鐘。依家係幾點？`,
+        clockClue: "長針指住 12，留意短針指向邊個數字",
+        logicPrompt: (main, helper) => `${main} 同 ${helper} 一齊搵規律，請填返漏咗嘅數字。`,
+        logicSpeech: (main, helper) => `${main} 同 ${helper} 一齊搵規律。請填返漏咗嘅數字。`,
+        logicClue: (step) => `留意每次加 ${step}`,
+        addPrompt: (main, helper, first, item, second) => `${main} 有 ${first} 個${item}，${helper}再加咗 ${second} 個。依家一共有幾多個？`,
+        subPrompt: (main, helper, first, item, second) => `${main} 有 ${first} 個${item}，${helper}送咗 ${second} 個。依家仲有幾多個？`,
+        addSpeech: (main, helper, first, item, second) => `${main} 有 ${first} 個${item}。${helper}再加咗 ${second} 個。依家一共有幾多個？`,
+        subSpeech: (main, helper, first, item, second) => `${main} 有 ${first} 個${item}。${helper}送咗 ${second} 個。依家仲有幾多個？`,
+        addsubClue: "可以逐個一咁數",
+        missingAnswer: (clue) => `未填答案。提示：${clue}`,
+        wrongAnswer: (line, answer) => `${line} 正確答案係 ${answer}。`,
+        summaryLine: (correct, total) => `${correct} / ${total} 題答啱`,
+        summaryPerfect: "全中，可以大大力讚 Jadon。",
+        summaryGood: "做得唔錯，再練一組會更穩陣。",
+        summaryTry: "慢慢再做一次，重點係建立數感。",
+        praiseGood: [
+          "答啱咗，好叻。",
+          "完全正確，繼續加油。",
+          "呢題做得好穩陣。",
+          "超級好，滿分。"
+        ],
+        praiseTry: [
+          "差少少，再數一次。",
+          "唔緊要，慢慢試。",
+          "再睇前後數字一次。",
+          "再試吓，你做得到。"
+        ],
+        modeOptions: {
+          mixed: "混合練習",
+          sequence: "1-100 順序補漏",
+          clock: "時鐘",
+          logic: "邏輯推理",
+          add: "個位數加",
+          sub: "個位數減"
+        },
+        countOptions: {
+          10: "10 題",
+          12: "12 題",
+          14: "14 題",
+          16: "16 題",
+          18: "18 題",
+          20: "20 題"
+        },
+        levelOptions: {
+          easy: "簡單",
+          normal: "普通",
+          challenge: "挑戰"
+        },
+        soundOptions: {
+          on: "開",
+          off: "關"
+        }
+      },
+      en: {
+        pageTitle: "Daily Practice",
+        pageSticker: "K2 Number Sense",
+        studentInfoTitle: "",
+        studentInfoHint: "Top name area for A4 print version",
+        chineseNameLabel: "Chinese Name",
+        chineseNamePlaceholder: "",
+        englishNameLabel: "English Name",
+        englishNamePlaceholder: "",
+        modeLabel: "Practice Mode",
+        countLabel: "Questions",
+        levelLabel: "Difficulty",
+        soundLabel: "Read Aloud",
+        generateBtn: "Generate",
+        checkBtn: "Check",
+        showBtn: "Show Answers",
+        printBtn: "Print A4 Landscape · 10 Questions",
+        printA3Btn: "Print A3 Landscape · 20 Questions",
+        languageBtn: "中文",
+        footerNote: "Jadon, keep going. Daily practice builds strong number sense.",
+        emptyState: "Click Generate to start today's practice.",
+        answerPlaceholder: "Your answer",
+        readQuestion: "Read",
+        waiting: "Waiting for your answer.",
+        scoreStart: "Ready to Start",
+        scoreNeedGenerate: "Generate questions first.",
+        scoreEmpty: "No Questions Yet",
+        scoreReady: "Questions Ready",
+        scoreReadySub: (count) => `There are ${count} questions this time. Check the answers when you finish.`,
+        missionDefault: "Today's Focus",
+        missionMixed: "Mixed Practice",
+        missionSequence: "Number Sequence",
+        missionClock: "Clock",
+        missionLogic: "Logic",
+        missionAdd: "Single-digit Addition",
+        missionSub: "Single-digit Subtraction",
+        missionSubtext: "Worksheet layout for easy practice and quick checking.",
+        sequenceTitle: "Number Sequence",
+        clockTitle: "Read the Clock",
+        logicTitle: "Logic Pattern",
+        addTitle: "Addition Story",
+        subTitle: "Subtraction Story",
+        sequencePrompt: (main, helper, item) => `${main} and ${helper} are putting the ${item} in order. Fill in the missing number.`,
+        sequenceSpeech: (main, helper, item) => `${main} and ${helper} are putting the ${item} in order. Fill in the missing number.`,
+        sequenceClue: (start, end) => `Count in order from ${start} to ${end}.`,
+        clockPrompt: (main, helper) => `${main} and ${helper} are looking at the clock. What time is it? Write the hour number.`,
+        clockSpeech: (main, helper) => `${main} and ${helper} are looking at the clock. What time is it?`,
+        clockClue: "The minute hand points to 12. Look at the hour hand.",
+        logicPrompt: (main, helper) => `${main} and ${helper} are finding the pattern. Fill in the missing number.`,
+        logicSpeech: (main, helper) => `${main} and ${helper} are finding the pattern. Fill in the missing number.`,
+        logicClue: (step) => `Look for the pattern. Add ${step} each time.`,
+        addPrompt: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} adds ${second} more. How many are there now?`,
+        subPrompt: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} gives away ${second}. How many are left now?`,
+        addSpeech: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} adds ${second} more. How many are there now?`,
+        subSpeech: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} gives away ${second}. How many are left now?`,
+        addsubClue: "Count by ones.",
+        missingAnswer: (clue) => `No answer yet. Hint: ${clue}`,
+        wrongAnswer: (line, answer) => `${line} The correct answer is ${answer}.`,
+        summaryLine: (correct, total) => `${correct} / ${total} correct`,
+        summaryPerfect: "Perfect score. Great job, Jadon.",
+        summaryGood: "Nice work. One more round will make it even stronger.",
+        summaryTry: "Try again slowly. The goal is to build number sense.",
+        praiseGood: [
+          "Correct. Well done.",
+          "Exactly right. Keep going.",
+          "Great job on this one.",
+          "Excellent. Full marks."
+        ],
+        praiseTry: [
+          "Very close. Try counting again.",
+          "That's okay. Try slowly.",
+          "Check the numbers before and after.",
+          "Try one more time. You can do it."
+        ],
+        modeOptions: {
+          mixed: "Mixed Practice",
+          sequence: "1-100 Missing Numbers",
+          clock: "Clock",
+          logic: "Logic Pattern",
+          add: "Single-digit Addition",
+          sub: "Single-digit Subtraction"
+        },
+        countOptions: {
+          10: "10 questions",
+          12: "12 questions",
+          14: "14 questions",
+          16: "16 questions",
+          18: "18 questions",
+          20: "20 questions"
+        },
+        levelOptions: {
+          easy: "Easy",
+          normal: "Normal",
+          challenge: "Challenge"
+        },
+        soundOptions: {
+          on: "On",
+          off: "Off"
+        }
+      }
+    };
+
+    const family = [
+      { short: "Jadon" },
+      { short: "Kelvin" },
+      { short: "Emily" },
+      { short: "Gerlie" },
+      { short: "Gooby" }
+    ];
+
+    const themes = [
+      {
+        key: "ironman",
+        label: "Ironman",
+        stamp: "⚡",
+        sequenceItem: { zh: "能量球", en: "energy balls" },
+        addItem: { zh: "機械零件", en: "robot parts" },
+        visualIcon: "⚙️"
+      },
+      {
+        key: "spiderman",
+        label: "Spiderman",
+        stamp: "🕷️",
+        sequenceItem: { zh: "蜘蛛卡", en: "spider cards" },
+        addItem: { zh: "蛛網貼紙", en: "web stickers" },
+        visualIcon: "🕸️"
+      },
+      {
+        key: "pyramid",
+        label: "Pyramid",
+        stamp: "🔺",
+        sequenceItem: { zh: "石階號碼", en: "pyramid step numbers" },
+        addItem: { zh: "寶石", en: "gems" },
+        visualIcon: "💎"
+      },
+      {
+        key: "firefighter",
+        label: "Firefighter",
+        stamp: "🚒",
+        sequenceItem: { zh: "救援編號", en: "rescue numbers" },
+        addItem: { zh: "消防頭盔", en: "fire helmets" },
+        visualIcon: "⛑️"
+      }
+    ];
+
+    function pick(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function pickHelper(main) {
+      const others = family.filter((member) => member.short !== main.short);
+      return pick(others);
+    }
+
+    function randomTens(min, max) {
+      const start = Math.ceil(min / 10);
+      const end = Math.floor(max / 10);
+      return (Math.floor(Math.random() * (end - start + 1)) + start) * 10;
+    }
+
+    function displayName(member) {
+      return member.short;
+    }
+
+    function textPack() {
+      return i18n[currentLanguage];
+    }
+
+    function setSelectOptions(select, map) {
+      Array.from(select.options).forEach((option) => {
+        option.textContent = map[option.value];
+      });
+    }
+
+    function applyLanguage() {
+      const text = textPack();
+
+      document.getElementById("pageTitle").textContent = text.pageTitle;
+      document.getElementById("pageSticker").textContent = text.pageSticker;
+      const studentInfoTitle = document.getElementById("studentInfoTitle");
+      if (studentInfoTitle) {
+        studentInfoTitle.textContent = text.studentInfoTitle;
+      }
+      document.getElementById("studentInfoHint").textContent = text.studentInfoHint;
+      document.getElementById("chineseNameLabel").textContent = text.chineseNameLabel;
+      document.getElementById("englishNameLabel").textContent = text.englishNameLabel;
+      document.getElementById("chineseName").placeholder = text.chineseNamePlaceholder;
+      document.getElementById("englishName").placeholder = text.englishNamePlaceholder;
+      document.getElementById("modeLabel").textContent = text.modeLabel;
+      document.getElementById("countLabel").textContent = text.countLabel;
+      document.getElementById("levelLabel").textContent = text.levelLabel;
+      document.getElementById("soundLabel").textContent = text.soundLabel;
+      document.getElementById("generateBtn").textContent = text.generateBtn;
+      document.getElementById("checkBtn").textContent = text.checkBtn;
+      document.getElementById("showBtn").textContent = text.showBtn;
+      document.getElementById("printBtn").textContent = text.printBtn;
+      document.getElementById("printA3Btn").textContent = text.printA3Btn;
+      document.getElementById("languageBtn").textContent = text.languageBtn;
+      document.getElementById("footerNote").textContent = text.footerNote;
+
+      setSelectOptions(modeSelect, text.modeOptions);
+      setSelectOptions(countSelect, text.countOptions);
+      setSelectOptions(sequenceLevel, text.levelOptions);
+      setSelectOptions(soundToggle, text.soundOptions);
+    }
+
+    function formatQuestion(question) {
+      const text = textPack();
+      if (question.type === "sequence") {
+        return {
+          title: text.sequenceTitle,
+          prompt: text.sequencePrompt(
+            displayName(question.main),
+            displayName(question.helper),
+            question.theme.sequenceItem[currentLanguage]
+          ),
+          clue: text.sequenceClue(question.numbers[0], question.numbers[question.numbers.length - 1]),
+          speech: text.sequenceSpeech(
+            displayName(question.main),
+            displayName(question.helper),
+            question.theme.sequenceItem[currentLanguage]
+          ),
+          equation: question.shown.map((value) => value === null ? '<span class="missing-line"></span>' : value).join(" ")
+        };
+      }
+
+      if (question.type === "clock") {
+        const isDrawTask = question.clockTask === "draw";
+        return {
+          title: text.clockTitle,
+          prompt: currentLanguage === "zh"
+            ? isDrawTask
+              ? `${displayName(question.main)} 同 ${displayName(question.helper)} 一齊學睇時間。請喺下面個時鐘畫出 ${question.answer} 嘅指針。`
+              : `${displayName(question.main)} 同 ${displayName(question.helper)} 一齊睇時鐘。請寫返而家係幾點幾分。`
+            : isDrawTask
+              ? `${displayName(question.main)} and ${displayName(question.helper)} are learning time. Draw the hands for ${question.answer} on the clock below.`
+              : `${displayName(question.main)} and ${displayName(question.helper)} are reading the clock. Write the time.`
+          ,
+          clue: currentLanguage === "zh"
+            ? isDrawTask
+              ? "短針表示小時，長針表示分鐘。"
+              : "先睇短針，再睇長針。"
+            : isDrawTask
+              ? "The short hand shows the hour. The long hand shows the minutes."
+              : "Look at the short hand first, then the long hand."
+          ,
+          speech: currentLanguage === "zh"
+            ? isDrawTask
+              ? `請喺時鐘畫出 ${question.answer} 嘅指針。`
+              : "請睇時鐘，再寫返而家係幾點幾分。"
+            : isDrawTask
+              ? `Draw the clock hands for ${question.answer}.`
+              : "Read the clock and write the time."
+          ,
+          equation: ""
+        };
+      }
+
+      if (question.type === "logic") {
+        if (question.logicKind === "shape") {
+          return {
+            title: text.logicTitle,
+            prompt: currentLanguage === "zh"
+              ? `${displayName(question.main)} 同 ${displayName(question.helper)} 一齊搵圖形規律。下一個應該係咩圖形？`
+              : `${displayName(question.main)} and ${displayName(question.helper)} are finding the shape pattern. What comes next?`,
+            clue: currentLanguage === "zh"
+              ? "留意圖形重複嘅次序。"
+              : "Look at the repeating order of the shapes.",
+            speech: currentLanguage === "zh"
+              ? "請留意圖形規律，揀出下一個圖形。"
+              : "Look at the shape pattern and choose the next shape.",
+            equation: `<div class="shape-pattern">${question.shown.map((value) => value === null ? '<span class="missing-line"></span>' : `<span>${value}</span>`).join("")}</div>`
+          };
+        }
+
+        return {
+          title: text.logicTitle,
+          prompt: text.logicPrompt(displayName(question.main), displayName(question.helper)),
+          clue: text.logicClue(question.step),
+          speech: text.logicSpeech(displayName(question.main), displayName(question.helper)),
+          equation: question.shown.map((value) => value === null ? '<span class="missing-line"></span>' : value).join(" ")
+        };
+      }
+
+      return {
+        title: question.isAdd ? text.addTitle : text.subTitle,
+        prompt: question.isAdd
+          ? text.addPrompt(
+              displayName(question.main),
+              displayName(question.helper),
+              question.first,
+              question.theme.addItem[currentLanguage],
+              question.second
+            )
+          : text.subPrompt(
+              displayName(question.main),
+              displayName(question.helper),
+              question.first,
+              question.theme.addItem[currentLanguage],
+              question.second
+            ),
+        clue: text.addsubClue,
+        speech: question.isAdd
+          ? text.addSpeech(
+              displayName(question.main),
+              displayName(question.helper),
+              question.first,
+              question.theme.addItem[currentLanguage],
+              question.second
+            )
+          : text.subSpeech(
+              displayName(question.main),
+              displayName(question.helper),
+              question.first,
+              question.theme.addItem[currentLanguage],
+              question.second
+            ),
+        equation: `${question.first} ${question.operator} ${question.second} = ?`
+      };
+    }
+
+    function renderVisualMath(question) {
+      if (question.type !== "addsub") {
+        return "";
+      }
+
+      const icon = question.theme.visualIcon;
+      const makeIcons = (count) => Array.from({ length: count }, () => `<span class="visual-icon">${icon}</span>`).join("");
+
+      return `
+        <div class="visual-math" aria-hidden="true">
+          <div class="visual-group">
+            <div class="visual-count">${question.first}</div>
+            <div class="visual-icons">${makeIcons(question.first)}</div>
+          </div>
+          <div class="visual-operator">${question.operator}</div>
+          <div class="visual-group">
+            <div class="visual-count">${question.second}</div>
+            <div class="visual-icons">${makeIcons(question.second)}</div>
+          </div>
+          <div class="visual-equals">=</div>
+          <div class="visual-answer-line"></div>
+        </div>
+      `;
+    }
+
+    function renderClock(question) {
+      if (question.type !== "clock") {
+        return "";
+      }
+
+      const hourRotation = (question.hour % 12) * 30 + (question.minute * 0.5);
+      const minuteRotation = question.minute * 6;
+      const ticks = Array.from({ length: 12 }, (_, index) =>
+        `<div class="clock-tick" style="transform: rotate(${index * 30}deg)"></div>`
+      ).join("");
+      const numbers = Array.from({ length: 12 }, (_, index) => {
+        const number = index + 1;
+        const rotation = number * 30;
+        return `<div class="clock-number" style="transform: rotate(${rotation}deg) translateY(-48px) rotate(-${rotation}deg)">${number}</div>`;
+      }).join("");
+      const hands = question.clockTask === "draw"
+        ? ""
+        : `
+            <div class="clock-hand hour" style="transform: rotate(${hourRotation}deg)"></div>
+            <div class="clock-hand minute" style="transform: rotate(${minuteRotation}deg)"></div>
+            <div class="clock-center"></div>
+          `;
+
+      return `
+        <div class="clock-wrap" aria-hidden="true">
+          <div class="clock-face">
+            ${ticks}
+            ${numbers}
+            ${hands}
+          </div>
+          <div class="clock-label">${question.clockTask === "draw" ? question.answer : "__ : __"}</div>
+        </div>
+      `;
+    }
+
+    function updateMissionSummary() {
+      const text = textPack();
+      const mode = modeSelect.value;
+      missionText.textContent = mode === "sequence"
+        ? text.missionSequence
+        : mode === "clock"
+          ? text.missionClock
+          : mode === "logic"
+            ? text.missionLogic
+        : mode === "add"
+          ? text.missionAdd
+          : mode === "sub"
+            ? text.missionSub
+          : text.missionMixed;
+      missionSubtext.textContent = text.missionSubtext;
+    }
+
+    function createSequenceQuestion(level) {
+      const theme = pick(themes);
+      const main = pick(family);
+      const helper = pickHelper(main);
+      const length = level === "challenge" ? 6 : 5;
+      const start = Math.floor(Math.random() * (101 - length)) + 1;
+      const hideIndex = level === "easy"
+        ? Math.floor(Math.random() * 2) + 1
+        : Math.floor(Math.random() * (length - 2)) + 1;
+      const numbers = Array.from({ length }, (_, index) => start + index);
+      const answer = numbers[hideIndex];
+      const shown = numbers.map((value, index) => (index === hideIndex ? null : value));
+
+      return {
+        type: "sequence",
+        theme,
+        main,
+        helper,
+        numbers,
+        shown,
+        answer
+      };
+    }
+
+    function createClockQuestion() {
+      const theme = pick(themes);
+      const main = pick(family);
+      const helper = pickHelper(main);
+      const hour = Math.floor(Math.random() * 12) + 1;
+      const minute = pick([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]);
+      const clockTask = Math.random() < 0.5 ? "draw" : "read";
+
+      return {
+        type: "clock",
+        theme,
+        main,
+        helper,
+        hour,
+        minute,
+        clockTask,
+        answer: `${hour}:${String(minute).padStart(2, "0")}`
+      };
+    }
+
+    function createLogicQuestion() {
+      if (Math.random() < 0.5) {
+        return createShapeLogicQuestion();
+      }
+
+      return createNumberLogicQuestion();
+    }
+
+    function createNumberLogicQuestion() {
+      const theme = pick(themes);
+      const main = pick(family);
+      const helper = pickHelper(main);
+      const stepChoices = [1, 2, 5, 10];
+      const step = pick(stepChoices);
+      const startMax = 100 - (step * 4);
+      const start = Math.floor(Math.random() * startMax) + 1;
+      const numbers = Array.from({ length: 5 }, (_, index) => start + (step * index));
+      const hideIndex = 3;
+      const answer = numbers[hideIndex];
+      const shown = numbers.map((value, index) => (index === hideIndex ? null : value));
+
+      return {
+        type: "logic",
+        logicKind: "number",
+        theme,
+        main,
+        helper,
+        step,
+        shown,
+        answer
+      };
+    }
+
+    function createShapeLogicQuestion() {
+      const theme = pick(themes);
+      const main = pick(family);
+      const helper = pickHelper(main);
+      const shapePairs = [
+        ["▲", "●"],
+        ["◆", "■"],
+        ["★", "●"],
+        ["■", "▲"]
+      ];
+      const shapes = pick(shapePairs);
+      const answer = shapes[0];
+      const shown = [shapes[0], shapes[1], shapes[0], shapes[1], null];
+      const distractors = ["▲", "●", "◆", "■", "★"].filter((shape) => shape !== answer);
+      const options = [answer, ...distractors.sort(() => Math.random() - 0.5).slice(0, 2)]
+        .sort(() => Math.random() - 0.5);
+
+      return {
+        type: "logic",
+        logicKind: "shape",
+        theme,
+        main,
+        helper,
+        shown,
+        options,
+        answer
+      };
+    }
+
+    function createAddSubQuestion(forceMode = "mixed") {
+      const theme = pick(themes);
+      const main = pick(family);
+      const helper = pickHelper(main);
+      const isAdd = forceMode === "add" ? true : forceMode === "sub" ? false : Math.random() > 0.45;
+      let first = Math.floor(Math.random() * 9) + 1;
+      let second = Math.floor(Math.random() * 9) + 1;
+
+      if (isAdd) {
+        while (first + second > 10) {
+          first = Math.floor(Math.random() * 9) + 1;
+          second = Math.floor(Math.random() * 9) + 1;
+        }
+      } else if (second > first) {
+        [first, second] = [second, first];
+      }
+
+      return {
+        type: "addsub",
+        theme,
+        main,
+        helper,
+        first,
+        second,
+        isAdd,
+        operator: isAdd ? "+" : "-",
+        answer: isAdd ? first + second : first - second
+      };
+    }
+
+    function generateQuestions() {
+      const mode = modeSelect.value;
+      const count = Number(countSelect.value);
+      const level = sequenceLevel.value;
+
+      currentQuestions = Array.from({ length: count }, (_, index) => {
+        let question;
+        if (mode === "sequence") {
+          question = createSequenceQuestion(level);
+        } else if (mode === "clock") {
+          question = createClockQuestion();
+        } else if (mode === "logic") {
+          question = createLogicQuestion();
+        } else if (mode === "add") {
+          question = createAddSubQuestion("add");
+        } else if (mode === "sub") {
+          question = createAddSubQuestion("sub");
+        } else {
+          const builders = [
+            () => createSequenceQuestion(level),
+            () => createClockQuestion(),
+            () => createLogicQuestion(),
+            () => createAddSubQuestion("add"),
+            () => createAddSubQuestion("sub")
+          ];
+          question = pick(builders)();
+        }
+
+        return {
+          id: index + 1,
+          ...question
+        };
+      });
+
+      renderQuestions();
+      scoreText.textContent = textPack().scoreReady;
+      scoreSubtext.textContent = textPack().scoreReadySub(count);
+      updateMissionSummary();
+    }
+
+    function renderQuestions() {
+      if (!currentQuestions.length) {
+        questionsEl.innerHTML = `<div class="empty">${textPack().emptyState}</div>`;
+        return;
+      }
+
+      questionsEl.innerHTML = currentQuestions.map((question) => {
+        const view = formatQuestion(question);
+        return `
+          <article class="card ${question.type} ${question.clockTask || ""}" data-id="${question.id}">
+            <div class="card-head">
+              <div class="section-chip ${question.type}">${currentLanguage === "zh" ? `第 ${question.id} 題・${view.title}` : `Q${question.id} · ${view.title}`}</div>
+              <div class="theme-mark" aria-label="${question.theme.label}">${question.theme.stamp}</div>
+            </div>
+
+            <h3>${view.prompt}</h3>
+            <p class="story">${currentLanguage === "zh" ? "提示：" : "Hint: "}${view.clue}</p>
+
+            <div class="equation-box">
+              ${question.type === "clock" ? renderClock(question) : `<div class="equation">${view.equation}</div>`}
+              ${renderVisualMath(question)}
+              ${question.type === "logic" && question.logicKind === "shape"
+                ? `<div class="shape-options">${question.options.map((option) => `<button class="shape-choice" type="button" data-shape-choice="${option}">${option}</button>`).join("")}</div>`
+                : ""}
+            </div>
+
+            <div class="input-row">
+              ${(question.type === "clock" && question.clockTask === "draw") || (question.type === "logic" && question.logicKind === "shape") ? "" : `
+                <input
+                  class="answer"
+                  type="${question.type === "clock" ? "text" : "number"}"
+                  inputmode="${question.type === "clock" ? "text" : "numeric"}"
+                  ${question.type === "clock" ? "" : 'pattern="[0-9]*" min="0" max="100"'}
+                  placeholder="${question.type === "clock" ? "" : textPack().answerPlaceholder}"
+                  aria-label="${currentLanguage === "zh" ? `第 ${question.id} 題答案` : `Answer for question ${question.id}`}"
+                />
+              `}
+              <button class="tiny" type="button" data-speak="${question.id}">${textPack().readQuestion}</button>
+            </div>
+
+            <div class="feedback"></div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function normalizeClockAnswer(value) {
+      const match = String(value).trim().match(/^(\d{1,2})\s*[:：]\s*(\d{1,2})$/);
+      if (!match) {
+        return "";
+      }
+
+      return `${Number(match[1])}:${String(Number(match[2])).padStart(2, "0")}`;
+    }
+
+    function checkAnswers(showAnswers) {
+      if (!currentQuestions.length) {
+        scoreText.textContent = textPack().scoreEmpty;
+        scoreSubtext.textContent = textPack().scoreNeedGenerate;
+        return;
+      }
+
+      const cards = Array.from(document.querySelectorAll(".card"));
+      let correctCount = 0;
+      let gradableCount = 0;
+      let drawingCount = 0;
+
+      cards.forEach((card, index) => {
+        const input = card.querySelector(".answer");
+        const feedback = card.querySelector(".feedback");
+        const question = currentQuestions[index];
+        const view = formatQuestion(question);
+
+        if (question.type === "logic" && question.logicKind === "shape") {
+          gradableCount += 1;
+          const choices = Array.from(card.querySelectorAll(".shape-choice"));
+          let selected = card.querySelector(".shape-choice.selected");
+
+          choices.forEach((choice) => choice.classList.remove("correct", "wrong"));
+          feedback.classList.remove("good", "bad");
+
+          if (showAnswers) {
+            selected = choices.find((choice) => choice.dataset.shapeChoice === question.answer);
+            selected.classList.add("selected");
+          }
+
+          if (!selected) {
+            feedback.classList.add("bad");
+            feedback.textContent = textPack().missingAnswer(view.clue);
+          } else if (selected.dataset.shapeChoice === question.answer) {
+            correctCount += 1;
+            selected.classList.add("correct");
+            feedback.classList.add("good");
+            feedback.textContent = pick(textPack().praiseGood);
+          } else {
+            selected.classList.add("wrong");
+            feedback.classList.add("bad");
+            feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry), question.answer);
+          }
+          return;
+        }
+
+        if (!input) {
+          drawingCount += 1;
+          feedback.classList.remove("good", "bad");
+          feedback.textContent = currentLanguage === "zh"
+            ? "請直接喺鐘面畫出指針。"
+            : "Draw the hands directly on the clock face.";
+          return;
+        }
+
+        gradableCount += 1;
+
+        if (showAnswers) {
+          input.value = question.answer;
+        }
+
+        const value = question.type === "clock"
+          ? normalizeClockAnswer(input.value)
+          : Number(input.value);
+        const isCorrect = input.value !== "" && value === question.answer;
+
+        input.classList.remove("correct", "wrong");
+        feedback.classList.remove("good", "bad");
+
+        if (isCorrect) {
+          correctCount += 1;
+          input.classList.add("correct");
+          feedback.classList.add("good");
+          feedback.textContent = pick(textPack().praiseGood);
+        } else if (input.value === "") {
+          feedback.classList.add("bad");
+          feedback.textContent = textPack().missingAnswer(view.clue);
+        } else {
+          input.classList.add("wrong");
+          feedback.classList.add("bad");
+          feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry), question.answer);
+        }
+      });
+
+      scoreText.textContent = drawingCount > 0
+        ? currentLanguage === "zh"
+          ? `${correctCount} / ${gradableCount} 題答啱，另有 ${drawingCount} 題畫指針`
+          : `${correctCount} / ${gradableCount} correct, plus ${drawingCount} drawing question${drawingCount > 1 ? "s" : ""}`
+        : textPack().summaryLine(correctCount, currentQuestions.length);
+      if (gradableCount === 0) {
+        scoreSubtext.textContent = currentLanguage === "zh"
+          ? "完成後可以一齊對照時間檢查指針。"
+          : "Check the clock hands together when finished.";
+      } else if (correctCount === gradableCount) {
+        scoreSubtext.textContent = textPack().summaryPerfect;
+      } else if (correctCount >= Math.ceil(gradableCount * 0.6)) {
+        scoreSubtext.textContent = textPack().summaryGood;
+      } else {
+        scoreSubtext.textContent = textPack().summaryTry;
+      }
+    }
+
+    function speakQuestionById(id) {
+      if (soundToggle.value === "off" || !("speechSynthesis" in window)) {
+        return;
+      }
+
+      const question = currentQuestions.find((item) => item.id === Number(id));
+      if (!question) {
+        return;
+      }
+
+      const view = formatQuestion(question);
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(view.speech);
+      utterance.lang = currentLanguage === "zh" ? "zh-HK" : "en-US";
+      utterance.rate = 0.92;
+      utterance.pitch = 1.05;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    const printPageStyle = document.createElement("style");
+    document.head.appendChild(printPageStyle);
+
+    function printWorksheet(size, count) {
+      document.body.classList.toggle("print-a3", size === "a3");
+      printPageStyle.textContent = size === "a3"
+        ? "@page { size: A3 landscape; margin: 8mm; }"
+        : "@page { size: A4 landscape; margin: 6mm; }";
+      countSelect.value = String(count);
+      generateQuestions();
+      requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+    }
+
+    window.addEventListener("afterprint", () => {
+      document.body.classList.remove("print-a3");
+      printPageStyle.textContent = "";
+    });
+
+    document.getElementById("generateBtn").addEventListener("click", generateQuestions);
+    document.getElementById("checkBtn").addEventListener("click", () => checkAnswers(false));
+    document.getElementById("showBtn").addEventListener("click", () => checkAnswers(true));
+    document.getElementById("printBtn").addEventListener("click", () => printWorksheet("a4", 10));
+    document.getElementById("printA3Btn").addEventListener("click", () => printWorksheet("a3", 20));
+    document.getElementById("languageBtn").addEventListener("click", () => {
+      currentLanguage = currentLanguage === "zh" ? "en" : "zh";
+      applyLanguage();
+      renderQuestions();
+      if (currentQuestions.length) {
+        updateMissionSummary();
+        scoreText.textContent = textPack().scoreReady;
+        scoreSubtext.textContent = textPack().scoreReadySub(Number(countSelect.value));
+      } else {
+        scoreText.textContent = textPack().scoreStart;
+        scoreSubtext.textContent = textPack().scoreNeedGenerate;
+        missionText.textContent = textPack().missionDefault;
+        missionSubtext.textContent = textPack().missionSubtext;
+      }
+    });
+
+    questionsEl.addEventListener("click", (event) => {
+      const shapeChoice = event.target.closest("[data-shape-choice]");
+      if (shapeChoice) {
+        shapeChoice.closest(".shape-options").querySelectorAll(".shape-choice").forEach((choice) => {
+          choice.classList.remove("selected", "correct", "wrong");
+        });
+        shapeChoice.classList.add("selected");
+        return;
+      }
+
+      const trigger = event.target.closest("[data-speak]");
+      if (!trigger) {
+        return;
+      }
+      speakQuestionById(trigger.dataset.speak);
+    });
+
+    questionsEl.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        checkAnswers(false);
+      }
+    });
+
+    applyLanguage();
+    scoreText.textContent = textPack().scoreStart;
+    scoreSubtext.textContent = textPack().scoreNeedGenerate;
+    missionText.textContent = textPack().missionDefault;
+    missionSubtext.textContent = textPack().missionSubtext;
+    generateQuestions();
+  </script>
+</body>
+</html>
