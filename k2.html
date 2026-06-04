@@ -458,6 +458,10 @@
       background: linear-gradient(180deg, #ffffff, #fffaf0);
     }
 
+    .card.chineseWriting {
+      background: linear-gradient(180deg, #ffffff, #fff8f8);
+    }
+
     .card-head {
       display: flex;
       justify-content: space-between;
@@ -487,6 +491,11 @@
 
     .section-chip.blending {
       background: linear-gradient(135deg, #ffcf7a, #ffa8cf);
+      color: #403764;
+    }
+
+    .section-chip.chineseWriting {
+      background: linear-gradient(135deg, #ffb86f, #ff8fa3);
       color: #403764;
     }
 
@@ -644,28 +653,29 @@
 
     .card.blending .equation-box {
       display: grid;
-      grid-template-columns: minmax(190px, 1fr) minmax(220px, 1.12fr);
+      grid-template-columns: minmax(210px, 1.25fr) minmax(150px, 0.85fr);
       grid-template-rows: auto auto;
-      align-items: center;
-      gap: 12px 16px;
+      align-items: end;
+      gap: 10px 14px;
       text-align: left;
     }
 
     .card.blending .blend-pictures {
       grid-column: 1;
-      grid-row: 1 / span 2;
+      grid-row: 1;
+      grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
       margin-bottom: 0;
     }
 
     .blend-picture {
-      min-height: 82px;
+      min-height: 76px;
       display: grid;
       place-items: center;
       border: 2px solid #eadffd;
       border-radius: 18px;
       background: linear-gradient(180deg, #fff, #f8f4ff);
       cursor: pointer;
-      font-size: 2.35rem;
+      font-size: 2.15rem;
       box-shadow: none;
     }
 
@@ -696,18 +706,19 @@
     .card.blending .blend-bank {
       grid-column: 2;
       grid-row: 1;
-      justify-content: flex-start;
+      justify-content: flex-end;
+      align-content: center;
       margin-bottom: 0;
     }
 
     .blend-choice {
-      min-height: 42px;
+      min-height: 39px;
       border: 2px solid #eadffd;
       border-radius: 14px;
       background: #fff;
-      padding: 7px 14px;
+      padding: 6px 12px;
       color: #403764;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 900;
       box-shadow: none;
     }
@@ -733,14 +744,15 @@
     }
 
     .card.blending .equation {
-      grid-column: 2;
+      grid-column: 1 / -1;
       grid-row: 2;
       width: 100%;
     }
 
     .card.blending .blend-pattern {
-      justify-content: flex-start;
-      padding: 4px 0 2px;
+      justify-content: center;
+      padding: 4px 0 0;
+      font-size: clamp(2.1rem, 3.8vw, 2.8rem);
     }
 
     .blend-blank {
@@ -754,6 +766,103 @@
       display: inline-block;
       text-align: center;
       text-transform: lowercase;
+    }
+
+    .writing-card {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 14px;
+      align-items: center;
+      text-align: left;
+    }
+
+    .writing-picture {
+      width: 106px;
+      height: 106px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #eadffd;
+      border-radius: 24px;
+      background: #fff;
+      font-size: 3.4rem;
+    }
+
+    .writing-main {
+      display: grid;
+      gap: 10px;
+    }
+
+    .writing-word-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .writing-word {
+      min-width: 92px;
+      min-height: 92px;
+      display: grid;
+      place-items: center;
+      border: 3px solid #d9cffd;
+      border-radius: 22px;
+      background:
+        linear-gradient(90deg, transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
+        linear-gradient(transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
+        #fff;
+      color: #403764;
+      font-size: 3.8rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .stroke-order {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      color: #6e639c;
+      font-size: 0.92rem;
+      font-weight: 900;
+    }
+
+    .stroke-step {
+      min-width: 32px;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #eadffd;
+      border-radius: 999px;
+      background: #fff7df;
+      color: #403764;
+      font-size: 1rem;
+    }
+
+    .writing-sentence {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1.02rem;
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .writing-practice {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(70px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .writing-box {
+      min-height: 76px;
+      border: 2px solid #d9cffd;
+      border-radius: 16px;
+      background:
+        linear-gradient(90deg, transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
+        linear-gradient(transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
+        #fff;
     }
 
     .clock-wrap {
@@ -1266,12 +1375,14 @@
       }
 
       .card.blending .equation-box {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
         gap: 4px 5px;
         text-align: left;
       }
 
       .card.blending .blend-pictures {
+        grid-row: 1;
+        grid-template-columns: repeat(auto-fit, minmax(14mm, 1fr));
         margin-bottom: 0;
       }
 
@@ -1288,7 +1399,7 @@
       }
 
       .card.blending .blend-bank {
-        justify-content: flex-start;
+        justify-content: flex-end;
         margin-bottom: 0;
       }
 
@@ -1306,11 +1417,65 @@
       }
 
       .card.blending .blend-pattern {
-        justify-content: flex-start;
+        justify-content: center;
       }
 
       .blend-blank {
         border-bottom-width: 2px;
+      }
+
+      .writing-card {
+        grid-template-columns: 21mm 1fr;
+        gap: 3mm;
+      }
+
+      .writing-picture {
+        width: 19mm;
+        height: 19mm;
+        border-width: 1px;
+        border-radius: 8px;
+        font-size: 17pt;
+      }
+
+      .writing-main {
+        gap: 2mm;
+      }
+
+      .writing-word {
+        min-width: 18mm;
+        min-height: 18mm;
+        border-width: 1px;
+        border-radius: 7px;
+        font-size: 24pt;
+      }
+
+      .stroke-order {
+        gap: 2mm;
+        font-size: 8pt;
+      }
+
+      .stroke-step {
+        min-width: 7mm;
+        min-height: 7mm;
+        border-width: 1px;
+        font-size: 8pt;
+      }
+
+      .writing-sentence {
+        font-size: 9pt;
+        line-height: 1.25;
+      }
+
+      .writing-practice {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 2mm;
+        margin-top: 1mm;
+      }
+
+      .writing-box {
+        min-height: 14mm;
+        border-width: 1px;
+        border-radius: 6px;
       }
 
       body.print-a3 .questions {
@@ -1417,6 +1582,20 @@
       .card.blending .blend-pattern {
         justify-content: center;
       }
+
+      .writing-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .writing-picture {
+        margin: 0 auto;
+      }
+
+      .writing-word-row,
+      .stroke-order {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 680px) {
@@ -1462,13 +1641,6 @@
   </style>
 </head>
 <body>
-  <div class="fun-layer" aria-hidden="true">
-    <span class="floating-sticker hero">🦸</span>
-    <span class="floating-sticker fire">🚒</span>
-    <span class="floating-sticker pyramid">🔺</span>
-    <span class="floating-sticker sparkle">✨</span>
-  </div>
-
   <main class="sheet">
     <header class="topbar">
       <div class="title-badge">
@@ -1523,6 +1695,7 @@
                 <option value="tensAdd">雙位數加</option>
                 <option value="tensSub">雙位數減</option>
                 <option value="blending">英文 Blending</option>
+                <option value="chineseWriting">中文寫字</option>
               </select>
             </div>
 
@@ -1643,6 +1816,7 @@
         missionTensAdd: "雙位數加",
         missionTensSub: "雙位數減",
         missionBlending: "英文 Blending",
+        missionChineseWriting: "中文寫字",
         missionSubtext: "工作紙風格版面，方便陪讀同即時對答案。",
         sequenceTitle: "順序補漏",
         reverseSequenceTitle: "倒序補漏",
@@ -1653,6 +1827,9 @@
         tensAddTitle: "雙位數加法",
         tensSubTitle: "雙位數減法",
         blendingTitle: "英文 Blending",
+        chineseWritingTitle: "中文寫字",
+        chineseWritingPrompt: (word) => `睇圖認字：今日練習寫「${word}」字。`,
+        chineseWritingClue: "先睇筆順，再喺下面格仔慢慢寫。",
         sequencePrompt: (main, helper, item) => `${main} 同 ${helper} 一齊排${item}，請填返漏咗嘅數字。`,
         sequenceSpeech: (main, helper, item) => `${main} 同 ${helper} 一齊排${item}。請填上漏咗嘅數字。`,
         sequenceClue: (start, end) => `由 ${start} 順住數到 ${end}`,
@@ -1699,7 +1876,8 @@
           sub: "個位數減",
           tensAdd: "雙位數加",
           tensSub: "雙位數減",
-          blending: "英文 Blending"
+          blending: "英文 Blending",
+          chineseWriting: "中文寫字"
         },
         countOptions: {
           10: "10 題",
@@ -1760,6 +1938,7 @@
         missionTensAdd: "Two-digit Addition",
         missionTensSub: "Two-digit Subtraction",
         missionBlending: "English Blending",
+        missionChineseWriting: "Chinese Writing",
         missionSubtext: "Worksheet layout for easy practice and quick checking.",
         sequenceTitle: "Number Sequence",
         reverseSequenceTitle: "Reverse Number Sequence",
@@ -1770,6 +1949,9 @@
         tensAddTitle: "Two-digit Addition",
         tensSubTitle: "Two-digit Subtraction",
         blendingTitle: "English Blending",
+        chineseWritingTitle: "Chinese Writing",
+        chineseWritingPrompt: (word) => `Look at the picture. Practise writing 「${word}」.`,
+        chineseWritingClue: "Look at the stroke order, then write in the boxes.",
         sequencePrompt: (main, helper, item) => `${main} and ${helper} are putting the ${item} in order. Fill in the missing number.`,
         sequenceSpeech: (main, helper, item) => `${main} and ${helper} are putting the ${item} in order. Fill in the missing number.`,
         sequenceClue: (start, end) => `Count in order from ${start} to ${end}.`,
@@ -1816,7 +1998,8 @@
           sub: "Single-digit Subtraction",
           tensAdd: "Two-digit Addition",
           tensSub: "Two-digit Subtraction",
-          blending: "English Blending"
+          blending: "English Blending",
+          chineseWriting: "Chinese Writing"
         },
         countOptions: {
           10: "10 questions",
@@ -1894,29 +2077,328 @@
     const blendChoices = ["bl", "cl", "fl", "gl", "pl", "sl", "br", "cr", "dr", "fr", "gr", "tr", "sk", "sn", "sp", "st", "sw"];
 
     const blendingWords = [
-      { blend: "fr", tail: "og", word: "frog", picture: "🐸" },
-      { blend: "fl", tail: "ower", word: "flower", picture: "🌼" },
-      { blend: "gr", tail: "apes", word: "grapes", picture: "🍇" },
-      { blend: "fl", tail: "ag", word: "flag", picture: "🚩" },
-      { blend: "gr", tail: "ass", word: "grass", picture: "🌱" },
-      { blend: "fl", tail: "y", word: "fly", picture: "🪰" },
-      { blend: "gl", tail: "obe", word: "globe", picture: "🌍" },
-      { blend: "gl", tail: "ass", word: "glass", picture: "🔍" },
-      { blend: "gr", tail: "een", word: "green", picture: "🟢" },
-      { blend: "bl", tail: "ender", word: "blender", picture: "🥤" },
-      { blend: "sp", tail: "ider", word: "spider", picture: "🕷️" },
-      { blend: "sn", tail: "ail", word: "snail", picture: "🐌" },
-      { blend: "cl", tail: "ock", word: "clock", picture: "⏰" },
-      { blend: "gl", tail: "oves", word: "gloves", picture: "🧤" },
-      { blend: "dr", tail: "agon", word: "dragon", picture: "🐉" },
-      { blend: "cr", tail: "ab", word: "crab", picture: "🦀" },
-      { blend: "sl", tail: "ide", word: "slide", picture: "🛝" },
-      { blend: "tr", tail: "uck", word: "truck", picture: "🚚" },
-      { blend: "dr", tail: "um", word: "drum", picture: "🥁" },
-      { blend: "st", tail: "ar", word: "star", picture: "⭐" },
-      { blend: "sp", tail: "oon", word: "spoon", picture: "🥄" },
-      { blend: "sk", tail: "irt", word: "skirt", picture: "👗" },
-      { blend: "sw", tail: "ing", word: "swing", picture: "🛝" }
+      { level: "easy", blend: "fl", tail: "ag", word: "flag", picture: "🚩" },
+      { level: "easy", blend: "fl", tail: "y", word: "fly", picture: "🪰" },
+      { level: "easy", blend: "cl", tail: "ock", word: "clock", picture: "⏰" },
+      { level: "easy", blend: "st", tail: "ar", word: "star", picture: "⭐" },
+      { level: "easy", blend: "tr", tail: "uck", word: "truck", picture: "🚚" },
+      { level: "easy", blend: "sp", tail: "oon", word: "spoon", picture: "🥄" },
+      { level: "normal", blend: "fr", tail: "og", word: "frog", picture: "🐸" },
+      { level: "normal", blend: "fl", tail: "ower", word: "flower", picture: "🌼" },
+      { level: "normal", blend: "gr", tail: "apes", word: "grapes", picture: "🍇" },
+      { level: "normal", blend: "gr", tail: "ass", word: "grass", picture: "🌿" },
+      { level: "normal", blend: "gl", tail: "obe", word: "globe", picture: "🌎" },
+      { level: "normal", blend: "sn", tail: "ail", word: "snail", picture: "🐌" },
+      { level: "normal", blend: "sl", tail: "ide", word: "slide", picture: "🛝" },
+      { level: "normal", blend: "dr", tail: "um", word: "drum", picture: "🥁" },
+      { level: "challenge", blend: "gl", tail: "ass", word: "glass", picture: "🥛" },
+      { level: "challenge", blend: "gr", tail: "een", word: "green", picture: "🟢" },
+      { level: "challenge", blend: "bl", tail: "ender", word: "blender", picture: "🥤" },
+      { level: "challenge", blend: "sp", tail: "ider", word: "spider", picture: "🕷️" },
+      { level: "challenge", blend: "gl", tail: "oves", word: "gloves", picture: "🧤" },
+      { level: "challenge", blend: "dr", tail: "agon", word: "dragon", picture: "🐉" },
+      { level: "challenge", blend: "cr", tail: "ab", word: "crab", picture: "🦀" },
+      { level: "challenge", blend: "sk", tail: "irt", word: "skirt", picture: "👗" },
+      { level: "challenge", blend: "sw", tail: "ing", word: "swing", picture: "🛝" }
+    ];
+
+    const blendChoicesByLevel = {
+      easy: ["fl", "cl", "st", "tr", "sp"],
+      normal: ["fr", "fl", "gr", "gl", "sn", "sl", "dr"],
+      challenge: ["bl", "cr", "dr", "gl", "gr", "sk", "sp", "sw"]
+    };
+
+    const sequenceActivities = [
+      {
+        item: { zh: "玩具車", en: "toy cars" },
+        zh: {
+          forward: (main, helper, item) => `${main} 同 ${helper} 數緊${item}，請搵出中間漏咗嘅號碼。`,
+          reverse: (main, helper, item) => `${main} 同 ${helper} 將${item}倒住排，請填返唔見咗嘅數字。`
+        },
+        en: {
+          forward: (main, helper, item) => `${main} and ${helper} are counting ${item}. Write the missing number.`,
+          reverse: (main, helper, item) => `${main} and ${helper} are counting ${item} backwards. Write the missing number.`
+        }
+      },
+      {
+        item: { zh: "動物貼紙", en: "animal stickers" },
+        zh: {
+          forward: (main, helper, item) => `${main} 同 ${helper} 數有幾多張${item}，請補返漏咗嘅數字。`,
+          reverse: (main, helper, item) => `${main} 同 ${helper} 由大數到細數${item}，請補返空位。`
+        },
+        en: {
+          forward: (main, helper, item) => `${main} and ${helper} are counting ${item}. Complete the missing number.`,
+          reverse: (main, helper, item) => `${main} and ${helper} count the ${item} from big to small. Complete the blank.`
+        }
+      },
+      {
+        item: { zh: "寶石", en: "gems" },
+        zh: {
+          forward: (main, helper, item) => `${main} 同 ${helper} 喺金字塔搵到一排${item}，請寫返漏咗嗰粒號碼。`,
+          reverse: (main, helper, item) => `${main} 同 ${helper} 將${item}由後數返前，請填返漏咗嘅號碼。`
+        },
+        en: {
+          forward: (main, helper, item) => `${main} and ${helper} found a row of ${item}. Fill the missing number.`,
+          reverse: (main, helper, item) => `${main} and ${helper} count the ${item} backwards. Fill the missing number.`
+        }
+      },
+      {
+        item: { zh: "任務卡", en: "mission cards" },
+        zh: {
+          forward: (main, helper, item) => `${main} 同 ${helper} 派緊${item}，請睇住次序填返答案。`,
+          reverse: (main, helper, item) => `${main} 同 ${helper} 收返${item}時倒住數，請填返中間空位。`
+        },
+        en: {
+          forward: (main, helper, item) => `${main} and ${helper} are sorting ${item}. Use the order to fill the answer.`,
+          reverse: (main, helper, item) => `${main} and ${helper} collect ${item} backwards. Fill the middle blank.`
+        }
+      },
+      {
+        item: { zh: "消防車編號", en: "fire truck numbers" },
+        zh: {
+          forward: (main, helper, item) => `${main} 同 ${helper} 數消防站入面嘅${item}，請填返漏咗嘅數字。`,
+          reverse: (main, helper, item) => `${main} 同 ${helper} 倒數${item}準備出動，請填返答案。`
+        },
+        en: {
+          forward: (main, helper, item) => `${main} and ${helper} count the ${item}. Fill the missing number.`,
+          reverse: (main, helper, item) => `${main} and ${helper} count the ${item} backwards. Fill the answer.`
+        }
+      },
+      {
+        item: { zh: "能量星星", en: "energy stars" },
+        zh: {
+          forward: (main, helper, item) => `${main} 同 ${helper} 幫 Ironman 數${item}，請搵出漏咗嘅數字。`,
+          reverse: (main, helper, item) => `${main} 同 ${helper} 倒數${item}啟動任務，請補返空格。`
+        },
+        en: {
+          forward: (main, helper, item) => `${main} and ${helper} count Ironman's ${item}. Find the missing number.`,
+          reverse: (main, helper, item) => `${main} and ${helper} count down the ${item}. Complete the blank.`
+        }
+      }
+    ];
+
+    const addSubActivities = [
+      {
+        item: { zh: "玩具", en: "toys" },
+        visualIcon: "🧸",
+        zh: {
+          add: (main, helper, first, item, second) => `${main} 有 ${first} 件${item}，${helper} 再放多 ${second} 件入盒。盒入面一共有幾多件？`,
+          sub: (main, helper, first, item, second) => `${main} 有 ${first} 件${item}，借咗 ${second} 件俾 ${helper}。仲有幾多件？`
+        },
+        en: {
+          add: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} puts in ${second} more. How many are there altogether?`,
+          sub: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} borrows ${second}. How many are left?`
+        }
+      },
+      {
+        item: { zh: "隻小動物", en: "animals" },
+        visualIcon: "🐶",
+        zh: {
+          add: (main, helper, first, item, second) => `${main} 數到 ${first} ${item}，${helper} 又見到 ${second} 隻。依家有幾多隻？`,
+          sub: (main, helper, first, item, second) => `${main} 數到 ${first} ${item}，有 ${second} 隻走去玩。仲剩幾多隻？`
+        },
+        en: {
+          add: (main, helper, first, item, second) => `${main} sees ${first} ${item}. ${helper} sees ${second} more. How many animals are there?`,
+          sub: (main, helper, first, item, second) => `${main} sees ${first} ${item}. ${second} go away to play. How many are left?`
+        }
+      },
+      {
+        item: { zh: "粒寶石", en: "gems" },
+        visualIcon: "💎",
+        zh: {
+          add: (main, helper, first, item, second) => `${main} 搵到 ${first} ${item}，${helper} 再搵到 ${second} 粒。一共有幾多粒？`,
+          sub: (main, helper, first, item, second) => `${main} 有 ${first} ${item}，送咗 ${second} 粒俾 ${helper}。仲有幾多粒？`
+        },
+        en: {
+          add: (main, helper, first, item, second) => `${main} finds ${first} ${item}. ${helper} finds ${second} more. How many gems altogether?`,
+          sub: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${main} gives ${second} to ${helper}. How many are left?`
+        }
+      },
+      {
+        item: { zh: "張貼紙", en: "stickers" },
+        visualIcon: "⭐",
+        zh: {
+          add: (main, helper, first, item, second) => `${main} 貼咗 ${first} ${item}，${helper} 再貼 ${second} 張。總共有幾多張？`,
+          sub: (main, helper, first, item, second) => `${main} 有 ${first} ${item}，用咗 ${second} 張裝飾功課。仲剩幾多張？`
+        },
+        en: {
+          add: (main, helper, first, item, second) => `${main} uses ${first} ${item}. ${helper} adds ${second} more. How many stickers in total?`,
+          sub: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${main} uses ${second}. How many stickers are left?`
+        }
+      },
+      {
+        item: { zh: "個消防頭盔", en: "fire helmets" },
+        visualIcon: "⛑️",
+        zh: {
+          add: (main, helper, first, item, second) => `${main} 數到 ${first} ${item}，${helper} 又搬嚟 ${second} 個。消防站有幾多個？`,
+          sub: (main, helper, first, item, second) => `消防站有 ${first} ${item}，${helper} 拎咗 ${second} 個去救援。仲有幾多個？`
+        },
+        en: {
+          add: (main, helper, first, item, second) => `${main} counts ${first} ${item}. ${helper} brings ${second} more. How many are at the station?`,
+          sub: (main, helper, first, item, second) => `There are ${first} ${item}. ${helper} takes ${second} for rescue. How many are left?`
+        }
+      }
+    ];
+
+    const logicActivities = [
+      {
+        zh: {
+          number: (main, helper) => `${main} 同 ${helper} 玩數字火車。下一卡應該係咩數字？`,
+          shape: (main, helper) => `${main} 同 ${helper} 砌圖形串，下一個應該放咩圖形？`
+        },
+        en: {
+          number: (main, helper) => `${main} and ${helper} are playing a number train. What number comes next?`,
+          shape: (main, helper) => `${main} and ${helper} are making a shape chain. What shape comes next?`
+        }
+      },
+      {
+        zh: {
+          number: (main, helper) => `${main} 同 ${helper} 搵密碼規律。空格入面應該寫邊個數？`,
+          shape: (main, helper) => `${main} 同 ${helper} 幫圖形排隊。請揀出下一個圖形。`
+        },
+        en: {
+          number: (main, helper) => `${main} and ${helper} are finding a secret code. Which number belongs in the blank?`,
+          shape: (main, helper) => `${main} and ${helper} are lining up shapes. Pick the next shape.`
+        }
+      },
+      {
+        zh: {
+          number: (main, helper) => `${main} 同 ${helper} 數星星跳格仔。請睇規律填答案。`,
+          shape: (main, helper) => `${main} 同 ${helper} 睇圖形節奏。下一拍係咩？`
+        },
+        en: {
+          number: (main, helper) => `${main} and ${helper} are skip-counting stars. Use the pattern to fill the answer.`,
+          shape: (main, helper) => `${main} and ${helper} are reading a shape rhythm. What comes next?`
+        }
+      }
+    ];
+
+    const blendingInstructions = {
+      easy: [
+        {
+          prompt: "Choose the matching picture. Which two letters start the word?",
+          clue: "Say the picture name. Listen to the first sound part."
+        },
+        {
+          prompt: "Point to the picture, then choose its beginning sound.",
+          clue: "The answer is the first two letters of the word."
+        },
+        {
+          prompt: "What is the picture? Pick the blend that makes the word.",
+          clue: "Look at the ending letters, then try the beginning blend."
+        }
+      ],
+      normal: [
+        {
+          prompt: "Find the picture that matches the word ending. Choose the beginning blend.",
+          clue: "Say the whole word slowly. The missing part is at the start."
+        },
+        {
+          prompt: "Choose the picture and build the word with the right blend.",
+          clue: "The two missing letters make the beginning sound."
+        },
+        {
+          prompt: "Look at the picture choices. Which blend completes the word?",
+          clue: "Try saying each blend before the ending sound."
+        },
+        {
+          prompt: "Describe the picture in one word. Pick the blend at the front.",
+          clue: "The ending is given. Add the best beginning sound."
+        }
+      ],
+      challenge: [
+        {
+          prompt: "Be a word detective. Match the picture and missing blend.",
+          clue: "Check the picture, then test which blend sounds right."
+        },
+        {
+          prompt: "Read the word ending. Which picture and blend make a real word?",
+          clue: "Use the picture clue and the ending letters together."
+        },
+        {
+          prompt: "Solve the picture clue. Write the blend that starts the answer.",
+          clue: "Think of the picture name first, then choose the first two letters."
+        },
+        {
+          prompt: "Choose the best picture clue and beginning blend.",
+          clue: "Only one picture makes sense with the word ending."
+        }
+      ]
+    };
+
+    const chineseWritingWords = [
+      {
+        word: "人",
+        picture: "🧍",
+        strokes: ["撇", "捺"],
+        sentence: "人：Jadon 是一個有禮貌的人。"
+      },
+      {
+        word: "口",
+        picture: "👄",
+        strokes: ["豎", "橫折", "橫"],
+        sentence: "口：我們用口讀故事。"
+      },
+      {
+        word: "日",
+        picture: "☀️",
+        strokes: ["豎", "橫折", "橫", "橫"],
+        sentence: "日：今日是練習日。"
+      },
+      {
+        word: "月",
+        picture: "🌙",
+        strokes: ["撇", "橫折鉤", "橫", "橫"],
+        sentence: "月：月亮晚上出來。"
+      },
+      {
+        word: "山",
+        picture: "⛰️",
+        strokes: ["豎", "豎折", "豎"],
+        sentence: "山：金字塔好像一座山。"
+      },
+      {
+        word: "水",
+        picture: "💧",
+        strokes: ["豎鉤", "橫撇", "撇", "捺"],
+        sentence: "水：消防員用水救火。"
+      },
+      {
+        word: "火",
+        picture: "🔥",
+        strokes: ["點", "撇", "撇", "捺"],
+        sentence: "火：消防員會小心救火。"
+      },
+      {
+        word: "車",
+        picture: "🚗",
+        strokes: ["橫", "撇折", "橫", "豎", "橫"],
+        sentence: "車：Gooby 看見一架紅色車。"
+      },
+      {
+        word: "狗",
+        picture: "🐶",
+        strokes: ["撇", "彎鉤", "撇", "撇", "橫折鉤", "豎", "橫折", "橫"],
+        sentence: "狗：Gooby 是一隻可愛的狗。"
+      },
+      {
+        word: "星",
+        picture: "⭐",
+        strokes: ["豎", "橫折", "橫", "橫", "撇", "橫", "橫", "豎", "橫"],
+        sentence: "星：Jadon 答對一題，就收集一粒星星。"
+      },
+      {
+        word: "手",
+        picture: "✋",
+        strokes: ["撇", "橫", "橫", "彎鉤"],
+        sentence: "手：小朋友用手寫字。"
+      },
+      {
+        word: "大",
+        picture: "🦖",
+        strokes: ["橫", "撇", "捺"],
+        sentence: "大：Ironman 有一個大任務。"
+      }
     ];
 
     const clockActivityTemplates = [
@@ -2038,21 +2520,21 @@
       const text = textPack();
       if (question.type === "sequence") {
         const isReverse = question.direction === "reverse";
+        const activity = question.activity[currentLanguage];
+        const mainName = displayName(question.main);
+        const helperName = displayName(question.helper);
+        const itemName = question.item[currentLanguage];
         return {
           title: isReverse ? text.reverseSequenceTitle : text.sequenceTitle,
-          prompt: text.sequencePrompt(
-            displayName(question.main),
-            displayName(question.helper),
-            question.theme.sequenceItem[currentLanguage]
-          ),
+          prompt: isReverse
+            ? activity.reverse(mainName, helperName, itemName)
+            : activity.forward(mainName, helperName, itemName),
           clue: isReverse
             ? text.reverseSequenceClue(question.numbers[0], question.numbers[question.numbers.length - 1])
             : text.sequenceClue(question.numbers[0], question.numbers[question.numbers.length - 1]),
-          speech: text.sequenceSpeech(
-            displayName(question.main),
-            displayName(question.helper),
-            question.theme.sequenceItem[currentLanguage]
-          ),
+          speech: isReverse
+            ? activity.reverse(mainName, helperName, itemName)
+            : activity.forward(mainName, helperName, itemName),
           equation: question.shown.map((value) => value === null ? '<span class="missing-line"></span>' : value).join(" ")
         };
       }
@@ -2083,27 +2565,26 @@
       }
 
       if (question.type === "logic") {
+        const activity = question.activity[currentLanguage];
+        const mainName = displayName(question.main);
+        const helperName = displayName(question.helper);
         if (question.logicKind === "shape") {
           return {
             title: text.logicTitle,
-            prompt: currentLanguage === "zh"
-              ? `${displayName(question.main)} 同 ${displayName(question.helper)} 一齊搵圖形規律。下一個應該係咩圖形？`
-              : `${displayName(question.main)} and ${displayName(question.helper)} are finding the shape pattern. What comes next?`,
+            prompt: activity.shape(mainName, helperName),
             clue: currentLanguage === "zh"
               ? "留意圖形重複嘅次序。"
               : "Look at the repeating order of the shapes.",
-            speech: currentLanguage === "zh"
-              ? "請留意圖形規律，揀出下一個圖形。"
-              : "Look at the shape pattern and choose the next shape.",
+            speech: activity.shape(mainName, helperName),
             equation: `<div class="shape-pattern">${question.shown.map((value) => value === null ? '<span class="missing-line"></span>' : `<span>${value}</span>`).join("")}</div>`
           };
         }
 
         return {
           title: text.logicTitle,
-          prompt: text.logicPrompt(displayName(question.main), displayName(question.helper)),
+          prompt: activity.number(mainName, helperName),
           clue: text.logicClue(question.step),
-          speech: text.logicSpeech(displayName(question.main), displayName(question.helper)),
+          speech: activity.number(mainName, helperName),
           equation: question.shown.map((value) => value === null ? '<span class="missing-line"></span>' : value).join(" ")
         };
       }
@@ -2111,10 +2592,20 @@
       if (question.type === "blending") {
         return {
           title: text.blendingTitle,
-          prompt: text.blendingPrompt(),
-          clue: text.blendingClue,
-          speech: text.blendingSpeech(),
+          prompt: question.instruction.prompt,
+          clue: question.instruction.clue,
+          speech: question.instruction.prompt,
           equation: `<div class="blend-pattern"><span class="blend-blank" data-blend-slot="0"></span><span class="blend-blank" data-blend-slot="1"></span><span>${question.tail}</span></div>`
+        };
+      }
+
+      if (question.type === "chineseWriting") {
+        return {
+          title: text.chineseWritingTitle,
+          prompt: text.chineseWritingPrompt(question.word),
+          clue: text.chineseWritingClue,
+          speech: `${text.chineseWritingPrompt(question.word)} ${question.sentence}`,
+          equation: ""
         };
       }
 
@@ -2122,37 +2613,21 @@
         title: question.tensMode
           ? question.isAdd ? text.tensAddTitle : text.tensSubTitle
           : question.isAdd ? text.addTitle : text.subTitle,
-        prompt: question.isAdd
-          ? text.addPrompt(
-              displayName(question.main),
-              displayName(question.helper),
-              question.first,
-              question.theme.addItem[currentLanguage],
-              question.second
-            )
-          : text.subPrompt(
-              displayName(question.main),
-              displayName(question.helper),
-              question.first,
-              question.theme.addItem[currentLanguage],
-              question.second
-            ),
+        prompt: question.activity[currentLanguage][question.isAdd ? "add" : "sub"](
+          displayName(question.main),
+          displayName(question.helper),
+          question.first,
+          question.item[currentLanguage],
+          question.second
+        ),
         clue: text.addsubClue,
-        speech: question.isAdd
-          ? text.addSpeech(
-              displayName(question.main),
-              displayName(question.helper),
-              question.first,
-              question.theme.addItem[currentLanguage],
-              question.second
-            )
-          : text.subSpeech(
-              displayName(question.main),
-              displayName(question.helper),
-              question.first,
-              question.theme.addItem[currentLanguage],
-              question.second
-            ),
+        speech: question.activity[currentLanguage][question.isAdd ? "add" : "sub"](
+          displayName(question.main),
+          displayName(question.helper),
+          question.first,
+          question.item[currentLanguage],
+          question.second
+        ),
         equation: `${question.first} ${question.operator} ${question.second} = ?`
       };
     }
@@ -2162,7 +2637,7 @@
         return "";
       }
 
-      const icon = question.theme.visualIcon;
+      const icon = question.activity?.visualIcon || question.theme.visualIcon;
       const makeIcons = (count) => Array.from({ length: count }, () => `<span class="visual-icon">${icon}</span>`).join("");
 
       return `
@@ -2193,6 +2668,31 @@
         </div>
         <div class="blend-bank" aria-label="blend choices">
           ${question.blendOptions.map((item) => `<button class="blend-choice" type="button" data-blend-choice="${item}">${item}</button>`).join("")}
+        </div>
+      `;
+    }
+
+    function renderChineseWriting(question) {
+      if (question.type !== "chineseWriting") {
+        return "";
+      }
+
+      return `
+        <div class="writing-card">
+          <div class="writing-picture" aria-label="${question.word} picture">${question.picture}</div>
+          <div class="writing-main">
+            <div class="writing-word-row">
+              <div class="writing-word">${question.word}</div>
+              <div class="stroke-order">
+                <span>${currentLanguage === "zh" ? "筆順" : "Stroke order"}</span>
+                ${question.strokes.map((stroke, index) => `<span class="stroke-step">${index + 1}. ${stroke}</span>`).join("")}
+              </div>
+            </div>
+            <p class="writing-sentence">${question.sentence}</p>
+          </div>
+          <div class="writing-practice" aria-label="${question.word} writing practice">
+            ${Array.from({ length: 4 }, () => '<div class="writing-box"></div>').join("")}
+          </div>
         </div>
       `;
     }
@@ -2252,7 +2752,8 @@
         sub: text.missionSub,
         tensAdd: text.missionTensAdd,
         tensSub: text.missionTensSub,
-        blending: text.missionBlending
+        blending: text.missionBlending,
+        chineseWriting: text.missionChineseWriting
       };
       missionText.textContent = missionByMode[mode] || text.missionMixed;
       missionSubtext.textContent = text.missionSubtext;
@@ -2262,6 +2763,7 @@
       const theme = pick(themes);
       const main = pick(family);
       const helper = pickHelper(main);
+      const activity = pick(sequenceActivities);
       const length = level === "challenge" ? 6 : 5;
       const isReverse = direction === "reverse";
       const start = isReverse
@@ -2279,6 +2781,8 @@
         theme,
         main,
         helper,
+        activity,
+        item: activity.item,
         direction,
         numbers,
         shown,
@@ -2320,6 +2824,7 @@
       const theme = pick(themes);
       const main = pick(family);
       const helper = pickHelper(main);
+      const activity = pick(logicActivities);
       const stepChoices = [1, 2, 5, 10];
       const step = pick(stepChoices);
       const startMax = 100 - (step * 4);
@@ -2335,6 +2840,7 @@
         theme,
         main,
         helper,
+        activity,
         step,
         shown,
         answer
@@ -2345,6 +2851,7 @@
       const theme = pick(themes);
       const main = pick(family);
       const helper = pickHelper(main);
+      const activity = pick(logicActivities);
       const shapePairs = [
         ["▲", "●"],
         ["◆", "■"],
@@ -2364,24 +2871,31 @@
         theme,
         main,
         helper,
+        activity,
         shown,
         options,
         answer
       };
     }
 
-    function createBlendingQuestion() {
-      const target = pick(blendingWords);
-      const pictureOptions = [target, ...blendingWords
+    function createBlendingQuestion(level = "normal") {
+      const levelWords = blendingWords.filter((item) => item.level === level);
+      const target = pick(levelWords.length ? levelWords : blendingWords);
+      const pictureCount = level === "easy" ? 2 : 3;
+      const blendCount = level === "easy" ? 3 : level === "challenge" ? 5 : 4;
+      const picturePool = level === "challenge" ? blendingWords : levelWords;
+      const blendPool = blendChoicesByLevel[level] || blendChoices;
+      const pictureOptions = [target, ...picturePool
         .filter((item) => item.word !== target.word)
         .sort(() => Math.random() - 0.5)
-        .slice(0, 2)]
+        .slice(0, pictureCount - 1)]
         .sort(() => Math.random() - 0.5);
-      const distractors = blendChoices
+      const distractors = blendPool
         .filter((item) => item !== target.blend)
         .sort(() => Math.random() - 0.5)
-        .slice(0, 3);
+        .slice(0, blendCount - 1);
       const blendOptions = [target.blend, ...distractors].sort(() => Math.random() - 0.5);
+      const instruction = pick(blendingInstructions[level] || blendingInstructions.normal);
 
       return {
         type: "blending",
@@ -2393,7 +2907,25 @@
         tail: target.tail,
         word: target.word,
         blendOptions,
+        instruction,
         answer: target.blend
+      };
+    }
+
+    function createChineseWritingQuestion() {
+      const target = pick(chineseWritingWords);
+
+      return {
+        type: "chineseWriting",
+        theme: {
+          label: "Chinese Writing",
+          stamp: "字"
+        },
+        word: target.word,
+        picture: target.picture,
+        strokes: target.strokes,
+        sentence: target.sentence,
+        answer: target.word
       };
     }
 
@@ -2433,6 +2965,7 @@
       const theme = pick(themes);
       const main = pick(family);
       const helper = pickHelper(main);
+      const activity = pick(addSubActivities);
       const tensMode = forceMode === "tensAdd" || forceMode === "tensSub";
       const isAdd = forceMode === "add" || forceMode === "tensAdd"
         ? true
@@ -2465,6 +2998,8 @@
         theme,
         main,
         helper,
+        activity,
+        item: activity.item,
         first,
         second,
         isAdd,
@@ -2498,7 +3033,9 @@
         } else if (mode === "tensSub") {
           question = createAddSubQuestion("tensSub", level);
         } else if (mode === "blending") {
-          question = createBlendingQuestion();
+          question = createBlendingQuestion(level);
+        } else if (mode === "chineseWriting") {
+          question = createChineseWritingQuestion();
         } else {
           const builders = [
             () => createSequenceQuestion(level),
@@ -2509,7 +3046,8 @@
             () => createAddSubQuestion("sub"),
             () => createAddSubQuestion("tensAdd", level),
             () => createAddSubQuestion("tensSub", level),
-            () => createBlendingQuestion()
+            () => createBlendingQuestion(level),
+            () => createChineseWritingQuestion()
           ];
           question = pick(builders)();
         }
@@ -2546,7 +3084,8 @@
 
             <div class="equation-box">
               ${renderBlending(question)}
-              ${question.type === "clock" ? renderClock(question) : `<div class="equation">${view.equation}</div>`}
+              ${renderChineseWriting(question)}
+              ${question.type === "clock" ? renderClock(question) : question.type === "chineseWriting" ? "" : `<div class="equation">${view.equation}</div>`}
               ${renderVisualMath(question)}
               ${question.type === "logic" && question.logicKind === "shape"
                 ? `<div class="shape-options">${question.options.map((option) => `<button class="shape-choice" type="button" data-shape-choice="${option}">${option}</button>`).join("")}</div>`
@@ -2554,7 +3093,7 @@
             </div>
 
             <div class="input-row">
-              ${(question.type === "clock" && question.clockTask === "draw") || (question.type === "logic" && question.logicKind === "shape") ? "" : `
+              ${(question.type === "clock" && question.clockTask === "draw") || (question.type === "logic" && question.logicKind === "shape") || question.type === "chineseWriting" ? "" : `
                 <input
                   class="answer"
                   type="${question.type === "clock" || question.type === "blending" ? "text" : "number"}"
@@ -2774,6 +3313,17 @@
             feedback.classList.add("bad");
             feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry));
           }
+          return;
+        }
+
+        if (question.type === "chineseWriting") {
+          drawingCount += 1;
+          card.classList.add("done");
+          feedback.classList.remove("bad");
+          feedback.classList.add("good");
+          feedback.textContent = currentLanguage === "zh"
+            ? "跟住筆順慢慢寫，寫完就完成。"
+            : "Follow the stroke order and practise writing.";
           return;
         }
 
@@ -3043,3 +3593,4 @@
   </script>
 </body>
 </html>
+
