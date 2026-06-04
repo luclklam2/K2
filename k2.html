@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -41,6 +40,57 @@
       padding: 14px;
     }
 
+    .fun-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .floating-sticker {
+      position: absolute;
+      filter: drop-shadow(0 10px 12px rgba(79, 62, 136, 0.18));
+      opacity: 0.78;
+      animation: floatSticker 6s ease-in-out infinite;
+    }
+
+    .floating-sticker.hero {
+      top: 8%;
+      left: 3%;
+      font-size: 3rem;
+    }
+
+    .floating-sticker.fire {
+      top: 18%;
+      right: 4%;
+      font-size: 3.2rem;
+      animation-delay: -1.4s;
+    }
+
+    .floating-sticker.pyramid {
+      bottom: 12%;
+      left: 4%;
+      font-size: 3.5rem;
+      animation-delay: -2.2s;
+    }
+
+    .floating-sticker.sparkle {
+      right: 6%;
+      bottom: 8%;
+      font-size: 3rem;
+      animation-delay: -3s;
+    }
+
+    @keyframes floatSticker {
+      0%, 100% {
+        transform: translateY(0) rotate(-4deg) scale(1);
+      }
+      50% {
+        transform: translateY(-18px) rotate(5deg) scale(1.08);
+      }
+    }
+
     .sheet {
       width: min(1120px, 100%);
       margin: 0 auto;
@@ -51,6 +101,7 @@
       padding: 18px;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
     .sheet::before,
@@ -96,6 +147,81 @@
     .sticker {
       background: linear-gradient(135deg, #d7ecff, #f7deff);
       color: #5d63aa;
+    }
+
+    .mascot-panel {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border: 2px solid #f2ddff;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255, 217, 106, 0.38), transparent 26%),
+        linear-gradient(135deg, #fff7fb, #eff8ff);
+      box-shadow: 0 14px 24px rgba(122, 99, 217, 0.12);
+    }
+
+    .mascot-bubble {
+      width: 58px;
+      height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: #fff;
+      border: 2px solid #e7dcff;
+      font-size: 2rem;
+      animation: mascotBounce 1.8s ease-in-out infinite;
+    }
+
+    .mascot-panel strong {
+      display: block;
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .mascot-panel span {
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .reward-row {
+      display: flex;
+      gap: 8px;
+      font-size: 1.8rem;
+    }
+
+    .reward-row span {
+      animation: popReward 1.7s ease-in-out infinite;
+    }
+
+    .reward-row span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .reward-row span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes mascotBounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-7px);
+      }
+    }
+
+    @keyframes popReward {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.18) rotate(5deg);
+      }
     }
 
     .title-badge {
@@ -293,6 +419,31 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #9b84e8;
+      box-shadow: 0 14px 24px rgba(122, 99, 217, 0.16);
+    }
+
+    .card.done {
+      animation: cardCelebrate 0.62s ease;
+      border-color: #79cf91;
+      box-shadow: 0 0 0 4px rgba(121, 207, 145, 0.18);
+    }
+
+    @keyframes cardCelebrate {
+      0% {
+        transform: scale(1);
+      }
+      45% {
+        transform: scale(1.025) rotate(-0.6deg);
+      }
+      100% {
+        transform: scale(1);
+      }
     }
 
     .card.sequence {
@@ -301,6 +452,10 @@
 
     .card.addsub {
       background: linear-gradient(180deg, #ffffff, #f8fcff);
+    }
+
+    .card.blending {
+      background: linear-gradient(180deg, #ffffff, #fffaf0);
     }
 
     .card-head {
@@ -328,6 +483,11 @@
     .section-chip.addsub {
       background: linear-gradient(135deg, #86c0ff, #72a9ff);
       color: #fff;
+    }
+
+    .section-chip.blending {
+      background: linear-gradient(135deg, #ffcf7a, #ffa8cf);
+      color: #403764;
     }
 
     .theme-mark {
@@ -475,18 +635,99 @@
       background: #fff4f4;
     }
 
+    .blend-pictures {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .blend-picture {
+      min-height: 82px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #eadffd;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff, #f8f4ff);
+      cursor: pointer;
+      font-size: 2.35rem;
+      box-shadow: none;
+    }
+
+    .blend-picture.selected {
+      border-color: #9b84e8;
+      background: #f1ebff;
+      box-shadow: 0 0 0 4px rgba(155, 132, 232, 0.16);
+    }
+
+    .blend-picture.correct {
+      border-color: #66c480;
+      background: #effcf3;
+    }
+
+    .blend-picture.wrong {
+      border-color: #f08383;
+      background: #fff4f4;
+    }
+
+    .blend-bank {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .blend-choice {
+      min-height: 42px;
+      border: 2px solid #eadffd;
+      border-radius: 14px;
+      background: #fff;
+      padding: 7px 14px;
+      color: #403764;
+      font-size: 1.25rem;
+      font-weight: 900;
+      box-shadow: none;
+    }
+
+    .blend-choice:hover {
+      background: #fff5df;
+    }
+
+    .blend-choice.selected {
+      border-color: #9b84e8;
+      background: #f1ebff;
+    }
+
+    .blend-pattern {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #403764;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+
+    .blend-blank {
+      width: 1em;
+      border-bottom: 4px solid currentColor;
+      transform: translateY(0.08em);
+    }
+
     .clock-wrap {
       margin-top: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 24px;
     }
 
     .clock-face {
       position: relative;
-      width: 132px;
-      height: 132px;
+      width: 156px;
+      height: 156px;
       border-radius: 50%;
       background: #fff;
       border: 4px solid #d9cffd;
@@ -529,6 +770,23 @@
       z-index: 1;
     }
 
+    .clock-hand.draggable {
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .clock-hand.dragging {
+      cursor: grabbing;
+      filter: drop-shadow(0 0 6px rgba(122, 99, 217, 0.45));
+    }
+
+    .clock-help {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
     .clock-tick {
       position: absolute;
       left: 50%;
@@ -551,10 +809,14 @@
     }
 
     .clock-label {
-      min-width: 82px;
-      padding: 4px 6px;
-      border-bottom: 3px solid #574a8f;
-      font-size: 0.95rem;
+      min-width: 150px;
+      min-height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px 8px;
+      border-bottom: 4px solid #574a8f;
+      font-size: 1.25rem;
       font-weight: 900;
       color: var(--muted);
       text-align: center;
@@ -622,7 +884,16 @@
 
     .tiny {
       min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       background: linear-gradient(135deg, #f1eaff, #dce9ff);
+    }
+
+    .speaker-icon {
+      font-size: 1.1em;
+      line-height: 1;
     }
 
     .feedback {
@@ -711,7 +982,9 @@
 
       .sheet::before,
       .sheet::after,
+      .fun-layer,
       .topbar,
+      .mascot-panel,
       .control-panel,
       .footer-note,
       .family-row,
@@ -870,7 +1143,7 @@
       .clock-wrap {
         margin-top: 2px;
         justify-content: space-evenly;
-        gap: 8px;
+        gap: 10mm;
       }
 
       .clock-face {
@@ -901,6 +1174,12 @@
         background: transparent;
       }
 
+      .card.clock.draw .clock-hand,
+      .card.clock.draw .clock-center,
+      .card.clock.draw .clock-help {
+        display: none !important;
+      }
+
       .clock-center {
         width: 3mm;
         height: 3mm;
@@ -909,10 +1188,11 @@
       }
 
       .clock-label {
-        min-width: 24mm;
-        padding: 3px 4px;
-        border-bottom-width: 2px;
-        font-size: 10pt;
+        min-width: 42mm;
+        min-height: 16mm;
+        padding: 5mm 2mm 2mm;
+        border-bottom-width: 2.5px;
+        font-size: 13pt;
       }
 
       .shape-options {
@@ -926,6 +1206,40 @@
         border-width: 2px;
         border-radius: 8px;
         font-size: 12pt;
+      }
+
+      .blend-pictures {
+        gap: 4px;
+        margin-bottom: 5px;
+      }
+
+      .blend-picture {
+        min-height: 14mm;
+        border-width: 1px;
+        border-radius: 8px;
+        font-size: 18pt;
+      }
+
+      .blend-bank {
+        gap: 3px;
+        margin-bottom: 4px;
+      }
+
+      .blend-choice {
+        min-height: 7mm;
+        border-width: 1px;
+        border-radius: 6px;
+        padding: 2px 6px;
+        font-size: 10pt;
+      }
+
+      .blend-pattern {
+        gap: 5mm;
+        font-size: 22pt;
+      }
+
+      .blend-blank {
+        border-bottom-width: 2px;
       }
 
       body.print-a3 .questions {
@@ -1034,6 +1348,13 @@
   </style>
 </head>
 <body>
+  <div class="fun-layer" aria-hidden="true">
+    <span class="floating-sticker hero">🦸</span>
+    <span class="floating-sticker fire">🚒</span>
+    <span class="floating-sticker pyramid">🔺</span>
+    <span class="floating-sticker sparkle">✨</span>
+  </div>
+
   <main class="sheet">
     <header class="topbar">
       <div class="title-badge">
@@ -1041,6 +1362,19 @@
       </div>
       <div id="pageSticker" class="sticker">K2 數感訓練</div>
     </header>
+
+    <section class="mascot-panel" aria-label="今日任務">
+      <div class="mascot-bubble">⭐</div>
+      <div>
+        <strong>Jadon 數學小隊出發！</strong>
+        <span>完成一題，就收集一粒能量星。</span>
+      </div>
+      <div class="reward-row" aria-hidden="true">
+        <span>💎</span>
+        <span>🕸️</span>
+        <span>⛑️</span>
+      </div>
+    </section>
 
     <section class="name-strip">
       <div class="name-strip-head">
@@ -1072,6 +1406,9 @@
                 <option value="logic">邏輯推理</option>
                 <option value="add">個位數加</option>
                 <option value="sub">個位數減</option>
+                <option value="tensAdd">雙位數加</option>
+                <option value="tensSub">雙位數減</option>
+                <option value="blending">英文 Blending</option>
               </select>
             </div>
 
@@ -1189,6 +1526,9 @@
         missionLogic: "邏輯推理",
         missionAdd: "個位數加",
         missionSub: "個位數減",
+        missionTensAdd: "雙位數加",
+        missionTensSub: "雙位數減",
+        missionBlending: "英文 Blending",
         missionSubtext: "工作紙風格版面，方便陪讀同即時對答案。",
         sequenceTitle: "順序補漏",
         reverseSequenceTitle: "倒序補漏",
@@ -1196,6 +1536,9 @@
         logicTitle: "邏輯推理",
         addTitle: "加法應用",
         subTitle: "減法應用",
+        tensAddTitle: "雙位數加法",
+        tensSubTitle: "雙位數減法",
+        blendingTitle: "英文 Blending",
         sequencePrompt: (main, helper, item) => `${main} 同 ${helper} 一齊排${item}，請填返漏咗嘅數字。`,
         sequenceSpeech: (main, helper, item) => `${main} 同 ${helper} 一齊排${item}。請填上漏咗嘅數字。`,
         sequenceClue: (start, end) => `由 ${start} 順住數到 ${end}`,
@@ -1211,8 +1554,11 @@
         addSpeech: (main, helper, first, item, second) => `${main} 有 ${first} 個${item}。${helper}再加咗 ${second} 個。依家一共有幾多個？`,
         subSpeech: (main, helper, first, item, second) => `${main} 有 ${first} 個${item}。${helper}送咗 ${second} 個。依家仲有幾多個？`,
         addsubClue: "可以逐個一咁數",
+        blendingClue: "Say the picture name. Fill in the missing beginning blend.",
+        blendingPrompt: () => "Look at the picture. Fill in the missing beginning blend.",
+        blendingSpeech: () => "Look at the picture. Fill in the missing beginning blend.",
         missingAnswer: (clue) => `未填答案。提示：${clue}`,
-        wrongAnswer: (line, answer) => `${line} 正確答案係 ${answer}。`,
+        wrongAnswer: (line) => `${line} 再試多一次，睇清楚提示。`,
         summaryLine: (correct, total) => `${correct} / ${total} 題答啱`,
         summaryPerfect: "全中，可以大大力讚 Jadon。",
         summaryGood: "做得唔錯，再練一組會更穩陣。",
@@ -1236,7 +1582,10 @@
           clock: "時鐘",
           logic: "邏輯推理",
           add: "個位數加",
-          sub: "個位數減"
+          sub: "個位數減",
+          tensAdd: "雙位數加",
+          tensSub: "雙位數減",
+          blending: "英文 Blending"
         },
         countOptions: {
           10: "10 題",
@@ -1294,6 +1643,9 @@
         missionLogic: "Logic",
         missionAdd: "Single-digit Addition",
         missionSub: "Single-digit Subtraction",
+        missionTensAdd: "Two-digit Addition",
+        missionTensSub: "Two-digit Subtraction",
+        missionBlending: "English Blending",
         missionSubtext: "Worksheet layout for easy practice and quick checking.",
         sequenceTitle: "Number Sequence",
         reverseSequenceTitle: "Reverse Number Sequence",
@@ -1301,6 +1653,9 @@
         logicTitle: "Logic Pattern",
         addTitle: "Addition Story",
         subTitle: "Subtraction Story",
+        tensAddTitle: "Two-digit Addition",
+        tensSubTitle: "Two-digit Subtraction",
+        blendingTitle: "English Blending",
         sequencePrompt: (main, helper, item) => `${main} and ${helper} are putting the ${item} in order. Fill in the missing number.`,
         sequenceSpeech: (main, helper, item) => `${main} and ${helper} are putting the ${item} in order. Fill in the missing number.`,
         sequenceClue: (start, end) => `Count in order from ${start} to ${end}.`,
@@ -1316,8 +1671,11 @@
         addSpeech: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} adds ${second} more. How many are there now?`,
         subSpeech: (main, helper, first, item, second) => `${main} has ${first} ${item}. ${helper} gives away ${second}. How many are left now?`,
         addsubClue: "Count by ones.",
+        blendingClue: "Say the picture name. Fill in the missing beginning blend.",
+        blendingPrompt: () => "Look at the picture. Fill in the missing beginning blend.",
+        blendingSpeech: () => "Look at the picture. Fill in the missing beginning blend.",
         missingAnswer: (clue) => `No answer yet. Hint: ${clue}`,
-        wrongAnswer: (line, answer) => `${line} The correct answer is ${answer}.`,
+        wrongAnswer: (line) => `${line} Try again. Look carefully at the hint.`,
         summaryLine: (correct, total) => `${correct} / ${total} correct`,
         summaryPerfect: "Perfect score. Great job, Jadon.",
         summaryGood: "Nice work. One more round will make it even stronger.",
@@ -1341,7 +1699,10 @@
           clock: "Clock",
           logic: "Logic Pattern",
           add: "Single-digit Addition",
-          sub: "Single-digit Subtraction"
+          sub: "Single-digit Subtraction",
+          tensAdd: "Two-digit Addition",
+          tensSub: "Two-digit Subtraction",
+          blending: "English Blending"
         },
         countOptions: {
           10: "10 questions",
@@ -1404,6 +1765,34 @@
         addItem: { zh: "消防頭盔", en: "fire helmets" },
         visualIcon: "⛑️"
       }
+    ];
+
+    const blendChoices = ["bl", "cl", "fl", "gl", "pl", "sl", "br", "cr", "dr", "fr", "gr", "tr", "sk", "sn", "sp", "st", "sw"];
+
+    const blendingWords = [
+      { blend: "fr", tail: "og", word: "frog", picture: "🐸" },
+      { blend: "fl", tail: "ower", word: "flower", picture: "🌼" },
+      { blend: "gr", tail: "apes", word: "grapes", picture: "🍇" },
+      { blend: "fl", tail: "ag", word: "flag", picture: "🚩" },
+      { blend: "gr", tail: "ass", word: "grass", picture: "🌱" },
+      { blend: "fl", tail: "y", word: "fly", picture: "🪰" },
+      { blend: "gl", tail: "obe", word: "globe", picture: "🌍" },
+      { blend: "gl", tail: "ass", word: "glass", picture: "🔍" },
+      { blend: "gr", tail: "een", word: "green", picture: "🟢" },
+      { blend: "bl", tail: "ender", word: "blender", picture: "🥤" },
+      { blend: "sp", tail: "ider", word: "spider", picture: "🕷️" },
+      { blend: "sn", tail: "ail", word: "snail", picture: "🐌" },
+      { blend: "cl", tail: "ock", word: "clock", picture: "⏰" },
+      { blend: "gl", tail: "oves", word: "gloves", picture: "🧤" },
+      { blend: "dr", tail: "agon", word: "dragon", picture: "🐉" },
+      { blend: "cr", tail: "ab", word: "crab", picture: "🦀" },
+      { blend: "sl", tail: "ide", word: "slide", picture: "🛝" },
+      { blend: "tr", tail: "uck", word: "truck", picture: "🚚" },
+      { blend: "dr", tail: "um", word: "drum", picture: "🥁" },
+      { blend: "st", tail: "ar", word: "star", picture: "⭐" },
+      { blend: "sp", tail: "oon", word: "spoon", picture: "🥄" },
+      { blend: "sk", tail: "irt", word: "skirt", picture: "👗" },
+      { blend: "sw", tail: "ing", word: "swing", picture: "🛝" }
     ];
 
     function pick(list) {
@@ -1549,8 +1938,20 @@
         };
       }
 
+      if (question.type === "blending") {
+        return {
+          title: text.blendingTitle,
+          prompt: text.blendingPrompt(),
+          clue: text.blendingClue,
+          speech: text.blendingSpeech(),
+          equation: `<div class="blend-pattern"><span class="blend-blank"></span><span class="blend-blank"></span><span>${question.tail}</span></div>`
+        };
+      }
+
       return {
-        title: question.isAdd ? text.addTitle : text.subTitle,
+        title: question.tensMode
+          ? question.isAdd ? text.tensAddTitle : text.tensSubTitle
+          : question.isAdd ? text.addTitle : text.subTitle,
         prompt: question.isAdd
           ? text.addPrompt(
               displayName(question.main),
@@ -1587,7 +1988,7 @@
     }
 
     function renderVisualMath(question) {
-      if (question.type !== "addsub") {
+      if (question.type !== "addsub" || question.tensMode) {
         return "";
       }
 
@@ -1611,6 +2012,21 @@
       `;
     }
 
+    function renderBlending(question) {
+      if (question.type !== "blending") {
+        return "";
+      }
+
+      return `
+        <div class="blend-pictures" aria-label="picture choices">
+          ${question.pictureOptions.map((item) => `<button class="blend-picture" type="button" data-blend-picture="${item.word}">${item.picture}</button>`).join("")}
+        </div>
+        <div class="blend-bank" aria-label="blend choices">
+          ${question.blendOptions.map((item) => `<button class="blend-choice" type="button" data-blend-choice="${item}">${item}</button>`).join("")}
+        </div>
+      `;
+    }
+
     function renderClock(question) {
       if (question.type !== "clock") {
         return "";
@@ -1626,8 +2042,14 @@
         const rotation = number * 30;
         return `<div class="clock-number" style="transform: rotate(${rotation}deg) translateY(-48px) rotate(-${rotation}deg)">${number}</div>`;
       }).join("");
+      const drawHourRotation = ((question.drawHour || 12) % 12) * 30;
+      const drawMinuteRotation = (question.drawMinute || 0) * 6;
       const hands = question.clockTask === "draw"
-        ? ""
+        ? `
+            <div class="clock-hand hour draggable" data-clock-hand="hour" style="transform: rotate(${drawHourRotation}deg)"></div>
+            <div class="clock-hand minute draggable" data-clock-hand="minute" style="transform: rotate(${drawMinuteRotation}deg)"></div>
+            <div class="clock-center"></div>
+          `
         : `
             <div class="clock-hand hour" style="transform: rotate(${hourRotation}deg)"></div>
             <div class="clock-hand minute" style="transform: rotate(${minuteRotation}deg)"></div>
@@ -1635,13 +2057,14 @@
           `;
 
       return `
-        <div class="clock-wrap" aria-hidden="true">
-          <div class="clock-face">
+        <div class="clock-wrap">
+          <div class="clock-face" data-clock-face="${question.clockTask}">
             ${ticks}
             ${numbers}
             ${hands}
           </div>
           <div class="clock-label">${question.clockTask === "draw" ? question.answer : "__ : __"}</div>
+          ${question.clockTask === "draw" ? '<div class="clock-help">拖動短針同長針</div>' : ""}
         </div>
       `;
     }
@@ -1649,19 +2072,18 @@
     function updateMissionSummary() {
       const text = textPack();
       const mode = modeSelect.value;
-      missionText.textContent = mode === "sequence"
-        ? text.missionSequence
-        : mode === "reverseSequence"
-          ? text.missionReverseSequence
-        : mode === "clock"
-          ? text.missionClock
-          : mode === "logic"
-            ? text.missionLogic
-        : mode === "add"
-          ? text.missionAdd
-          : mode === "sub"
-            ? text.missionSub
-          : text.missionMixed;
+      const missionByMode = {
+        sequence: text.missionSequence,
+        reverseSequence: text.missionReverseSequence,
+        clock: text.missionClock,
+        logic: text.missionLogic,
+        add: text.missionAdd,
+        sub: text.missionSub,
+        tensAdd: text.missionTensAdd,
+        tensSub: text.missionTensSub,
+        blending: text.missionBlending
+      };
+      missionText.textContent = missionByMode[mode] || text.missionMixed;
       missionSubtext.textContent = text.missionSubtext;
     }
 
@@ -1775,21 +2197,94 @@
       };
     }
 
-    function createAddSubQuestion(forceMode = "mixed") {
+    function createBlendingQuestion() {
+      const target = pick(blendingWords);
+      const pictureOptions = [target, ...blendingWords
+        .filter((item) => item.word !== target.word)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 2)]
+        .sort(() => Math.random() - 0.5);
+      const distractors = blendChoices
+        .filter((item) => item !== target.blend)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+      const blendOptions = [target.blend, ...distractors].sort(() => Math.random() - 0.5);
+
+      return {
+        type: "blending",
+        theme: {
+          label: "English Blending",
+          stamp: "ABC"
+        },
+        pictureOptions,
+        tail: target.tail,
+        word: target.word,
+        blendOptions,
+        answer: target.blend
+      };
+    }
+
+    function pickDoubleDigitNumbers(isAdd, level) {
+      const pools = {
+        easy: [10, 20, 30, 40, 50, 60, 70, 80, 90],
+        normal: [15, 25, 35, 45, 55, 65, 75, 85]
+      };
+
+      if (level === "easy" || level === "normal") {
+        const pool = pools[level];
+        let first = pick(pool);
+        let second = pick(pool);
+        while (isAdd ? first + second > 100 : second > first) {
+          first = pick(pool);
+          second = pick(pool);
+        }
+        return [first, second];
+      }
+
+      let first = Math.floor(Math.random() * 90) + 10;
+      let second = Math.floor(Math.random() * 90) + 10;
+      const isNoCarry = (a, b) => (a % 10) + (b % 10) < 10;
+      const isNoBorrow = (a, b) => (a % 10) >= (b % 10);
+
+      while (isAdd
+        ? first + second > 100 || !isNoCarry(first, second)
+        : second > first || !isNoBorrow(first, second)) {
+        first = Math.floor(Math.random() * 90) + 10;
+        second = Math.floor(Math.random() * 90) + 10;
+      }
+
+      return [first, second];
+    }
+
+    function createAddSubQuestion(forceMode = "mixed", level = "normal") {
       const theme = pick(themes);
       const main = pick(family);
       const helper = pickHelper(main);
-      const isAdd = forceMode === "add" ? true : forceMode === "sub" ? false : Math.random() > 0.45;
-      let first = Math.floor(Math.random() * 9) + 1;
-      let second = Math.floor(Math.random() * 9) + 1;
+      const tensMode = forceMode === "tensAdd" || forceMode === "tensSub";
+      const isAdd = forceMode === "add" || forceMode === "tensAdd"
+        ? true
+        : forceMode === "sub" || forceMode === "tensSub"
+          ? false
+          : Math.random() > 0.45;
+      let first;
+      let second;
 
-      if (isAdd) {
-        while (first + second > 10) {
-          first = Math.floor(Math.random() * 9) + 1;
-          second = Math.floor(Math.random() * 9) + 1;
+      if (tensMode) {
+        [first, second] = pickDoubleDigitNumbers(isAdd, level);
+      } else {
+        first = Math.floor(Math.random() * 9) + 1;
+        second = Math.floor(Math.random() * 9) + 1;
+      }
+
+      if (!tensMode) {
+        if (isAdd) {
+          while (first + second > 10) {
+            first = Math.floor(Math.random() * 9) + 1;
+            second = Math.floor(Math.random() * 9) + 1;
+          }
+        } else if (second > first) {
+          [first, second] = [second, first];
         }
-      } else if (second > first) {
-        [first, second] = [second, first];
       }
 
       return {
@@ -1800,6 +2295,7 @@
         first,
         second,
         isAdd,
+        tensMode,
         operator: isAdd ? "+" : "-",
         answer: isAdd ? first + second : first - second
       };
@@ -1824,6 +2320,12 @@
           question = createAddSubQuestion("add");
         } else if (mode === "sub") {
           question = createAddSubQuestion("sub");
+        } else if (mode === "tensAdd") {
+          question = createAddSubQuestion("tensAdd", level);
+        } else if (mode === "tensSub") {
+          question = createAddSubQuestion("tensSub", level);
+        } else if (mode === "blending") {
+          question = createBlendingQuestion();
         } else {
           const builders = [
             () => createSequenceQuestion(level),
@@ -1831,7 +2333,10 @@
             () => createClockQuestion(),
             () => createLogicQuestion(),
             () => createAddSubQuestion("add"),
-            () => createAddSubQuestion("sub")
+            () => createAddSubQuestion("sub"),
+            () => createAddSubQuestion("tensAdd", level),
+            () => createAddSubQuestion("tensSub", level),
+            () => createBlendingQuestion()
           ];
           question = pick(builders)();
         }
@@ -1864,9 +2369,10 @@
             </div>
 
             <h3>${view.prompt}</h3>
-            <p class="story">${currentLanguage === "zh" ? "提示：" : "Hint: "}${view.clue}</p>
+            <p class="story">${question.type === "blending" || currentLanguage !== "zh" ? "Hint: " : "提示："}${view.clue}</p>
 
             <div class="equation-box">
+              ${renderBlending(question)}
               ${question.type === "clock" ? renderClock(question) : `<div class="equation">${view.equation}</div>`}
               ${renderVisualMath(question)}
               ${question.type === "logic" && question.logicKind === "shape"
@@ -1878,14 +2384,14 @@
               ${(question.type === "clock" && question.clockTask === "draw") || (question.type === "logic" && question.logicKind === "shape") ? "" : `
                 <input
                   class="answer"
-                  type="${question.type === "clock" ? "text" : "number"}"
-                  inputmode="${question.type === "clock" ? "text" : "numeric"}"
-                  ${question.type === "clock" ? "" : 'pattern="[0-9]*" min="0" max="100"'}
+                  type="${question.type === "clock" || question.type === "blending" ? "text" : "number"}"
+                  inputmode="${question.type === "clock" || question.type === "blending" ? "text" : "numeric"}"
+                  ${question.type === "clock" || question.type === "blending" ? "" : 'pattern="[0-9]*" min="0" max="100"'}
                   placeholder="${question.type === "clock" ? "" : textPack().answerPlaceholder}"
                   aria-label="${currentLanguage === "zh" ? `第 ${question.id} 題答案` : `Answer for question ${question.id}`}"
                 />
               `}
-              <button class="tiny" type="button" data-speak="${question.id}">${textPack().readQuestion}</button>
+              <button class="tiny" type="button" data-speak="${question.id}"><span class="speaker-icon" aria-hidden="true">🔊</span>${textPack().readQuestion}</button>
             </div>
 
             <div class="feedback"></div>
@@ -1901,6 +2407,36 @@
       }
 
       return `${Number(match[1])}:${String(Number(match[2])).padStart(2, "0")}`;
+    }
+
+    function angleFromPointer(event, face) {
+      const box = face.getBoundingClientRect();
+      const centerX = box.left + box.width / 2;
+      const centerY = box.top + box.height / 2;
+      const radians = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+      return (radians * 180 / Math.PI + 90 + 360) % 360;
+    }
+
+    function updateClockHand(hand, event) {
+      const card = hand.closest(".card");
+      const face = hand.closest(".clock-face");
+      const question = currentQuestions.find((item) => item.id === Number(card.dataset.id));
+      if (!question) {
+        return;
+      }
+
+      const rawAngle = angleFromPointer(event, face);
+      const handType = hand.dataset.clockHand;
+      const snap = handType === "minute" ? 30 : 30;
+      const angle = Math.round(rawAngle / snap) * snap % 360;
+      hand.style.transform = `rotate(${angle}deg)`;
+
+      if (handType === "minute") {
+        question.drawMinute = angle === 360 ? 0 : angle / 6;
+      } else {
+        const hour = angle === 0 ? 12 : angle / 30;
+        question.drawHour = hour;
+      }
     }
 
     function checkAnswers(showAnswers) {
@@ -1920,6 +2456,7 @@
         const feedback = card.querySelector(".feedback");
         const question = currentQuestions[index];
         const view = formatQuestion(question);
+        card.classList.remove("done");
 
         if (question.type === "logic" && question.logicKind === "shape") {
           gradableCount += 1;
@@ -1939,6 +2476,7 @@
             feedback.textContent = textPack().missingAnswer(view.clue);
           } else if (selected.dataset.shapeChoice === question.answer) {
             correctCount += 1;
+            card.classList.add("done");
             selected.classList.add("correct");
             feedback.classList.add("good");
             feedback.textContent = pick(textPack().praiseGood);
@@ -1946,6 +2484,84 @@
             selected.classList.add("wrong");
             feedback.classList.add("bad");
             feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry), question.answer);
+          }
+          return;
+        }
+
+        if (question.type === "blending") {
+          gradableCount += 1;
+          const pictureChoices = Array.from(card.querySelectorAll(".blend-picture"));
+          const selectedPicture = card.querySelector(".blend-picture.selected");
+          const value = input ? input.value.trim().toLowerCase() : "";
+          const pictureIsCorrect = selectedPicture?.dataset.blendPicture === question.word;
+          const wordIsCorrect = value === question.answer;
+
+          pictureChoices.forEach((choice) => choice.classList.remove("correct", "wrong"));
+          if (showAnswers) {
+            const targetPicture = pictureChoices.find((choice) => choice.dataset.blendPicture === question.word);
+            if (targetPicture) {
+              targetPicture.classList.add("selected", "correct");
+            }
+            input.value = question.answer;
+          }
+
+          input.classList.remove("correct", "wrong");
+          feedback.classList.remove("good", "bad");
+
+          if (pictureIsCorrect && wordIsCorrect) {
+            correctCount += 1;
+            card.classList.add("done");
+            selectedPicture.classList.add("correct");
+            input.classList.add("correct");
+            feedback.classList.add("good");
+            feedback.textContent = pick(textPack().praiseGood);
+          } else if (!selectedPicture || value === "") {
+            feedback.classList.add("bad");
+            feedback.textContent = "Choose the picture and fill in the blend.";
+          } else {
+            selectedPicture.classList.add(pictureIsCorrect ? "correct" : "wrong");
+            input.classList.add(wordIsCorrect ? "correct" : "wrong");
+            feedback.classList.add("bad");
+            feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry));
+          }
+          return;
+        }
+
+        if (!input && question.type === "clock" && question.clockTask === "draw") {
+          gradableCount += 1;
+          const hourHand = card.querySelector('[data-clock-hand="hour"]');
+          const minuteHand = card.querySelector('[data-clock-hand="minute"]');
+          const targetHour = question.hour;
+          const targetMinute = question.minute;
+
+          if (showAnswers) {
+            question.drawHour = targetHour;
+            question.drawMinute = targetMinute;
+            if (hourHand) {
+              hourHand.style.transform = `rotate(${(targetHour % 12) * 30}deg)`;
+            }
+            if (minuteHand) {
+              minuteHand.style.transform = `rotate(${targetMinute * 6}deg)`;
+            }
+          }
+
+          const hasMovedHands = question.drawHour !== undefined || question.drawMinute !== undefined;
+          const isCorrect = question.drawHour === targetHour && question.drawMinute === targetMinute;
+          feedback.classList.remove("good", "bad");
+
+          if (isCorrect) {
+            correctCount += 1;
+            card.classList.add("done");
+            feedback.classList.add("good");
+            feedback.textContent = pick(textPack().praiseGood);
+          } else if (!hasMovedHands) {
+            feedback.classList.add("bad");
+            feedback.textContent = currentLanguage === "zh"
+              ? "請拖動短針同長針。"
+              : "Move the hour hand and the minute hand.";
+          } else {
+            feedback.classList.add("bad");
+            feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry));
           }
           return;
         }
@@ -1967,7 +2583,9 @@
 
         const value = question.type === "clock"
           ? normalizeClockAnswer(input.value)
-          : Number(input.value);
+          : question.type === "blending"
+            ? input.value.trim().toUpperCase()
+            : Number(input.value);
         const isCorrect = input.value !== "" && value === question.answer;
 
         input.classList.remove("correct", "wrong");
@@ -1975,6 +2593,7 @@
 
         if (isCorrect) {
           correctCount += 1;
+          card.classList.add("done");
           input.classList.add("correct");
           feedback.classList.add("good");
           feedback.textContent = pick(textPack().praiseGood);
@@ -2067,7 +2686,66 @@
       }
     });
 
+    questionsEl.addEventListener("pointerdown", (event) => {
+      const hand = event.target.closest("[data-clock-hand]");
+      if (!hand) {
+        return;
+      }
+
+      event.preventDefault();
+      hand.classList.add("dragging");
+      hand.setPointerCapture(event.pointerId);
+      updateClockHand(hand, event);
+    });
+
+    questionsEl.addEventListener("pointermove", (event) => {
+      const hand = event.target.closest("[data-clock-hand]");
+      if (!hand || !hand.classList.contains("dragging")) {
+        return;
+      }
+
+      updateClockHand(hand, event);
+    });
+
+    questionsEl.addEventListener("pointerup", (event) => {
+      const hand = event.target.closest("[data-clock-hand]");
+      if (!hand) {
+        return;
+      }
+
+      hand.classList.remove("dragging");
+    });
+
+    questionsEl.addEventListener("pointercancel", (event) => {
+      const hand = event.target.closest("[data-clock-hand]");
+      if (hand) {
+        hand.classList.remove("dragging");
+      }
+    });
+
     questionsEl.addEventListener("click", (event) => {
+      const blendPicture = event.target.closest("[data-blend-picture]");
+      if (blendPicture) {
+        const card = blendPicture.closest(".card");
+        card.querySelectorAll(".blend-picture").forEach((choice) => {
+          choice.classList.remove("selected", "correct", "wrong");
+        });
+        blendPicture.classList.add("selected");
+        return;
+      }
+
+      const blendChoice = event.target.closest("[data-blend-choice]");
+      if (blendChoice) {
+        const card = blendChoice.closest(".card");
+        const input = card.querySelector(".answer");
+        card.querySelectorAll(".blend-choice").forEach((choice) => choice.classList.remove("selected"));
+        blendChoice.classList.add("selected");
+        if (input) {
+          input.value = blendChoice.dataset.blendChoice;
+        }
+        return;
+      }
+
       const shapeChoice = event.target.closest("[data-shape-choice]");
       if (shapeChoice) {
         shapeChoice.closest(".shape-options").querySelectorAll(".shape-choice").forEach((choice) => {
