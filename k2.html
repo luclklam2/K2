@@ -716,6 +716,13 @@
       transform: translateY(0.08em);
     }
 
+    .blend-fill {
+      min-width: 1em;
+      display: inline-block;
+      text-align: center;
+      text-transform: lowercase;
+    }
+
     .clock-wrap {
       margin-top: 12px;
       display: flex;
@@ -756,7 +763,7 @@
 
     .clock-hand.hour {
       width: 6px;
-      height: 34px;
+      height: 42px;
       background: #574a8f;
       margin-left: -3px;
       z-index: 2;
@@ -764,7 +771,7 @@
 
     .clock-hand.minute {
       width: 4px;
-      height: 48px;
+      height: 58px;
       background: #8bb8ff;
       margin-left: -2px;
       z-index: 1;
@@ -773,6 +780,18 @@
     .clock-hand.draggable {
       cursor: grab;
       touch-action: none;
+    }
+
+    .clock-hand.draggable::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -16px;
+      width: 44px;
+      height: calc(100% + 30px);
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: transparent;
     }
 
     .clock-hand.dragging {
@@ -792,9 +811,9 @@
       left: 50%;
       top: 50%;
       width: 2px;
-      height: 54px;
+      height: 64px;
       margin-left: -1px;
-      margin-top: -54px;
+      margin-top: -64px;
       transform-origin: bottom center;
     }
 
@@ -1303,6 +1322,21 @@
       .questions {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .sheet {
+        width: min(100%, 920px);
+      }
+
+      .button-row button,
+      select,
+      .name-input,
+      .answer {
+        min-height: 54px;
+      }
+
+      .clock-wrap {
+        gap: 18px;
+      }
     }
 
     @media (max-width: 680px) {
@@ -1795,6 +1829,59 @@
       { blend: "sw", tail: "ing", word: "swing", picture: "🛝" }
     ];
 
+    const clockActivityTemplates = [
+      {
+        zh: {
+          draw: (main, helper, time) => `${main} 同 ${helper} 要準時出發去救援任務。請喺時鐘畫出 ${time} 嘅指針。`,
+          read: (main, helper) => `${main} 同 ${helper} 收到消防站嘅鐘聲。請睇時鐘，寫返係幾點幾分。`
+        },
+        en: {
+          draw: (main, helper, time) => `${main} and ${helper} are getting ready for a rescue mission. Draw the hands for ${time}.`,
+          read: (main, helper) => `${main} and ${helper} hear the fire station clock. Read the clock and write the time.`
+        }
+      },
+      {
+        zh: {
+          draw: (main, helper, time) => `${main} 同 ${helper} 約咗 Spiderman 練習射蜘蛛網。請把時鐘調到 ${time}。`,
+          read: (main, helper) => `${main} 同 ${helper} 睇住蜘蛛基地個鐘。請寫出而家係幾點幾分。`
+        },
+        en: {
+          draw: (main, helper, time) => `${main} and ${helper} are meeting Spiderman for web practice. Set the clock to ${time}.`,
+          read: (main, helper) => `${main} and ${helper} are looking at the Spiderman clock. Write the time.`
+        }
+      },
+      {
+        zh: {
+          draw: (main, helper, time) => `${main} 同 ${helper} 去金字塔探險，入口會喺 ${time} 打開。請畫出正確時間。`,
+          read: (main, helper) => `${main} 同 ${helper} 發現金字塔入面嘅古老時鐘。請寫返時間。`
+        },
+        en: {
+          draw: (main, helper, time) => `${main} and ${helper} are exploring a pyramid. The door opens at ${time}. Draw the time.`,
+          read: (main, helper) => `${main} and ${helper} find an ancient pyramid clock. Write the time.`
+        }
+      },
+      {
+        zh: {
+          draw: (main, helper, time) => `${main} 同 ${helper} 幫 Ironman 設定飛行時間。請把時鐘調到 ${time}。`,
+          read: (main, helper) => `${main} 同 ${helper} 睇 Ironman 控制室個鐘。請寫出時間。`
+        },
+        en: {
+          draw: (main, helper, time) => `${main} and ${helper} are setting Ironman's flight time. Set the clock to ${time}.`,
+          read: (main, helper) => `${main} and ${helper} are reading Ironman's control room clock. Write the time.`
+        }
+      },
+      {
+        zh: {
+          draw: (main, helper, time) => `${main} 同 ${helper} 幫 Gooby 安排散步時間。請喺時鐘畫出 ${time}。`,
+          read: (main, helper) => `${main} 同 ${helper} 睇 Gooby 嘅散步鐘。請寫返時間。`
+        },
+        en: {
+          draw: (main, helper, time) => `${main} and ${helper} are planning Gooby's walk at ${time}. Draw the clock hands.`,
+          read: (main, helper) => `${main} and ${helper} are checking Gooby's walk clock. Write the time.`
+        }
+      }
+    ];
+
     function pick(list) {
       return list[Math.floor(Math.random() * list.length)];
     }
@@ -1882,16 +1969,14 @@
 
       if (question.type === "clock") {
         const isDrawTask = question.clockTask === "draw";
+        const activity = question.activity[currentLanguage];
+        const mainName = displayName(question.main);
+        const helperName = displayName(question.helper);
         return {
           title: text.clockTitle,
-          prompt: currentLanguage === "zh"
-            ? isDrawTask
-              ? `${displayName(question.main)} 同 ${displayName(question.helper)} 一齊學睇時間。請喺下面個時鐘畫出 ${question.answer} 嘅指針。`
-              : `${displayName(question.main)} 同 ${displayName(question.helper)} 一齊睇時鐘。請寫返而家係幾點幾分。`
-            : isDrawTask
-              ? `${displayName(question.main)} and ${displayName(question.helper)} are learning time. Draw the hands for ${question.answer} on the clock below.`
-              : `${displayName(question.main)} and ${displayName(question.helper)} are reading the clock. Write the time.`
-          ,
+          prompt: isDrawTask
+            ? activity.draw(mainName, helperName, question.answer)
+            : activity.read(mainName, helperName),
           clue: currentLanguage === "zh"
             ? isDrawTask
               ? "短針表示小時，長針表示分鐘。"
@@ -1900,14 +1985,9 @@
               ? "The short hand shows the hour. The long hand shows the minutes."
               : "Look at the short hand first, then the long hand."
           ,
-          speech: currentLanguage === "zh"
-            ? isDrawTask
-              ? `請喺時鐘畫出 ${question.answer} 嘅指針。`
-              : "請睇時鐘，再寫返而家係幾點幾分。"
-            : isDrawTask
-              ? `Draw the clock hands for ${question.answer}.`
-              : "Read the clock and write the time."
-          ,
+          speech: isDrawTask
+            ? activity.draw(mainName, helperName, question.answer)
+            : activity.read(mainName, helperName),
           equation: ""
         };
       }
@@ -1944,7 +2024,7 @@
           prompt: text.blendingPrompt(),
           clue: text.blendingClue,
           speech: text.blendingSpeech(),
-          equation: `<div class="blend-pattern"><span class="blend-blank"></span><span class="blend-blank"></span><span>${question.tail}</span></div>`
+          equation: `<div class="blend-pattern"><span class="blend-blank" data-blend-slot="0"></span><span class="blend-blank" data-blend-slot="1"></span><span>${question.tail}</span></div>`
         };
       }
 
@@ -2040,10 +2120,11 @@
       const numbers = Array.from({ length: 12 }, (_, index) => {
         const number = index + 1;
         const rotation = number * 30;
-        return `<div class="clock-number" style="transform: rotate(${rotation}deg) translateY(-48px) rotate(-${rotation}deg)">${number}</div>`;
+        return `<div class="clock-number" style="transform: rotate(${rotation}deg) translateY(-58px) rotate(-${rotation}deg)">${number}</div>`;
       }).join("");
       const drawHourRotation = ((question.drawHour || 12) % 12) * 30;
       const drawMinuteRotation = (question.drawMinute || 0) * 6;
+      const drawTimeLabel = formatClockTime(question.drawHour || 12, question.drawMinute || 0);
       const hands = question.clockTask === "draw"
         ? `
             <div class="clock-hand hour draggable" data-clock-hand="hour" style="transform: rotate(${drawHourRotation}deg)"></div>
@@ -2063,7 +2144,7 @@
             ${numbers}
             ${hands}
           </div>
-          <div class="clock-label">${question.clockTask === "draw" ? question.answer : "__ : __"}</div>
+          <div class="clock-label" ${question.clockTask === "draw" ? 'data-clock-display="draw"' : ""}>${question.clockTask === "draw" ? drawTimeLabel : "__ : __"}</div>
           ${question.clockTask === "draw" ? '<div class="clock-help">拖動短針同長針</div>' : ""}
         </div>
       `;
@@ -2122,6 +2203,7 @@
       const hour = Math.floor(Math.random() * 12) + 1;
       const minute = pick([0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]);
       const clockTask = Math.random() < 0.5 ? "draw" : "read";
+      const activity = pick(clockActivityTemplates);
 
       return {
         type: "clock",
@@ -2131,6 +2213,7 @@
         hour,
         minute,
         clockTask,
+        activity,
         answer: `${hour}:${String(minute).padStart(2, "0")}`
       };
     }
@@ -2409,6 +2492,10 @@
       return `${Number(match[1])}:${String(Number(match[2])).padStart(2, "0")}`;
     }
 
+    function formatClockTime(hour, minute) {
+      return `${hour || 12}:${String(minute || 0).padStart(2, "0")}`;
+    }
+
     function angleFromPointer(event, face) {
       const box = face.getBoundingClientRect();
       const centerX = box.left + box.width / 2;
@@ -2437,6 +2524,78 @@
         const hour = angle === 0 ? 12 : angle / 30;
         question.drawHour = hour;
       }
+
+      const display = card.querySelector("[data-clock-display]");
+      if (display) {
+        display.textContent = formatClockTime(question.drawHour || 12, question.drawMinute || 0);
+      }
+
+      checkDrawClockNow(card, question);
+    }
+
+    function checkDrawClockNow(card, question) {
+      if (question.type !== "clock" || question.clockTask !== "draw") {
+        return;
+      }
+
+      const feedback = card.querySelector(".feedback");
+      if (!feedback) {
+        return;
+      }
+
+      const isCorrect = question.drawHour === question.hour && question.drawMinute === question.minute;
+      feedback.classList.remove("good", "bad");
+      card.classList.toggle("done", isCorrect);
+      if (isCorrect) {
+        feedback.classList.add("good");
+        feedback.textContent = currentLanguage === "zh" ? "答啱喇，好叻！" : "Correct. Great job.";
+      } else {
+        feedback.textContent = "";
+      }
+    }
+
+    function checkBlendingNow(card) {
+      const question = currentQuestions.find((item) => item.id === Number(card.dataset.id));
+      if (!question || question.type !== "blending") {
+        return;
+      }
+
+      const input = card.querySelector(".answer");
+      const feedback = card.querySelector(".feedback");
+      const selectedPicture = card.querySelector(".blend-picture.selected");
+      const blendChoices = Array.from(card.querySelectorAll(".blend-choice"));
+      const pictureChoices = Array.from(card.querySelectorAll(".blend-picture"));
+      const value = input?.value.trim().toLowerCase() || "";
+      const pictureIsCorrect = selectedPicture?.dataset.blendPicture === question.word;
+      const wordIsCorrect = value === question.answer;
+
+      pictureChoices.forEach((choice) => choice.classList.remove("correct", "wrong"));
+      blendChoices.forEach((choice) => choice.classList.remove("correct", "wrong"));
+      input?.classList.remove("correct", "wrong");
+      feedback.classList.remove("good", "bad");
+      card.classList.toggle("done", pictureIsCorrect && wordIsCorrect);
+
+      if (pictureIsCorrect && wordIsCorrect) {
+        selectedPicture.classList.add("correct");
+        blendChoices
+          .filter((choice) => choice.dataset.blendChoice === question.answer)
+          .forEach((choice) => choice.classList.add("correct"));
+        input.classList.add("correct");
+        feedback.classList.add("good");
+        feedback.textContent = "Correct. Great blending!";
+      } else {
+        feedback.textContent = "";
+      }
+    }
+
+    function updateBlendPattern(card, value) {
+      const letters = String(value || "").trim().toLowerCase().slice(0, 2).split("");
+      card.querySelectorAll("[data-blend-slot]").forEach((slot, index) => {
+        const letter = letters[index] || "";
+        slot.textContent = letter;
+        slot.classList.toggle("blend-fill", Boolean(letter));
+        slot.classList.toggle("blend-blank", !letter);
+      });
     }
 
     function checkAnswers(showAnswers) {
@@ -2503,6 +2662,7 @@
               targetPicture.classList.add("selected", "correct");
             }
             input.value = question.answer;
+            updateBlendPattern(card, question.answer);
           }
 
           input.classList.remove("correct", "wrong");
@@ -2542,6 +2702,10 @@
             }
             if (minuteHand) {
               minuteHand.style.transform = `rotate(${targetMinute * 6}deg)`;
+            }
+            const display = card.querySelector("[data-clock-display]");
+            if (display) {
+              display.textContent = formatClockTime(targetHour, targetMinute);
             }
           }
 
@@ -2731,6 +2895,7 @@
           choice.classList.remove("selected", "correct", "wrong");
         });
         blendPicture.classList.add("selected");
+        checkBlendingNow(card);
         return;
       }
 
@@ -2742,7 +2907,9 @@
         blendChoice.classList.add("selected");
         if (input) {
           input.value = blendChoice.dataset.blendChoice;
+          updateBlendPattern(card, input.value);
         }
+        checkBlendingNow(card);
         return;
       }
 
@@ -2765,6 +2932,15 @@
     questionsEl.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         checkAnswers(false);
+      }
+    });
+
+    questionsEl.addEventListener("input", (event) => {
+      const input = event.target.closest(".answer");
+      const card = input?.closest(".card.blending");
+      if (card) {
+        updateBlendPattern(card, input.value);
+        checkBlendingNow(card);
       }
     });
 
