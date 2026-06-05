@@ -4664,6 +4664,62 @@
       return Math.max(0, 1 - averageDistance / 0.42);
     }
 
+    function getExpectedStrokeKind(strokeName) {
+      const name = String(strokeName || "");
+      if (name.includes("橫")) {
+        return "heng";
+      }
+      if (name.includes("豎")) {
+        return "shu";
+      }
+      if (name.includes("撇")) {
+        return "pie";
+      }
+      if (name.includes("捺")) {
+        return "na";
+      }
+      if (name.includes("點")) {
+        return "dian";
+      }
+      return "other";
+    }
+
+    function getUserStrokeKind(points) {
+      if (!Array.isArray(points) || points.length < 2) {
+        return "other";
+      }
+
+      const start = points[0];
+      const end = points[points.length - 1];
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const absDx = Math.abs(dx);
+      const absDy = Math.abs(dy);
+
+      if (absDx < 0.04 && absDy < 0.04) {
+        return "dian";
+      }
+      if (absDx >= absDy * 1.5) {
+        return "heng";
+      }
+      if (absDy >= absDx * 1.5) {
+        if (dx < -0.05) {
+          return "pie";
+        }
+        if (dx > 0.05) {
+          return "na";
+        }
+        return "shu";
+      }
+      if (dx < 0 && dy > 0) {
+        return "pie";
+      }
+      if (dx > 0 && dy > 0) {
+        return "na";
+      }
+      return absDy >= absDx ? "shu" : "heng";
+    }
+
     function getWritingTemplateStrokes(charData) {
       if (!charData?.medians?.length) {
         return [];
@@ -4839,16 +4895,25 @@
       const templateStrokes = getWritingTemplateStrokes(charData);
 
       let orderScore = 0;
-      if (templateStrokes.length) {
-        const compareCount = Math.min(normalizedUserStrokes.length, templateStrokes.length);
+      const compareCount = Math.min(normalizedUserStrokes.length, expectedStrokeCount);
+      if (compareCount > 0) {
         let orderTotal = 0;
         for (let index = 0; index < compareCount; index += 1) {
-          orderTotal += compareStrokeShapes(normalizedUserStrokes[index].points, templateStrokes[index]);
+          const expectedKind = getExpectedStrokeKind(question.strokes[index]);
+          const userKind = getUserStrokeKind(normalizedUserStrokes[index].points);
+          const kindScore = expectedKind === userKind
+            ? 1
+            : (expectedKind === "other" || userKind === "other")
+              ? 0.65
+              : 0.12;
+          const shapeScore = templateStrokes[index]
+            ? compareStrokeShapes(normalizedUserStrokes[index].points, templateStrokes[index])
+            : kindScore;
+          orderTotal += kindScore * 0.78 + shapeScore * 0.22;
         }
-        orderScore = compareCount ? (orderTotal / compareCount) * 100 : 0;
+        orderScore = (orderTotal / compareCount) * 100;
       } else {
-        const countGap = Math.abs(normalizedUserStrokes.length - expectedStrokeCount);
-        orderScore = Math.max(0, 100 - countGap * 18);
+        orderScore = 0;
       }
 
       const countGap = Math.abs(drawnStrokes.length - expectedStrokeCount);
