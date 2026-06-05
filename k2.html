@@ -798,7 +798,7 @@
       display: grid;
       grid-template-columns: 1fr;
       grid-template-areas:
-        "picture"
+        "header"
         "demos"
         "sentence"
         "practice";
@@ -807,8 +807,16 @@
       text-align: left;
     }
 
+    .writing-header {
+      grid-area: header;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
     .writing-picture {
-      grid-area: picture;
       width: 92px;
       height: 92px;
       display: grid;
@@ -818,6 +826,31 @@
       background: #fff;
       font-size: 2.9rem;
       margin: 0 auto;
+    }
+
+    .writing-fullword {
+      width: 108px;
+      height: 108px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #eadffd;
+      border-radius: 24px;
+      background: #fff;
+      color: #403764;
+      font-size: 4.15rem;
+      font-weight: 900;
+      line-height: 1;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .writing-fullword-char {
+      display: inline-block;
+      color: #4b4179;
+      font-size: 1em;
+      font-weight: 900;
+      line-height: 1;
+      transform: translateY(2px);
     }
 
     .writing-demos {
@@ -863,6 +896,10 @@
       font-size: 3.1rem;
       font-weight: 900;
       line-height: 1;
+    }
+
+    .writing-word[data-writing-play] {
+      cursor: pointer;
     }
 
     .writing-word-char {
@@ -930,11 +967,27 @@
       background: #fff7df;
       color: #403764;
       font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .stroke-step.active {
+      border-color: #8c74f3;
+      background: #fff1b8;
+      box-shadow: 0 4px 10px rgba(140, 116, 243, 0.18);
+      transform: translateY(-1px);
     }
 
     .stroke-step.empty {
       background: #f7f2ff;
       color: #9c94bc;
+      cursor: default;
+    }
+
+    .writing-word.playing-demo {
+      border-color: #8c74f3;
+      box-shadow: 0 8px 18px rgba(140, 116, 243, 0.18);
+      transform: translateY(-1px);
     }
 
     .writing-sentence {
@@ -1207,6 +1260,17 @@
 
     .feedback.bad {
       color: #b34a4a;
+    }
+
+    .feedback .writing-score-summary {
+      display: inline-block;
+      margin-bottom: 4px;
+      font-size: 1.02rem;
+      font-weight: 900;
+    }
+
+    .feedback .writing-score-detail {
+      display: block;
     }
 
     .empty {
@@ -1572,10 +1636,14 @@
       .writing-card {
         grid-template-columns: 1fr;
         grid-template-areas:
-          "picture"
+          "header"
           "demos"
           "sentence"
           "practice";
+        gap: 3mm;
+      }
+
+      .writing-header {
         gap: 3mm;
       }
 
@@ -1586,6 +1654,14 @@
         border-radius: 8px;
         font-size: 17pt;
         margin: 0 auto;
+      }
+
+      .writing-fullword {
+        width: 16mm;
+        height: 16mm;
+        border-width: 1px;
+        border-radius: 8px;
+        font-size: 21pt;
       }
 
       .writing-word {
@@ -1841,6 +1917,10 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
+      .writing-header {
+        gap: 12px;
+      }
+
       .writing-practice {
         justify-self: stretch;
       }
@@ -1903,6 +1983,10 @@
 
       .writing-demos {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .writing-header {
+        gap: 10px;
       }
 
       .writing-word {
@@ -1968,6 +2052,21 @@
         width: 100%;
         max-width: none;
         min-height: 240px;
+      }
+
+      .writing-header {
+        gap: 10px;
+      }
+
+      .writing-picture,
+      .writing-fullword {
+        width: 88px;
+        height: 88px;
+        border-radius: 20px;
+      }
+
+      .writing-fullword {
+        font-size: 3.35rem;
       }
 
       .writing-demos {
@@ -2766,6 +2865,84 @@
 
     const chineseWritingWords = [
       {
+        word: "一",
+        picture: "1️⃣",
+        strokes: ["橫"],
+        sentence: "一：Jadon 寫第一個字。"
+      },
+      {
+        word: "二",
+        picture: "2️⃣",
+        strokes: ["橫", "橫"],
+        sentence: "二：Gooby 數到二。"
+      },
+      {
+        word: "三",
+        picture: "3️⃣",
+        strokes: ["橫", "橫", "橫"],
+        sentence: "三：姐姐找到三粒糖。"
+      },
+      {
+        word: "四",
+        picture: "4️⃣",
+        strokes: ["豎", "橫折", "撇", "豎彎", "橫"],
+        sentence: "四：桌上有四枝筆。"
+      },
+      {
+        word: "五",
+        picture: "5️⃣",
+        strokes: ["橫", "豎", "橫折", "橫"],
+        sentence: "五：Jadon 數到五。"
+      },
+      {
+        word: "六",
+        picture: "6️⃣",
+        strokes: ["點", "橫", "撇", "點"],
+        sentence: "六：今天做了六題。"
+      },
+      {
+        word: "七",
+        picture: "7️⃣",
+        strokes: ["橫", "豎彎鉤"],
+        sentence: "七：Gooby 找到七塊餅。"
+      },
+      {
+        word: "八",
+        picture: "8️⃣",
+        strokes: ["撇", "捺"],
+        sentence: "八：Emily 數到八。"
+      },
+      {
+        word: "九",
+        picture: "9️⃣",
+        strokes: ["撇", "橫折彎鉤"],
+        sentence: "九：Karen 看見九朵花。"
+      },
+      {
+        word: "十",
+        picture: "🔟",
+        strokes: ["橫", "豎"],
+        sentence: "十：我們一起數到十。"
+      },
+      {
+        word: "上",
+        picture: "⬆️",
+        strokes: ["豎", "橫", "橫"],
+        sentence: "上：Spiderman 在上面。"
+      },
+      {
+        word: "下",
+        picture: "⬇️",
+        strokes: ["橫", "豎", "點"],
+        sentence: "下：Gooby 在桌子下面。"
+      },
+      {
+        word: "中",
+        picture: "🎯",
+        strokes: ["豎", "橫折", "橫", "豎", "橫"],
+        sentence: "中：Kelvin 把球放在中間。"
+      },
+      {
         word: "人",
         picture: "🧍",
         strokes: ["撇", "捺"],
@@ -2790,11 +2967,47 @@
         sentence: "月：月亮晚上出來。"
       },
       {
+        word: "目",
+        picture: "👁️",
+        strokes: ["豎", "橫折", "橫", "橫", "橫"],
+        sentence: "目：我們用眼目看圖畫。"
+      },
+      {
+        word: "耳",
+        picture: "👂",
+        strokes: ["橫", "豎", "豎", "橫", "橫", "橫"],
+        sentence: "耳：我們用耳朵聽老師說話。"
+      },
+      {
         word: "山",
         picture: "⛰️",
         pictureFile: "Gem",
         strokes: ["豎", "豎折", "豎"],
         sentence: "山：金字塔好像一座山。"
+      },
+      {
+        word: "川",
+        picture: "〰️",
+        strokes: ["撇", "豎", "豎"],
+        sentence: "川：小河像川字一樣流動。"
+      },
+      {
+        word: "土",
+        picture: "🟫",
+        strokes: ["橫", "豎", "橫"],
+        sentence: "土：花草生長在泥土裡。"
+      },
+      {
+        word: "田",
+        picture: "🌾",
+        strokes: ["豎", "橫折", "橫", "豎", "橫"],
+        sentence: "田：田裡有很多草。"
+      },
+      {
+        word: "石",
+        picture: "🪨",
+        strokes: ["橫", "撇", "豎", "橫折", "橫"],
+        sentence: "石：金字塔旁邊有石頭。"
       },
       {
         word: "水",
@@ -2803,11 +3016,23 @@
         sentence: "水：消防員用水救火。"
       },
       {
+        word: "雨",
+        picture: "🌧️",
+        strokes: ["橫", "點", "橫撇", "豎", "橫折鉤", "點", "點", "點"],
+        sentence: "雨：下雨時要帶傘。"
+      },
+      {
         word: "火",
         picture: "🔥",
         pictureFile: "fireman.jfif",
         strokes: ["點", "撇", "撇", "捺"],
         sentence: "火：消防員會小心救火。"
+      },
+      {
+        word: "門",
+        picture: "🚪",
+        strokes: ["點", "豎", "橫折鉤", "橫", "撇", "豎"],
+        sentence: "門：進門前要先敲門。"
       },
       {
         word: "車",
@@ -2831,6 +3056,85 @@
         sentence: "星：Jadon 答對一題，就收集一粒星星。"
       },
       {
+        word: "貝",
+        picture: "🐚",
+        strokes: ["豎", "橫折", "橫", "橫", "撇", "點"],
+        sentence: "貝：海邊有小小的貝殼。"
+      },
+      {
+        word: "木",
+        picture: "🪵",
+        strokes: ["橫", "豎", "撇", "捺"],
+        sentence: "木：木頭可以做桌子。"
+      },
+      {
+        word: "本",
+        picture: "📘",
+        strokes: ["橫", "豎", "撇", "捺", "橫"],
+        sentence: "本：Emily 拿著一本書。"
+      },
+      {
+        word: "林",
+        picture: "🌳",
+        strokes: ["橫", "豎", "撇", "捺", "橫", "豎", "撇", "捺"],
+        sentence: "林：樹林裡有很多動物。"
+      },
+      {
+        word: "森",
+        picture: "🌲",
+        strokes: ["橫", "豎", "撇", "捺", "橫", "豎", "撇", "捺", "橫", "豎", "撇", "捺"],
+        sentence: "森：森林裡有很多樹。"
+      },
+      {
+        word: "果",
+        picture: "🍎",
+        strokes: ["豎", "橫折", "橫", "橫", "橫", "豎", "撇", "捺"],
+        sentence: "果：水果很好吃。"
+      },
+      {
+        word: "花",
+        picture: "🌼",
+        strokes: ["橫", "豎", "豎", "撇", "豎", "撇", "豎彎鉤"],
+        sentence: "花：花園裡開了花。"
+      },
+      {
+        word: "草",
+        picture: "🌿",
+        pictureFile: "grass.jfif",
+        strokes: ["橫", "豎", "豎", "豎", "橫折", "橫", "橫", "橫", "豎"],
+        sentence: "草：Gooby 喜歡在草地跑。"
+      },
+      {
+        word: "牛",
+        picture: "🐮",
+        strokes: ["撇", "橫", "橫", "豎"],
+        sentence: "牛：牧場裡有一頭牛。"
+      },
+      {
+        word: "羊",
+        picture: "🐑",
+        strokes: ["點", "撇", "橫", "橫", "橫", "豎"],
+        sentence: "羊：小羊在草地上吃草。"
+      },
+      {
+        word: "鳥",
+        picture: "🐦",
+        strokes: ["撇", "橫折鉤", "點", "豎折折鉤", "橫", "點", "點"],
+        sentence: "鳥：小鳥站在樹上。"
+      },
+      {
+        word: "竹",
+        picture: "🎍",
+        strokes: ["撇", "橫", "豎", "撇", "橫", "豎"],
+        sentence: "竹：竹子長得高高的。"
+      },
+      {
+        word: "女",
+        picture: "👧",
+        strokes: ["撇點", "撇", "橫"],
+        sentence: "女：Gerlie 是一個女生。"
+      },
+      {
         word: "手",
         picture: "✋",
         strokes: ["撇", "橫", "橫", "彎鉤"],
@@ -2842,6 +3146,12 @@
         pictureFile: "elephant.jpg",
         strokes: ["橫", "撇", "捺"],
         sentence: "大：Ironman 有一個大任務。"
+      },
+      {
+        word: "小",
+        picture: "🤏",
+        strokes: ["豎鉤", "撇", "點"],
+        sentence: "小：Jadon 還是一個小朋友。"
       }
     ];
 
@@ -3161,7 +3471,7 @@
       return groups;
     }
 
-    function renderWritingGlyph(word, strokeNumbers = [], showComplete = false) {
+    function renderWritingGlyph(word, strokeNumbers = [], showComplete = false, showDirections = true) {
       const strokeText = strokeNumbers.join(",");
       return `
         <div
@@ -3169,6 +3479,7 @@
           data-writing-word="${word}"
           data-writing-strokes="${strokeText}"
           data-writing-complete="${showComplete ? "1" : "0"}"
+          data-writing-directions="${showDirections ? "1" : "0"}"
         >
           <span class="writing-word-char">${word}</span>
         </div>
@@ -3181,23 +3492,45 @@
       }
 
       const strokeGroups = buildChineseWritingGroups(question.strokes);
+      const allStrokeNumbers = question.strokes.map((_, index) => index + 1).join(",");
 
       return `
         <div class="writing-card">
-          <div class="writing-picture" aria-label="${question.word} picture">${pictureHtml(question, question.word)}</div>
+          <div class="writing-header">
+            <div class="writing-picture" aria-label="${question.word} picture">${pictureHtml(question, question.word)}</div>
+            <div class="writing-fullword" aria-label="${question.word} full character">
+              <span class="writing-fullword-char" aria-hidden="true">${question.word}</span>
+            </div>
+          </div>
           <div class="writing-demos">
-            ${strokeGroups.map((group) => `
+            ${strokeGroups.map((group, groupIndex) => `
               <div class="writing-demo">
                 <div class="writing-demo-label">${currentLanguage === "zh"
                   ? (group.length ? `第 ${group[0].number}-${group[group.length - 1].number} 筆` : "完成")
                   : (group.length ? `Strokes ${group[0].number}-${group[group.length - 1].number}` : "Finish")
                 }</div>
-                <div class="writing-word">
-                  ${renderWritingGlyph(question.word, group.map((stroke) => stroke.number), group.length === 0)}
+                <div
+                  class="writing-word"
+                  ${groupIndex === strokeGroups.length - 1 ? `data-writing-play data-writing-autoplay-target="1" data-writing-all-strokes="${allStrokeNumbers}"` : ""}
+                >
+                  ${renderWritingGlyph(
+                    question.word,
+                    group.length ? [group[0].number] : [],
+                    group.length === 0,
+                    true
+                  )}
                 </div>
                 <div class="writing-stage-steps">
                   ${group.length
-                    ? group.map((stroke) => `<span class="stroke-step">${stroke.number}. ${stroke.name}</span>`).join("")
+                    ? group.map((stroke, stepIndex) => `
+                      <button
+                        class="stroke-step ${stepIndex === 0 ? "active" : ""}"
+                        type="button"
+                        data-writing-step="${stroke.number}"
+                        data-writing-step-order="${stepIndex + 1}"
+                        data-writing-group="${group.map((item) => item.number).join(",")}"
+                      >${stroke.number}. ${stroke.name}</button>
+                    `).join("")
                     : `<span class="stroke-step empty">${currentLanguage === "zh" ? "完成跟寫" : "Trace and finish"}</span>`
                   }
                 </div>
@@ -3769,7 +4102,7 @@
       });
     }
 
-    function checkAnswers(showAnswers) {
+    async function checkAnswers(showAnswers) {
       if (!currentQuestions.length) {
         scoreText.textContent = textPack().scoreEmpty;
         scoreSubtext.textContent = textPack().scoreNeedGenerate;
@@ -3780,8 +4113,9 @@
       let correctCount = 0;
       let gradableCount = 0;
       let drawingCount = 0;
+      const writingScores = [];
 
-      cards.forEach((card, index) => {
+      for (const [index, card] of cards.entries()) {
         const input = card.querySelector(".answer");
         const feedback = card.querySelector(".feedback");
         const question = currentQuestions[index];
@@ -3815,7 +4149,7 @@
             feedback.classList.add("bad");
             feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry), question.answer);
           }
-          return;
+          continue;
         }
 
         if (question.type === "blending") {
@@ -3855,18 +4189,17 @@
             feedback.classList.add("bad");
             feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry));
           }
-          return;
+          continue;
         }
 
         if (question.type === "chineseWriting") {
           drawingCount += 1;
-          card.classList.add("done");
-          feedback.classList.remove("bad");
-          feedback.classList.add("good");
-          feedback.textContent = currentLanguage === "zh"
-            ? "跟住筆順慢慢寫，寫完就完成。"
-            : "Follow the stroke order and practise writing.";
-          return;
+          cancelWritingAutoCheck(card);
+          const writingScore = await scoreWritingCard(card, question);
+          if (writingScore.hasWriting) {
+            writingScores.push(writingScore.total);
+          }
+          continue;
         }
 
         if (!input && question.type === "clock" && question.clockTask === "draw") {
@@ -3951,14 +4284,39 @@
           feedback.classList.add("bad");
           feedback.textContent = textPack().wrongAnswer(pick(textPack().praiseTry), question.answer);
         }
-      });
+      }
 
-      scoreText.textContent = drawingCount > 0
-        ? currentLanguage === "zh"
-          ? `${correctCount} / ${gradableCount} 題答啱，另有 ${drawingCount} 題畫指針`
-          : `${correctCount} / ${gradableCount} correct, plus ${drawingCount} drawing question${drawingCount > 1 ? "s" : ""}`
-        : textPack().summaryLine(correctCount, currentQuestions.length);
-      if (gradableCount === 0) {
+      const averageWritingScore = writingScores.length
+        ? Math.round(writingScores.reduce((sum, value) => sum + value, 0) / writingScores.length)
+        : 0;
+
+      if (drawingCount > 0 && gradableCount > 0) {
+        scoreText.textContent = currentLanguage === "zh"
+          ? `${correctCount} / ${gradableCount} 題答啱・寫字平均 ${averageWritingScore} 分`
+          : `${correctCount} / ${gradableCount} correct · Writing average ${averageWritingScore}`;
+      } else if (drawingCount > 0) {
+        scoreText.textContent = currentLanguage === "zh"
+          ? `寫字平均 ${averageWritingScore} 分`
+          : `Writing average ${averageWritingScore}`;
+      } else if (correctCount === gradableCount) {
+        scoreText.textContent = textPack().summaryLine(correctCount, currentQuestions.length);
+      } else {
+        scoreText.textContent = textPack().summaryLine(correctCount, currentQuestions.length);
+      }
+
+      if (drawingCount > 0 && gradableCount === 0) {
+        scoreSubtext.textContent = currentLanguage === "zh"
+          ? averageWritingScore >= 85
+            ? "寫得好靚，筆順同位置都做得唔錯。"
+            : averageWritingScore >= 65
+              ? "好叻呀，再慢慢跟筆順，字會更穩陣。"
+              : "唔緊要，跟住上面筆順再寫一次。"
+          : averageWritingScore >= 85
+            ? "Great writing. Stroke order and position look strong."
+            : averageWritingScore >= 65
+              ? "Nice work. Follow the stroke order slowly for an even better shape."
+              : "Keep going. Try once more with the stroke guide above.";
+      } else if (gradableCount === 0) {
         scoreSubtext.textContent = currentLanguage === "zh"
           ? "完成後可以一齊對照時間檢查指針。"
           : "Check the clock hands together when finished.";
@@ -4021,7 +4379,7 @@
       return hanziCharacterCache.get(word);
     }
 
-    function buildWritingDemoSvg(charData, strokeNumbers, showComplete) {
+    function buildWritingDemoSvg(charData, strokeNumbers, showComplete, showDirections = true) {
       const svgSize = 100;
       const transformInfo = window.HanziWriter?.getScalingTransform
         ? window.HanziWriter.getScalingTransform(svgSize, svgSize, 8)
@@ -4037,12 +4395,514 @@
         const opacity = active ? "1" : "0.32";
         return `<path d="${path}" fill="${fill}" opacity="${opacity}"></path>`;
       }).join("");
+      const directionLines = (charData.medians || []).map((median, index) => {
+        const strokeNumber = index + 1;
+        const active = showComplete || highlighted.has(strokeNumber);
+        if (!active || !showDirections || !Array.isArray(median) || median.length < 2) {
+          return "";
+        }
+
+        const points = median.map((point) => `${point[0]},${point[1]}`).join(" ");
+        const startPoint = median[0];
+        const middleIndex = Math.max(0, Math.floor(median.length / 2) - 1);
+        const middlePoint = median[middleIndex] || median[0];
+        const nextPoint = median[Math.min(median.length - 1, middleIndex + 1)] || median[median.length - 1];
+        const angle = Math.atan2(nextPoint[1] - middlePoint[1], nextPoint[0] - middlePoint[0]) * 180 / Math.PI;
+        return `
+          <circle cx="${startPoint[0]}" cy="${startPoint[1]}" r="6.8" fill="#ffffff" opacity="0.98"></circle>
+          <circle cx="${startPoint[0]}" cy="${startPoint[1]}" r="5.2" fill="#ff2d2d" opacity="1"></circle>
+          <polyline points="${points}" fill="none" stroke="#ffffff" stroke-width="12.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"></polyline>
+          <polyline points="${points}" fill="none" stroke="#ff2d2d" stroke-width="8.4" stroke-linecap="round" stroke-linejoin="round" opacity="1"></polyline>
+          <path d="M-16,-10 L0,0 L-16,10 Q-10,0 -16,-10 Z" fill="#ff2d2d" opacity="1" transform="translate(${middlePoint[0]} ${middlePoint[1]}) rotate(${angle})"></path>
+        `;
+      }).join("");
 
       return `
         <svg class="writing-word-svg" viewBox="0 0 ${svgSize} ${svgSize}" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-          <g transform="${transform}">${paths}</g>
+          <g transform="${transform}">${paths}${directionLines}</g>
         </svg>
       `;
+    }
+
+    async function updateWritingGlyph(glyph) {
+      if (!glyph) {
+        return;
+      }
+
+      const word = glyph.dataset.writingWord;
+      const strokeNumbers = (glyph.dataset.writingStrokes || "")
+        .split(",")
+        .map((value) => Number(value))
+        .filter((value) => Number.isFinite(value) && value > 0);
+      const showComplete = glyph.dataset.writingComplete === "1";
+      const showDirections = glyph.dataset.writingDirections !== "0";
+      const charData = await getHanziCharacterData(word);
+      if (!charData) {
+        glyph.dataset.strokeReady = "1";
+        return;
+      }
+
+      glyph.innerHTML = buildWritingDemoSvg(charData, strokeNumbers, showComplete, showDirections);
+      glyph.dataset.strokeReady = "1";
+    }
+
+    function activateWritingStep(stepButton) {
+      const demo = stepButton?.closest(".writing-demo");
+      const glyph = demo?.querySelector(".writing-word-glyph");
+      if (!demo || !glyph) {
+        return;
+      }
+
+      const groupNumbers = String(stepButton.dataset.writingGroup || "")
+        .split(",")
+        .map((value) => Number(value))
+        .filter((value) => Number.isFinite(value) && value > 0);
+      const activeStep = Number(stepButton.dataset.writingStep);
+      const activeIndex = Math.max(0, groupNumbers.indexOf(activeStep));
+      const visibleNumbers = groupNumbers.slice(0, activeIndex + 1);
+
+      glyph.dataset.writingStrokes = visibleNumbers.join(",");
+      glyph.dataset.strokeReady = "0";
+      demo.querySelectorAll("[data-writing-step]").forEach((button, buttonIndex) => {
+        button.classList.toggle("active", buttonIndex <= activeIndex);
+      });
+      void updateWritingGlyph(glyph);
+    }
+
+    async function playWritingSteps(playTrigger) {
+      const card = playTrigger?.closest(".card");
+      const autoplayWord = card?.querySelector(".writing-word[data-writing-autoplay-target='1']");
+      const autoplayGlyph = autoplayWord?.querySelector(".writing-word-glyph");
+      const allStrokeNumbers = String(autoplayWord?.dataset.writingAllStrokes || "")
+        .split(",")
+        .map((value) => Number(value))
+        .filter((value) => Number.isFinite(value) && value > 0);
+      if (!card || card.dataset.writingPlaying === "1") {
+        return;
+      }
+
+      const steps = Array.from(card.querySelectorAll("[data-writing-step]"));
+      if (!steps.length || !autoplayWord || !autoplayGlyph || !allStrokeNumbers.length) {
+        return;
+      }
+
+      card.dataset.writingPlaying = "1";
+      autoplayWord.classList.add("playing-demo");
+
+      card.querySelectorAll(".writing-demo").forEach((demo) => {
+        const buttons = Array.from(demo.querySelectorAll("[data-writing-step]"));
+        const glyph = demo.querySelector(".writing-word-glyph");
+        if (!buttons.length || !glyph) {
+          return;
+        }
+
+        const firstStep = Number(buttons[0].dataset.writingStep);
+        glyph.dataset.writingStrokes = String(firstStep);
+        glyph.dataset.strokeReady = "0";
+        buttons.forEach((button, index) => button.classList.toggle("active", index === 0));
+        void updateWritingGlyph(glyph);
+      });
+
+      autoplayGlyph.dataset.writingStrokes = String(allStrokeNumbers[0]);
+      autoplayGlyph.dataset.strokeReady = "0";
+      await updateWritingGlyph(autoplayGlyph);
+
+      for (const strokeNumber of allStrokeNumbers) {
+        autoplayGlyph.dataset.writingStrokes = allStrokeNumbers
+          .filter((value) => value <= strokeNumber)
+          .join(",");
+        autoplayGlyph.dataset.strokeReady = "0";
+        await updateWritingGlyph(autoplayGlyph);
+        card.querySelectorAll("[data-writing-step]").forEach((button) => {
+          button.classList.toggle("active", Number(button.dataset.writingStep) === strokeNumber);
+        });
+        await new Promise((resolve) => window.setTimeout(resolve, 800));
+      }
+
+      card.dataset.writingPlaying = "0";
+      autoplayWord.classList.remove("playing-demo");
+    }
+
+    const writingCanvasState = new WeakMap();
+
+    function getWritingState(canvas) {
+      if (!canvas) {
+        return null;
+      }
+
+      if (!writingCanvasState.has(canvas)) {
+        writingCanvasState.set(canvas, {
+          strokes: [],
+          currentStroke: null
+        });
+      }
+
+      return writingCanvasState.get(canvas);
+    }
+
+    function clonePoints(points) {
+      return points.map((point) => ({ x: point.x, y: point.y }));
+    }
+
+    function flattenStrokePoints(strokes) {
+      return strokes.flatMap((stroke) => stroke.points || []);
+    }
+
+    function computeBounds(points) {
+      if (!points.length) {
+        return null;
+      }
+
+      let minX = points[0].x;
+      let maxX = points[0].x;
+      let minY = points[0].y;
+      let maxY = points[0].y;
+
+      points.forEach((point) => {
+        minX = Math.min(minX, point.x);
+        maxX = Math.max(maxX, point.x);
+        minY = Math.min(minY, point.y);
+        maxY = Math.max(maxY, point.y);
+      });
+
+      return {
+        minX,
+        maxX,
+        minY,
+        maxY,
+        width: Math.max(maxX - minX, 0.0001),
+        height: Math.max(maxY - minY, 0.0001),
+        centerX: (minX + maxX) / 2,
+        centerY: (minY + maxY) / 2
+      };
+    }
+
+    function normalizeStrokePoints(points, bounds) {
+      const scale = Math.max(bounds?.width || 1, bounds?.height || 1, 0.0001);
+      const offsetX = ((bounds?.width || 0) / scale - 1) / 2;
+      const offsetY = ((bounds?.height || 0) / scale - 1) / 2;
+
+      return points.map((point) => ({
+        x: (point.x - bounds.minX) / scale - offsetX,
+        y: (point.y - bounds.minY) / scale - offsetY
+      }));
+    }
+
+    function pathLength(points) {
+      let total = 0;
+      for (let index = 1; index < points.length; index += 1) {
+        total += Math.hypot(points[index].x - points[index - 1].x, points[index].y - points[index - 1].y);
+      }
+      return total;
+    }
+
+    function resampleStroke(points, sampleCount = 18) {
+      if (!points.length) {
+        return [];
+      }
+
+      if (points.length === 1) {
+        return Array.from({ length: sampleCount }, () => ({ ...points[0] }));
+      }
+
+      const total = pathLength(points);
+      if (!total) {
+        return Array.from({ length: sampleCount }, () => ({ ...points[0] }));
+      }
+
+      const cumulative = [0];
+      for (let index = 1; index < points.length; index += 1) {
+        cumulative.push(cumulative[index - 1] + Math.hypot(points[index].x - points[index - 1].x, points[index].y - points[index - 1].y));
+      }
+
+      const step = total / (sampleCount - 1);
+      const samples = [];
+
+      for (let sampleIndex = 0; sampleIndex < sampleCount; sampleIndex += 1) {
+        const target = sampleIndex * step;
+        let pointIndex = cumulative.findIndex((value) => value >= target);
+        if (pointIndex <= 0) {
+          samples.push({ ...points[0] });
+          continue;
+        }
+
+        if (pointIndex === -1) {
+          samples.push({ ...points[points.length - 1] });
+          continue;
+        }
+
+        const previousDistance = cumulative[pointIndex - 1];
+        const nextDistance = cumulative[pointIndex];
+        const segmentSpan = Math.max(nextDistance - previousDistance, 0.0001);
+        const ratio = (target - previousDistance) / segmentSpan;
+        const previousPoint = points[pointIndex - 1];
+        const nextPoint = points[pointIndex];
+        samples.push({
+          x: previousPoint.x + (nextPoint.x - previousPoint.x) * ratio,
+          y: previousPoint.y + (nextPoint.y - previousPoint.y) * ratio
+        });
+      }
+
+      return samples;
+    }
+
+    function compareStrokeShapes(userStroke, templateStroke) {
+      const sampleCount = 18;
+      const userSamples = resampleStroke(userStroke, sampleCount);
+      const templateSamples = resampleStroke(templateStroke, sampleCount);
+
+      if (!userSamples.length || !templateSamples.length) {
+        return 0;
+      }
+
+      let totalDistance = 0;
+      for (let index = 0; index < sampleCount; index += 1) {
+        totalDistance += Math.hypot(userSamples[index].x - templateSamples[index].x, userSamples[index].y - templateSamples[index].y);
+      }
+
+      const averageDistance = totalDistance / sampleCount;
+      return Math.max(0, 1 - averageDistance / 0.42);
+    }
+
+    function getWritingTemplateStrokes(charData) {
+      if (!charData?.medians?.length) {
+        return [];
+      }
+
+      const templatePoints = charData.medians.flatMap((median) => (median || []).map((point) => ({
+        x: point[0],
+        y: point[1]
+      })));
+      const templateBounds = computeBounds(templatePoints);
+      if (!templateBounds) {
+        return [];
+      }
+
+      return charData.medians.map((median) => normalizeStrokePoints((median || []).map((point) => ({
+        x: point[0],
+        y: point[1]
+      })), templateBounds));
+    }
+
+    function getWritingCanvasStrokes(canvas) {
+      const state = getWritingState(canvas);
+      return state?.strokes || [];
+    }
+
+    function scoreWritingAspect(kind, value) {
+      const zh = {
+        order: ["跟得好準", "大致啱", "次序有少少亂", "筆順未跟到"],
+        size: ["大小適中", "差唔多", "可再寫穩少少", "太大或太細"],
+        position: ["位置非常好", "位置唔錯", "可再放中間啲", "位置偏咗"],
+        count: ["筆劃數正確", "差一點點", "筆劃數唔穩", "筆劃數唔啱"]
+      };
+      const en = {
+        order: ["Stroke order is strong", "Mostly right", "Order is a little mixed", "Stroke order is off"],
+        size: ["Size is just right", "Almost right", "Needs steadier size", "Too big or too small"],
+        position: ["Position is very good", "Position looks good", "Try placing it more in the middle", "Position is off"],
+        count: ["Stroke count is right", "Very close", "Stroke count is not stable", "Stroke count is wrong"]
+      };
+      const pack = currentLanguage === "zh" ? zh : en;
+      const labels = pack[kind] || pack.order;
+      if (value >= 88) {
+        return labels[0];
+      }
+      if (value >= 72) {
+        return labels[1];
+      }
+      if (value >= 55) {
+        return labels[2];
+      }
+      return labels[3];
+    }
+
+    function scoreWritingStars(value) {
+      if (value >= 90) {
+        return "🌟🌟🌟🌟🌟";
+      }
+      if (value >= 78) {
+        return "🌟🌟🌟🌟";
+      }
+      if (value >= 62) {
+        return "🌟🌟🌟";
+      }
+      if (value >= 46) {
+        return "🌟🌟";
+      }
+      return "🌟";
+    }
+
+    function buildWritingFeedbackHtml(score) {
+      if (!score.hasWriting) {
+        return currentLanguage === "zh"
+          ? "未開始寫字呀，先喺下面大格寫一次。"
+          : "Not written yet. Try writing once in the big box first.";
+      }
+
+      const summary = currentLanguage === "zh"
+        ? `寫字評分 ${score.total} 分 ${scoreWritingStars(score.total)}`
+        : `Writing score ${score.total} ${scoreWritingStars(score.total)}`;
+      const orderLabel = currentLanguage === "zh" ? "筆順" : "Stroke order";
+      const sizeLabel = currentLanguage === "zh" ? "大小" : "Size";
+      const positionLabel = currentLanguage === "zh" ? "位置" : "Position";
+      const countLabel = currentLanguage === "zh" ? "筆劃數" : "Stroke count";
+
+      return `
+        <span class="writing-score-summary">${summary}</span>
+        <span class="writing-score-detail">${orderLabel}：${scoreWritingAspect("order", score.order)}</span>
+        <span class="writing-score-detail">${sizeLabel}：${scoreWritingAspect("size", score.size)}</span>
+        <span class="writing-score-detail">${positionLabel}：${scoreWritingAspect("position", score.position)}</span>
+        <span class="writing-score-detail">${countLabel}：${scoreWritingAspect("count", score.count)}</span>
+      `;
+    }
+
+    const writingAutoCheckTimers = new WeakMap();
+
+    async function scoreWritingCard(card, question) {
+      const feedback = card?.querySelector(".feedback");
+      const canvas = card?.querySelector(".writing-canvas");
+      if (!feedback || !canvas) {
+        return {
+          hasWriting: false,
+          total: 0,
+          order: 0,
+          size: 0,
+          position: 0,
+          count: 0
+        };
+      }
+
+      const writingScore = await evaluateWritingQuestion(question, canvas);
+      feedback.classList.remove("good", "bad");
+      feedback.innerHTML = buildWritingFeedbackHtml(writingScore);
+
+      if (writingScore.hasWriting) {
+        card.classList.add("done");
+        feedback.classList.add(
+          writingScore.total >= 68 && writingScore.order >= 60 && writingScore.count >= 60
+            ? "good"
+            : "bad"
+        );
+      } else {
+        card.classList.remove("done");
+        feedback.classList.add("bad");
+      }
+
+      return writingScore;
+    }
+
+    function cancelWritingAutoCheck(card) {
+      const timer = writingAutoCheckTimers.get(card);
+      if (timer) {
+        window.clearTimeout(timer);
+        writingAutoCheckTimers.delete(card);
+      }
+    }
+
+    function scheduleWritingAutoCheck(card) {
+      const question = currentQuestions.find((item) => item.id === Number(card?.dataset.id));
+      if (!card || !question || question.type !== "chineseWriting") {
+        return;
+      }
+
+      cancelWritingAutoCheck(card);
+      const timer = window.setTimeout(() => {
+        writingAutoCheckTimers.delete(card);
+        void scoreWritingCard(card, question);
+      }, 5000);
+      writingAutoCheckTimers.set(card, timer);
+    }
+
+    async function evaluateWritingQuestion(question, canvas) {
+      const drawnStrokes = getWritingCanvasStrokes(canvas)
+        .filter((stroke) => Array.isArray(stroke.points) && stroke.points.length >= 2);
+      const allPoints = flattenStrokePoints(drawnStrokes);
+      const drawingBounds = computeBounds(allPoints);
+      const expectedStrokeCount = question.strokes.length;
+
+      if (!drawnStrokes.length || !drawingBounds) {
+        return {
+          hasWriting: false,
+          total: 0,
+          order: 0,
+          size: 0,
+          position: 0,
+          count: 0
+        };
+      }
+
+      const normalizedUserStrokes = drawnStrokes.map((stroke) => ({
+        points: normalizeStrokePoints(stroke.points, drawingBounds)
+      }));
+
+      const charData = await getHanziCharacterData(question.word);
+      const templateStrokes = getWritingTemplateStrokes(charData);
+
+      let orderScore = 0;
+      if (templateStrokes.length) {
+        const compareCount = Math.min(normalizedUserStrokes.length, templateStrokes.length);
+        let orderTotal = 0;
+        for (let index = 0; index < compareCount; index += 1) {
+          orderTotal += compareStrokeShapes(normalizedUserStrokes[index].points, templateStrokes[index]);
+        }
+        orderScore = compareCount ? (orderTotal / compareCount) * 100 : 0;
+      } else {
+        const countGap = Math.abs(normalizedUserStrokes.length - expectedStrokeCount);
+        orderScore = Math.max(0, 100 - countGap * 18);
+      }
+
+      const countGap = Math.abs(drawnStrokes.length - expectedStrokeCount);
+      const countScore = countGap === 0 ? 100 : countGap === 1 ? 55 : 20;
+      if (countGap >= 1) {
+        orderScore *= 0.82;
+      }
+
+      const widthRatio = drawingBounds.width;
+      const heightRatio = drawingBounds.height;
+      const areaRatio = widthRatio * heightRatio;
+      const idealWidth = 0.6;
+      const idealHeight = 0.6;
+      const widthFit = Math.max(0, 1 - Math.abs(widthRatio - idealWidth) / 0.22);
+      const heightFit = Math.max(0, 1 - Math.abs(heightRatio - idealHeight) / 0.22);
+      const areaFit = Math.max(0, 1 - Math.abs(areaRatio - 0.34) / 0.2);
+      let sizeScore = Math.round((widthFit * 0.35 + heightFit * 0.35 + areaFit * 0.3) * 100);
+      if (widthRatio < 0.3 || heightRatio < 0.3 || areaRatio < 0.14) {
+        sizeScore = Math.min(sizeScore, 42);
+      }
+
+      const centerDistance = Math.hypot(drawingBounds.centerX - 0.5, drawingBounds.centerY - 0.5);
+      let positionScore = Math.round(Math.max(0, 1 - centerDistance / 0.2) * 100);
+      if (Math.abs(drawingBounds.centerX - 0.5) > 0.16 || Math.abs(drawingBounds.centerY - 0.5) > 0.16) {
+        positionScore = Math.min(positionScore, 45);
+      }
+
+      let total = Math.round(
+        orderScore * 0.42
+        + countScore * 0.2
+        + sizeScore * 0.23
+        + positionScore * 0.15
+      );
+
+      if (orderScore < 45) {
+        total = Math.min(total, 49);
+      } else if (orderScore < 60) {
+        total = Math.min(total, 64);
+      }
+      if (sizeScore < 45) {
+        total = Math.min(total, 58);
+      }
+      if (positionScore < 45) {
+        total = Math.min(total, 58);
+      }
+
+      return {
+        hasWriting: true,
+        total,
+        order: Math.round(orderScore),
+        size: sizeScore,
+        position: positionScore,
+        count: Math.round(countScore)
+      };
     }
 
     function setupWritingStrokeDemos() {
@@ -4050,27 +4910,19 @@
         if (glyph.dataset.strokeReady === "1") {
           return;
         }
-
-        const word = glyph.dataset.writingWord;
-        const strokeNumbers = (glyph.dataset.writingStrokes || "")
-          .split(",")
-          .map((value) => Number(value))
-          .filter((value) => Number.isFinite(value) && value > 0);
-        const showComplete = glyph.dataset.writingComplete === "1";
-        const charData = await getHanziCharacterData(word);
-        if (!charData) {
-          glyph.dataset.strokeReady = "1";
-          return;
-        }
-
-        glyph.innerHTML = buildWritingDemoSvg(charData, strokeNumbers, showComplete);
-        glyph.dataset.strokeReady = "1";
+        await updateWritingGlyph(glyph);
       });
     }
 
     function clearWritingCanvas(canvas) {
       if (!canvas) {
         return;
+      }
+
+      const state = getWritingState(canvas);
+      if (state) {
+        state.strokes = [];
+        state.currentStroke = null;
       }
 
       const context = canvas.getContext("2d");
@@ -4119,9 +4971,11 @@
 
         canvas.dataset.ready = "1";
         resizeWritingCanvas(canvas);
+        const card = canvas.closest(".card");
 
         let drawing = false;
         let activePointerId = null;
+        const state = getWritingState(canvas);
 
         const getLocalPoint = (event) => {
           const rect = canvas.getBoundingClientRect();
@@ -4142,18 +4996,24 @@
             context.beginPath();
             context.moveTo(point.x, point.y);
             drawing = true;
+            state.currentStroke = [{
+              x: point.x / point.rect.width,
+              y: point.y / point.rect.height
+            }];
             return;
           }
 
           context.lineTo(point.x, point.y);
           context.stroke();
+          state.currentStroke?.push({
+            x: point.x / point.rect.width,
+            y: point.y / point.rect.height
+          });
         };
 
         canvas.addEventListener("pointerdown", (event) => {
-          if (event.pointerType === "mouse") {
-            return;
-          }
           event.preventDefault();
+          cancelWritingAutoCheck(card);
           activePointerId = event.pointerId;
           drawing = false;
           drawPoint(event);
@@ -4175,13 +5035,21 @@
           if (event.pointerId !== activePointerId) {
             return;
           }
+          if (state.currentStroke?.length) {
+            state.strokes.push({
+              points: clonePoints(state.currentStroke)
+            });
+          }
+          state.currentStroke = null;
           drawing = false;
           activePointerId = null;
+          scheduleWritingAutoCheck(card);
         };
 
         canvas.addEventListener("pointerup", finishDrawing);
         canvas.addEventListener("pointercancel", finishDrawing);
         canvas.addEventListener("pointerleave", () => {
+          state.currentStroke = null;
           drawing = false;
           activePointerId = null;
         });
@@ -4209,8 +5077,8 @@
     });
 
     document.getElementById("generateBtn").addEventListener("click", generateQuestions);
-    document.getElementById("checkBtn").addEventListener("click", () => checkAnswers(false));
-    document.getElementById("showBtn").addEventListener("click", () => checkAnswers(true));
+    document.getElementById("checkBtn").addEventListener("click", () => { void checkAnswers(false); });
+    document.getElementById("showBtn").addEventListener("click", () => { void checkAnswers(true); });
     document.getElementById("printBtn").addEventListener("click", () => printWorksheet("a4", 10));
     document.getElementById("printA3Btn").addEventListener("click", () => printWorksheet("a3", 20));
     document.getElementById("printCurrentBtn").addEventListener("click", () => printWorksheet("current", Number(countSelect.value)));
@@ -4303,10 +5171,29 @@
         return;
       }
 
+      const writingStep = event.target.closest("[data-writing-step]");
+      if (writingStep) {
+        activateWritingStep(writingStep);
+        return;
+      }
+
+      const writingPlay = event.target.closest("[data-writing-play]");
+      if (writingPlay) {
+        void playWritingSteps(writingPlay);
+        return;
+      }
+
       const clearWriting = event.target.closest("[data-clear-writing]");
       if (clearWriting) {
         const card = clearWriting.closest(".card");
+        cancelWritingAutoCheck(card);
         clearWritingCanvas(card?.querySelector(".writing-canvas"));
+        const feedback = card?.querySelector(".feedback");
+        if (feedback) {
+          feedback.classList.remove("good", "bad");
+          feedback.textContent = "";
+        }
+        card?.classList.remove("done");
         return;
       }
 
@@ -4319,7 +5206,7 @@
 
     questionsEl.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
-        checkAnswers(false);
+        void checkAnswers(false);
       }
     });
 
