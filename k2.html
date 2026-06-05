@@ -414,8 +414,8 @@
       background: #fff;
       border: var(--dash);
       border-radius: 22px;
-      padding: 14px;
-      min-height: 280px;
+      padding: 18px;
+      min-height: 300px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -530,7 +530,7 @@
       background: #fcfbff;
       border: 2px solid #e0d8ff;
       border-radius: 18px;
-      padding: 16px 14px;
+      padding: 20px 16px;
       text-align: center;
     }
 
@@ -583,6 +583,30 @@
       line-height: 1;
     }
 
+    .pic-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .theme-mark .pic-img,
+    .visual-icon .pic-img {
+      width: 1.25em;
+      height: 1.25em;
+    }
+
+    .blend-picture .pic-img {
+      width: 92px;
+      height: 72px;
+      margin: 0 auto;
+    }
+
+    .writing-picture .pic-img {
+      width: 82px;
+      height: 82px;
+    }
+
     .visual-operator,
     .visual-equals {
       align-self: center;
@@ -619,13 +643,13 @@
     }
 
     .shape-choice {
-      min-width: 58px;
-      min-height: 48px;
+      min-width: 70px;
+      min-height: 58px;
       border: 3px solid #d9cffd;
       border-radius: 16px;
       background: #fff;
       color: #574a8f;
-      font-size: 1.65rem;
+      font-size: 1.85rem;
       line-height: 1;
     }
 
@@ -653,29 +677,30 @@
 
     .card.blending .equation-box {
       display: grid;
-      grid-template-columns: minmax(210px, 1.25fr) minmax(150px, 0.85fr);
-      grid-template-rows: auto auto;
-      align-items: end;
-      gap: 10px 14px;
-      text-align: left;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
     }
 
     .card.blending .blend-pictures {
       grid-column: 1;
       grid-row: 1;
-      grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+      gap: 12px;
       margin-bottom: 0;
     }
 
     .blend-picture {
-      min-height: 76px;
+      min-height: 102px;
       display: grid;
       place-items: center;
       border: 2px solid #eadffd;
       border-radius: 18px;
       background: linear-gradient(180deg, #fff, #f8f4ff);
       cursor: pointer;
-      font-size: 2.15rem;
+      font-size: 2.5rem;
       box-shadow: none;
     }
 
@@ -704,21 +729,22 @@
     }
 
     .card.blending .blend-bank {
-      grid-column: 2;
-      grid-row: 1;
-      justify-content: flex-end;
+      grid-column: 1;
+      grid-row: 2;
+      justify-content: center;
       align-content: center;
       margin-bottom: 0;
     }
 
     .blend-choice {
-      min-height: 39px;
+      min-height: 54px;
+      min-width: 62px;
       border: 2px solid #eadffd;
       border-radius: 14px;
       background: #fff;
       padding: 6px 12px;
       color: #403764;
-      font-size: 1.15rem;
+      font-size: 1.36rem;
       font-weight: 900;
       box-shadow: none;
     }
@@ -745,7 +771,7 @@
 
     .card.blending .equation {
       grid-column: 1 / -1;
-      grid-row: 2;
+      grid-row: 3;
       width: 100%;
     }
 
@@ -770,55 +796,122 @@
 
     .writing-card {
       display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 14px;
-      align-items: center;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "picture"
+        "demos"
+        "sentence"
+        "practice";
+      gap: 12px;
+      align-items: start;
       text-align: left;
     }
 
     .writing-picture {
-      width: 106px;
-      height: 106px;
+      grid-area: picture;
+      width: 92px;
+      height: 92px;
       display: grid;
       place-items: center;
       border: 2px solid #eadffd;
       border-radius: 24px;
       background: #fff;
-      font-size: 3.4rem;
+      font-size: 2.9rem;
+      margin: 0 auto;
     }
 
-    .writing-main {
+    .writing-demos {
+      grid-area: demos;
       display: grid;
-      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      min-width: 0;
     }
 
-    .writing-word-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+    .writing-demo {
+      display: grid;
+      grid-template-rows: auto auto auto;
+      gap: 6px;
+      padding: 8px;
+      border: 2px solid #eadffd;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff, #fffaf6);
+      min-width: 0;
+    }
+
+    .writing-demo-label {
+      text-align: center;
+      color: #6e639c;
+      font-size: 0.92rem;
+      font-weight: 900;
     }
 
     .writing-word {
-      min-width: 92px;
-      min-height: 92px;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      min-height: 90px;
       display: grid;
       place-items: center;
       border: 3px solid #d9cffd;
-      border-radius: 22px;
+      border-radius: 16px;
       background:
         linear-gradient(90deg, transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
         linear-gradient(transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
         #fff;
       color: #403764;
-      font-size: 3.8rem;
+      font-size: 3.1rem;
       font-weight: 900;
       line-height: 1;
     }
 
-    .stroke-order {
+    .writing-word-char {
+      position: relative;
+      z-index: 1;
+    }
+
+    .writing-word-glyph {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+
+    .writing-word-ghost {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #d8d1f3;
+      font-size: 3.1rem;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0.38;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .writing-word-svg {
+      position: relative;
+      width: 76%;
+      height: 76%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .writing-word-svg path {
+      fill: none;
+      stroke: #4b4179;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .writing-stage-steps {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
+      justify-content: center;
       gap: 7px;
       flex-wrap: wrap;
       color: #6e639c;
@@ -839,7 +932,13 @@
       font-size: 1rem;
     }
 
+    .stroke-step.empty {
+      background: #f7f2ff;
+      color: #9c94bc;
+    }
+
     .writing-sentence {
+      grid-area: sentence;
       margin: 0;
       color: var(--ink);
       font-size: 1.02rem;
@@ -848,21 +947,46 @@
     }
 
     .writing-practice {
+      grid-area: practice;
       grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(70px, 1fr));
-      gap: 10px;
-      margin-top: 8px;
+      display: block;
+      margin-top: 4px;
+      justify-self: stretch;
     }
 
     .writing-box {
-      min-height: 76px;
-      border: 2px solid #d9cffd;
-      border-radius: 16px;
+      position: relative;
+      min-height: 220px;
+      width: 100%;
+      max-width: none;
+      border: 3px solid #d9cffd;
+      border-radius: 20px;
+      overflow: hidden;
       background:
         linear-gradient(90deg, transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
         linear-gradient(transparent calc(50% - 1px), #eee6ff calc(50% - 1px), #eee6ff calc(50% + 1px), transparent calc(50% + 1px)),
         #fff;
+    }
+
+    .writing-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+      cursor: crosshair;
+    }
+
+    .writing-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .writing-clear {
+      min-height: 46px;
+      padding: 10px 18px;
+      font-size: 0.98rem;
     }
 
     .clock-wrap {
@@ -871,15 +995,21 @@
       justify-content: center;
       align-items: center;
       gap: 24px;
+      min-width: 0;
     }
 
     .clock-face {
       position: relative;
       width: 156px;
       height: 156px;
+      min-width: 156px;
+      min-height: 156px;
+      aspect-ratio: 1 / 1;
+      flex: 0 0 156px;
       border-radius: 50%;
       background: #fff;
       border: 4px solid #d9cffd;
+      overflow: hidden;
       box-shadow: inset 0 0 0 6px #f7f2ff;
     }
 
@@ -1009,16 +1139,17 @@
 
     .input-row {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
-      margin-top: 14px;
+      margin-top: 16px;
       flex-wrap: wrap;
     }
 
     .answer {
       flex: 1;
       min-width: 140px;
-      font-size: 1.3rem;
+      min-height: 58px;
+      font-size: 1.42rem;
       text-align: center;
       border-width: 3px;
     }
@@ -1235,7 +1366,8 @@
 
       .input-row,
       .story,
-      .feedback {
+      .feedback,
+      .writing-actions {
         display: none !important;
       }
 
@@ -1282,6 +1414,16 @@
         font-size: 9pt;
       }
 
+      .blend-picture .pic-img {
+        width: 12mm;
+        height: 10mm;
+      }
+
+      .writing-picture .pic-img {
+        width: 15mm;
+        height: 15mm;
+      }
+
       .visual-operator,
       .visual-equals {
         font-size: 12pt;
@@ -1310,6 +1452,9 @@
       .clock-face {
         width: 25mm;
         height: 25mm;
+        min-width: 25mm;
+        min-height: 25mm;
+        flex-basis: 25mm;
         border-width: 2px;
         box-shadow: inset 0 0 0 3px #f7f2ff;
       }
@@ -1375,9 +1520,9 @@
       }
 
       .card.blending .equation-box {
-        grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+        grid-template-columns: 1fr;
         gap: 4px 5px;
-        text-align: left;
+        text-align: center;
       }
 
       .card.blending .blend-pictures {
@@ -1399,7 +1544,7 @@
       }
 
       .card.blending .blend-bank {
-        justify-content: flex-end;
+        justify-content: center;
         margin-bottom: 0;
       }
 
@@ -1425,31 +1570,44 @@
       }
 
       .writing-card {
-        grid-template-columns: 21mm 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "picture"
+          "demos"
+          "sentence"
+          "practice";
         gap: 3mm;
       }
 
       .writing-picture {
-        width: 19mm;
-        height: 19mm;
+        width: 16mm;
+        height: 16mm;
         border-width: 1px;
         border-radius: 8px;
         font-size: 17pt;
-      }
-
-      .writing-main {
-        gap: 2mm;
+        margin: 0 auto;
       }
 
       .writing-word {
-        min-width: 18mm;
         min-height: 18mm;
         border-width: 1px;
         border-radius: 7px;
-        font-size: 24pt;
+        font-size: 18pt;
       }
 
-      .stroke-order {
+      .writing-demos {
+        gap: 2mm;
+      }
+
+      .writing-demo {
+        gap: 1.5mm;
+        padding: 1.5mm;
+        border-width: 1px;
+        border-radius: 7px;
+      }
+
+      .writing-demo-label,
+      .writing-stage-steps {
         gap: 2mm;
         font-size: 8pt;
       }
@@ -1467,15 +1625,22 @@
       }
 
       .writing-practice {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 2mm;
+        display: block;
         margin-top: 1mm;
       }
 
       .writing-box {
-        min-height: 14mm;
+        min-height: 34mm;
+        width: 100%;
+        max-width: none;
         border-width: 1px;
         border-radius: 6px;
+      }
+
+      .writing-clear {
+        min-height: 8mm;
+        font-size: 8.5pt;
+        padding: 2mm 4mm;
       }
 
       body.print-a3 .questions {
@@ -1525,7 +1690,12 @@
       }
     }
 
-    @media (max-width: 980px) {
+    @media screen and (max-width: 980px) {
+      body {
+        padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+        -webkit-text-size-adjust: 100%;
+      }
+
       .control-panel-top {
         grid-template-columns: 1fr;
       }
@@ -1535,24 +1705,98 @@
       }
 
       .controls,
-      .name-fields,
-      .questions {
+      .name-fields {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .questions {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
       .sheet {
-        width: min(100%, 920px);
+        width: 100%;
+        max-width: 940px;
+        padding: 16px;
+        border-radius: 24px;
+      }
+
+      .card {
+        padding: 20px;
+        min-height: 340px;
+      }
+
+      .card h3 {
+        font-size: 1.25rem;
+        line-height: 1.55;
+      }
+
+      .story {
+        font-size: 1.02rem;
+      }
+
+      .equation-box {
+        padding: 22px 18px;
       }
 
       .button-row button,
+      button,
       select,
       .name-input,
       .answer {
-        min-height: 54px;
+        min-height: 64px;
+        font-size: 1.1rem;
+        touch-action: manipulation;
+      }
+
+      .answer {
+        font-size: 1.5rem;
+      }
+
+      .button-row {
+        gap: 12px;
+      }
+
+      .button-row button {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .input-row {
+        gap: 12px;
+      }
+
+      .tiny {
+        min-width: 116px;
+        min-height: 58px;
       }
 
       .clock-wrap {
         gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .clock-face {
+        width: 176px;
+        height: 176px;
+        min-width: 176px;
+        min-height: 176px;
+        flex-basis: 176px;
+      }
+
+      .clock-number {
+        transform-origin: center;
+      }
+
+      .clock-hand.hour::after,
+      .clock-hand.minute::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -12px;
+        width: 48px;
+        height: calc(100% + 24px);
+        transform: translateX(-50%);
       }
 
       .card.blending .equation-box {
@@ -1583,28 +1827,106 @@
         justify-content: center;
       }
 
-      .writing-card {
+      .blend-picture {
+        min-height: 112px;
+      }
+
+      .blend-choice,
+      .shape-choice {
+        min-height: 60px;
+        min-width: 66px;
+      }
+
+      .writing-demos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .writing-practice {
+        justify-self: stretch;
+      }
+
+      .writing-box {
+        width: 100%;
+        max-width: none;
+        min-height: 260px;
+      }
+    }
+
+    @media screen and (min-width: 981px) and (max-width: 1180px) {
+      .sheet {
+        width: calc(100vw - 28px);
+        padding: 16px;
+      }
+
+      .controls {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .questions {
+        gap: 12px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .card h3 {
+        font-size: 1.08rem;
+      }
+
+      .story {
+        font-size: 0.94rem;
+      }
+
+      .button-row button,
+      select,
+      .name-input,
+      .answer {
+        min-height: 52px;
+      }
+
+      .card.blending .equation-box {
         grid-template-columns: 1fr;
         text-align: center;
       }
 
-      .writing-picture {
-        margin: 0 auto;
+      .card.blending .blend-pictures,
+      .card.blending .blend-bank,
+      .card.blending .equation {
+        grid-column: 1;
       }
 
-      .writing-word-row,
-      .stroke-order {
+      .card.blending .blend-bank,
+      .card.blending .blend-pattern {
         justify-content: center;
+      }
+
+      .writing-demos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .writing-word {
+        font-size: 2.5rem;
+        min-height: 82px;
+      }
+
+      .writing-box {
+        min-height: 250px;
       }
     }
 
-    @media (max-width: 680px) {
+    @media screen and (max-width: 680px) {
       body {
         padding: 8px;
       }
 
       .sheet {
         padding: 12px;
+      }
+
+      .card {
+        padding: 16px;
+        min-height: 330px;
       }
 
       .topbar,
@@ -1631,6 +1953,40 @@
       .tiny,
       .answer {
         width: 100%;
+        min-height: 62px;
+      }
+
+      .equation-box {
+        padding: 20px 12px;
+      }
+
+      .blend-picture {
+        min-height: 104px;
+      }
+
+      .writing-box {
+        width: 100%;
+        max-width: none;
+        min-height: 240px;
+      }
+
+      .writing-demos {
+        gap: 6px;
+      }
+
+      .writing-demo {
+        padding: 6px;
+      }
+
+      .writing-word {
+        min-height: 74px;
+        font-size: 2rem;
+      }
+
+      .stroke-step {
+        min-width: 26px;
+        min-height: 26px;
+        font-size: 0.82rem;
       }
 
       .card-head {
@@ -1639,6 +1995,7 @@
       }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.7/dist/hanzi-writer.min.js"></script>
 </head>
 <body>
   <main class="sheet">
@@ -2044,6 +2401,7 @@
         key: "ironman",
         label: "Ironman",
         stamp: "⚡",
+        pictureFile: "ironman.jpg",
         sequenceItem: { zh: "能量球", en: "energy balls" },
         addItem: { zh: "機械零件", en: "robot parts" },
         visualIcon: "⚙️"
@@ -2052,6 +2410,7 @@
         key: "spiderman",
         label: "Spiderman",
         stamp: "🕷️",
+        pictureFile: "spiderman.JPG",
         sequenceItem: { zh: "蜘蛛卡", en: "spider cards" },
         addItem: { zh: "蛛網貼紙", en: "web stickers" },
         visualIcon: "🕸️"
@@ -2068,44 +2427,120 @@
         key: "firefighter",
         label: "Firefighter",
         stamp: "🚒",
+        pictureFile: "firetruck.jfif",
         sequenceItem: { zh: "救援編號", en: "rescue numbers" },
         addItem: { zh: "消防頭盔", en: "fire helmets" },
         visualIcon: "⛑️"
       }
     ];
 
-    const blendChoices = ["bl", "cl", "fl", "gl", "pl", "sl", "br", "cr", "dr", "fr", "gr", "tr", "sk", "sn", "sp", "st", "sw"];
+    const blendChoices = ["bl", "cl", "fl", "gl", "pl", "sl", "br", "cr", "dr", "fr", "gr", "pr", "tr", "sk", "sm", "sn", "sp", "st", "sw", "tw", "scr", "shr", "spl", "spr", "squ", "str", "thr"];
 
     const blendingWords = [
-      { level: "easy", blend: "fl", tail: "ag", word: "flag", picture: "🚩" },
+      { level: "easy", blend: "bl", tail: "ocks", word: "blocks", picture: "🧱", pictureFile: "brick.png" },
+      { level: "easy", blend: "fl", tail: "ag", word: "flag", picture: "🚩", pictureFile: "Flag.png" },
       { level: "easy", blend: "fl", tail: "y", word: "fly", picture: "🪰" },
-      { level: "easy", blend: "cl", tail: "ock", word: "clock", picture: "⏰" },
+      { level: "easy", blend: "cl", tail: "ock", word: "clock", picture: "⏰", pictureFile: "clock.png" },
+      { level: "easy", blend: "gl", tail: "asses", word: "glasses", picture: "👓", pictureFile: "Glass.jfif" },
+      { level: "easy", blend: "pl", tail: "ate", word: "plate", picture: "🍽️" },
       { level: "easy", blend: "st", tail: "ar", word: "star", picture: "⭐" },
-      { level: "easy", blend: "tr", tail: "uck", word: "truck", picture: "🚚" },
-      { level: "easy", blend: "sp", tail: "oon", word: "spoon", picture: "🥄" },
+      { level: "easy", blend: "tr", tail: "uck", word: "truck", picture: "🚚", pictureFile: "Truck.png" },
+      { level: "easy", blend: "sp", tail: "oon", word: "spoon", picture: "🥄", pictureFile: "spoon.jpg" },
+      { level: "easy", blend: "br", tail: "ush", word: "brush", picture: "🖌️" },
+      { level: "easy", blend: "pl", tail: "ane", word: "plane", picture: "✈️", pictureFile: "airplane.png" },
+      { level: "easy", blend: "sn", tail: "ow", word: "snow", picture: "❄️", pictureFile: "snow.jpg" },
+      { level: "easy", blend: "cr", tail: "own", word: "crown", picture: "👑", pictureFile: "crown.png" },
+      { level: "easy", blend: "dr", tail: "agon", word: "dragon", picture: "🐉", pictureFile: "dragon.png" },
+      { level: "easy", blend: "fr", tail: "uit", word: "fruit", picture: "🍎" },
+      { level: "easy", blend: "gr", tail: "ass", word: "grass", picture: "🌿", pictureFile: "grass.jfif" },
+      { level: "easy", blend: "pr", tail: "esent", word: "present", picture: "🎁", pictureFile: "Gift.jpg" },
+      { level: "easy", blend: "sk", tail: "ate", word: "skate", picture: "🛼" },
+      { level: "easy", blend: "sm", tail: "oke", word: "smoke", picture: "💨" },
+      { level: "easy", blend: "sl", tail: "ide", word: "slide", picture: "🛝" },
+      { level: "easy", blend: "sw", tail: "ing", word: "swing", picture: "🛝" },
+      { level: "easy", blend: "tw", tail: "enty", word: "twenty", picture: "🔢" },
       { level: "normal", blend: "fr", tail: "og", word: "frog", picture: "🐸" },
       { level: "normal", blend: "fl", tail: "ower", word: "flower", picture: "🌼" },
-      { level: "normal", blend: "gr", tail: "apes", word: "grapes", picture: "🍇" },
-      { level: "normal", blend: "gr", tail: "ass", word: "grass", picture: "🌿" },
-      { level: "normal", blend: "gl", tail: "obe", word: "globe", picture: "🌎" },
+      { level: "normal", blend: "gr", tail: "apes", word: "grapes", picture: "🍇", pictureFile: "Grapes.jpg" },
+      { level: "normal", blend: "gr", tail: "ass", word: "grass", picture: "🌿", pictureFile: "grass.jfif" },
+      { level: "normal", blend: "gl", tail: "obe", word: "globe", picture: "🌎", pictureFile: "earth.png" },
+      { level: "normal", blend: "gl", tail: "ue", word: "glue", picture: "🧴" },
       { level: "normal", blend: "sn", tail: "ail", word: "snail", picture: "🐌" },
       { level: "normal", blend: "sl", tail: "ide", word: "slide", picture: "🛝" },
       { level: "normal", blend: "dr", tail: "um", word: "drum", picture: "🥁" },
-      { level: "challenge", blend: "gl", tail: "ass", word: "glass", picture: "🥛" },
+      { level: "normal", blend: "br", tail: "ead", word: "bread", picture: "🍞" },
+      { level: "normal", blend: "br", tail: "icks", word: "bricks", picture: "🧱" },
+      { level: "normal", blend: "cl", tail: "oud", word: "cloud", picture: "☁️", pictureFile: "cloud.webp" },
+      { level: "normal", blend: "cr", tail: "ayons", word: "crayons", picture: "🖍️" },
+      { level: "normal", blend: "pl", tail: "ug", word: "plug", picture: "🔌" },
+      { level: "normal", blend: "pl", tail: "ant", word: "plant", picture: "🌱" },
+      { level: "normal", blend: "pr", tail: "inter", word: "printer", picture: "🖨️" },
+      { level: "normal", blend: "pr", tail: "ince", word: "prince", picture: "🤴" },
+      { level: "normal", blend: "st", tail: "one", word: "stone", picture: "🪨" },
+      { level: "normal", blend: "sw", tail: "an", word: "swan", picture: "🦢" },
+      { level: "normal", blend: "tr", tail: "ee", word: "tree", picture: "🌳" },
+      { level: "normal", blend: "tr", tail: "ain", word: "train", picture: "🚂", pictureFile: "train.jpg" },
+      { level: "normal", blend: "sp", tail: "onge", word: "sponge", picture: "🧽" },
+      { level: "challenge", blend: "gl", tail: "ass", word: "glass", picture: "🥛", pictureFile: "Glass.jfif" },
       { level: "challenge", blend: "gr", tail: "een", word: "green", picture: "🟢" },
       { level: "challenge", blend: "bl", tail: "ender", word: "blender", picture: "🥤" },
-      { level: "challenge", blend: "sp", tail: "ider", word: "spider", picture: "🕷️" },
+      { level: "challenge", blend: "sp", tail: "ider", word: "spider", picture: "🕷️", pictureFile: "Spider.jpg" },
       { level: "challenge", blend: "gl", tail: "oves", word: "gloves", picture: "🧤" },
-      { level: "challenge", blend: "dr", tail: "agon", word: "dragon", picture: "🐉" },
-      { level: "challenge", blend: "cr", tail: "ab", word: "crab", picture: "🦀" },
-      { level: "challenge", blend: "sk", tail: "irt", word: "skirt", picture: "👗" },
-      { level: "challenge", blend: "sw", tail: "ing", word: "swing", picture: "🛝" }
+      { level: "challenge", blend: "dr", tail: "agon", word: "dragon", picture: "🐉", pictureFile: "dragon.png" },
+      { level: "challenge", blend: "cr", tail: "ab", word: "crab", picture: "🦀", pictureFile: "crab.png" },
+      { level: "challenge", blend: "sk", tail: "irt", word: "skirt", picture: "👗", pictureFile: "Dress.jpg" },
+      { level: "challenge", blend: "sw", tail: "ing", word: "swing", picture: "🛝" },
+      { level: "challenge", blend: "br", tail: "idge", word: "bridge", picture: "🌉", pictureFile: "bridge.png" },
+      { level: "challenge", blend: "cl", tail: "own", word: "clown", picture: "🤡" },
+      { level: "challenge", blend: "pl", tail: "ant", word: "plant", picture: "🌱" },
+      { level: "challenge", blend: "st", tail: "amp", word: "stamp", picture: "🏷️" },
+      { level: "challenge", blend: "tr", tail: "ain", word: "train", picture: "🚂", pictureFile: "train.jpg" },
+      { level: "challenge", blend: "fr", tail: "uit", word: "fruit", picture: "🍎" },
+      { level: "challenge", blend: "scr", tail: "ew", word: "screw", picture: "🔩" },
+      { level: "challenge", blend: "scr", tail: "een", word: "screen", picture: "🖥️", pictureFile: "PC.jpg" },
+      { level: "challenge", blend: "shr", tail: "imp", word: "shrimp", picture: "🦐" },
+      { level: "challenge", blend: "spl", tail: "ash", word: "splash", picture: "💦" },
+      { level: "challenge", blend: "spr", tail: "ay", word: "spray", picture: "🧴" },
+      { level: "challenge", blend: "squ", tail: "irrel", word: "squirrel", picture: "🐿️", pictureFile: "squirrel.jpg" },
+      { level: "challenge", blend: "str", tail: "awberry", word: "strawberry", picture: "🍓", pictureFile: "strawberries.png" },
+      { level: "challenge", blend: "str", tail: "eet", word: "street", picture: "🛣️" },
+      { level: "challenge", blend: "thr", tail: "ead", word: "thread", picture: "🧵" }
     ];
 
     const blendChoicesByLevel = {
-      easy: ["fl", "cl", "st", "tr", "sp"],
-      normal: ["fr", "fl", "gr", "gl", "sn", "sl", "dr"],
-      challenge: ["bl", "cr", "dr", "gl", "gr", "sk", "sp", "sw"]
+      easy: ["bl", "br", "cl", "cr", "dr", "fl", "fr", "gl", "gr", "pl", "pr", "sk", "sl", "sm", "sn", "sp", "st", "sw", "tr", "tw"],
+      normal: ["bl", "br", "cl", "cr", "dr", "fl", "fr", "gl", "gr", "pl", "pr", "sk", "sl", "sm", "sn", "sp", "st", "sw", "tr", "tw"],
+      challenge: ["bl", "br", "cl", "cr", "dr", "fl", "fr", "gl", "gr", "pl", "pr", "sk", "sl", "sm", "sn", "sp", "st", "sw", "tr", "tw", "scr", "shr", "spl", "spr", "squ", "str", "thr"]
+    };
+
+    const blendSpeechGuide = {
+      bl: "bl, blocks",
+      br: "br, brush",
+      cl: "cl, clock",
+      cr: "cr, crayons",
+      dr: "dr, dragon",
+      fl: "fl, flower",
+      fr: "fr, frog",
+      gl: "gl, glasses",
+      gr: "gr, grass",
+      pl: "pl, plate",
+      pr: "pr, present",
+      sk: "sk, skate",
+      sl: "sl, slide",
+      sm: "sm, smoke",
+      sn: "sn, snake",
+      sp: "sp, spoon",
+      st: "st, star",
+      sw: "sw, swing",
+      tr: "tr, truck",
+      tw: "tw, twenty",
+      scr: "scr, screw",
+      shr: "shr, shrimp",
+      spl: "spl, splash",
+      spr: "spr, spray",
+      squ: "squ, squirrel",
+      str: "str, strawberry",
+      thr: "thr, thread"
     };
 
     const sequenceActivities = [
@@ -2193,6 +2628,7 @@
       {
         item: { zh: "隻小動物", en: "animals" },
         visualIcon: "🐶",
+        visualIconFile: "dog.jfif",
         zh: {
           add: (main, helper, first, item, second) => `${main} 數到 ${first} ${item}，${helper} 又見到 ${second} 隻。依家有幾多隻？`,
           sub: (main, helper, first, item, second) => `${main} 數到 ${first} ${item}，有 ${second} 隻走去玩。仲剩幾多隻？`
@@ -2205,6 +2641,7 @@
       {
         item: { zh: "粒寶石", en: "gems" },
         visualIcon: "💎",
+        visualIconFile: "Gem",
         zh: {
           add: (main, helper, first, item, second) => `${main} 搵到 ${first} ${item}，${helper} 再搵到 ${second} 粒。一共有幾多粒？`,
           sub: (main, helper, first, item, second) => `${main} 有 ${first} ${item}，送咗 ${second} 粒俾 ${helper}。仲有幾多粒？`
@@ -2229,6 +2666,7 @@
       {
         item: { zh: "個消防頭盔", en: "fire helmets" },
         visualIcon: "⛑️",
+        visualIconFile: "fireman.jfif",
         zh: {
           add: (main, helper, first, item, second) => `${main} 數到 ${first} ${item}，${helper} 又搬嚟 ${second} 個。消防站有幾多個？`,
           sub: (main, helper, first, item, second) => `消防站有 ${first} ${item}，${helper} 拎咗 ${second} 個去救援。仲有幾多個？`
@@ -2276,52 +2714,52 @@
     const blendingInstructions = {
       easy: [
         {
-          prompt: "Choose the matching picture. Which two letters start the word?",
-          clue: "Say the picture name. Listen to the first sound part."
+          prompt: "Choose the matching picture. Which blend starts the word?",
+          clue: "Look at the word ending below. Choose the picture, then pick the beginning blend."
         },
         {
           prompt: "Point to the picture, then choose its beginning sound.",
-          clue: "The answer is the first two letters of the word."
+          clue: "The bottom word is missing its beginning blend. Match the picture to the ending."
         },
         {
           prompt: "What is the picture? Pick the blend that makes the word.",
-          clue: "Look at the ending letters, then try the beginning blend."
+          clue: "Read the letters after the blanks. Put the right blend in front."
         }
       ],
       normal: [
         {
           prompt: "Find the picture that matches the word ending. Choose the beginning blend.",
-          clue: "Say the whole word slowly. The missing part is at the start."
+          clue: "Use the ending letters below to find the picture. Then choose the blend for the blanks."
         },
         {
           prompt: "Choose the picture and build the word with the right blend.",
-          clue: "The two missing letters make the beginning sound."
+          clue: "First match the picture. Next put the blend before the ending letters."
         },
         {
           prompt: "Look at the picture choices. Which blend completes the word?",
-          clue: "Try saying each blend before the ending sound."
+          clue: "The answer goes in the blank lines before the ending."
         },
         {
           prompt: "Describe the picture in one word. Pick the blend at the front.",
-          clue: "The ending is given. Add the best beginning sound."
+          clue: "Look at the picture and the ending. Choose the beginning blend."
         }
       ],
       challenge: [
         {
           prompt: "Be a word detective. Match the picture and missing blend.",
-          clue: "Check the picture, then test which blend sounds right."
+          clue: "Use both clues: the picture row and the word ending under it."
         },
         {
           prompt: "Read the word ending. Which picture and blend make a real word?",
-          clue: "Use the picture clue and the ending letters together."
+          clue: "The picture and blend must match the ending letters below."
         },
         {
           prompt: "Solve the picture clue. Write the blend that starts the answer.",
-          clue: "Think of the picture name first, then choose the first two letters."
+          clue: "Choose the picture first. The blend fills the blank spaces."
         },
         {
           prompt: "Choose the best picture clue and beginning blend.",
-          clue: "Only one picture makes sense with the word ending."
+          clue: "Only one picture makes a real word with the ending shown."
         }
       ]
     };
@@ -2354,6 +2792,7 @@
       {
         word: "山",
         picture: "⛰️",
+        pictureFile: "Gem",
         strokes: ["豎", "豎折", "豎"],
         sentence: "山：金字塔好像一座山。"
       },
@@ -2366,24 +2805,28 @@
       {
         word: "火",
         picture: "🔥",
+        pictureFile: "fireman.jfif",
         strokes: ["點", "撇", "撇", "捺"],
         sentence: "火：消防員會小心救火。"
       },
       {
         word: "車",
         picture: "🚗",
+        pictureFile: "firetruck.jfif",
         strokes: ["橫", "撇折", "橫", "豎", "橫"],
         sentence: "車：Gooby 看見一架紅色車。"
       },
       {
         word: "狗",
         picture: "🐶",
+        pictureFile: "dog.jfif",
         strokes: ["撇", "彎鉤", "撇", "撇", "橫折鉤", "豎", "橫折", "橫"],
         sentence: "狗：Gooby 是一隻可愛的狗。"
       },
       {
         word: "星",
         picture: "⭐",
+        pictureFile: "Gem",
         strokes: ["豎", "橫折", "橫", "橫", "撇", "橫", "橫", "豎", "橫"],
         sentence: "星：Jadon 答對一題，就收集一粒星星。"
       },
@@ -2396,6 +2839,7 @@
       {
         word: "大",
         picture: "🦖",
+        pictureFile: "elephant.jpg",
         strokes: ["橫", "撇", "捺"],
         sentence: "大：Ironman 有一個大任務。"
       }
@@ -2456,6 +2900,26 @@
 
     function pick(list) {
       return list[Math.floor(Math.random() * list.length)];
+    }
+
+    const githubAssetBase = "https://luclklam2.github.io/K2/";
+    const localAssetBase = "PIC/";
+
+    function assetPath(fileName) {
+      const base = window.location.protocol === "file:" ? localAssetBase : githubAssetBase;
+      return `${base}${encodeURIComponent(fileName)}`;
+    }
+
+    function pic(fileName, alt) {
+      return `<img class="pic-img" src="${assetPath(fileName)}" alt="${alt}" loading="lazy" />`;
+    }
+
+    function pictureHtml(item, fallback = "") {
+      if (item?.pictureFile) {
+        return pic(item.pictureFile, item.word || item.label || fallback);
+      }
+
+      return item?.picture || fallback;
     }
 
     function pickHelper(main) {
@@ -2590,12 +3054,15 @@
       }
 
       if (question.type === "blending") {
+        const blanks = Array.from({ length: question.answer.length }, (_, index) =>
+          `<span class="blend-blank" data-blend-slot="${index}"></span>`
+        ).join("");
         return {
           title: text.blendingTitle,
           prompt: question.instruction.prompt,
           clue: question.instruction.clue,
           speech: question.instruction.prompt,
-          equation: `<div class="blend-pattern"><span class="blend-blank" data-blend-slot="0"></span><span class="blend-blank" data-blend-slot="1"></span><span>${question.tail}</span></div>`
+          equation: `<div class="blend-pattern">${blanks}<span>${question.tail}</span></div>`
         };
       }
 
@@ -2637,7 +3104,9 @@
         return "";
       }
 
-      const icon = question.activity?.visualIcon || question.theme.visualIcon;
+      const icon = question.activity?.visualIconFile
+        ? pic(question.activity.visualIconFile, question.item[currentLanguage])
+        : question.activity?.visualIcon || question.theme.visualIcon;
       const makeIcons = (count) => Array.from({ length: count }, () => `<span class="visual-icon">${icon}</span>`).join("");
 
       return `
@@ -2664,10 +3133,44 @@
 
       return `
         <div class="blend-pictures" aria-label="picture choices">
-          ${question.pictureOptions.map((item) => `<button class="blend-picture" type="button" data-blend-picture="${item.word}">${item.picture}</button>`).join("")}
+          ${question.pictureOptions.map((item) => `<button class="blend-picture" type="button" data-blend-picture="${item.word}">${pictureHtml(item)}</button>`).join("")}
         </div>
         <div class="blend-bank" aria-label="blend choices">
           ${question.blendOptions.map((item) => `<button class="blend-choice" type="button" data-blend-choice="${item}">${item}</button>`).join("")}
+        </div>
+      `;
+    }
+
+    function buildChineseWritingGroups(strokes) {
+      const groups = [];
+      let start = 0;
+      let remaining = strokes.length;
+
+      for (let groupIndex = 0; groupIndex < 3; groupIndex += 1) {
+        const groupsLeft = 3 - groupIndex;
+        const size = remaining > 0 ? Math.ceil(remaining / groupsLeft) : 0;
+        const chunk = strokes.slice(start, start + size).map((stroke, index) => ({
+          name: stroke,
+          number: start + index + 1
+        }));
+        groups.push(chunk);
+        start += size;
+        remaining = strokes.length - start;
+      }
+
+      return groups;
+    }
+
+    function renderWritingGlyph(word, strokeNumbers = [], showComplete = false) {
+      const strokeText = strokeNumbers.join(",");
+      return `
+        <div
+          class="writing-word-glyph"
+          data-writing-word="${word}"
+          data-writing-strokes="${strokeText}"
+          data-writing-complete="${showComplete ? "1" : "0"}"
+        >
+          <span class="writing-word-char">${word}</span>
         </div>
       `;
     }
@@ -2677,21 +3180,44 @@
         return "";
       }
 
+      const strokeGroups = buildChineseWritingGroups(question.strokes);
+
       return `
         <div class="writing-card">
-          <div class="writing-picture" aria-label="${question.word} picture">${question.picture}</div>
-          <div class="writing-main">
-            <div class="writing-word-row">
-              <div class="writing-word">${question.word}</div>
-              <div class="stroke-order">
-                <span>${currentLanguage === "zh" ? "筆順" : "Stroke order"}</span>
-                ${question.strokes.map((stroke, index) => `<span class="stroke-step">${index + 1}. ${stroke}</span>`).join("")}
+          <div class="writing-picture" aria-label="${question.word} picture">${pictureHtml(question, question.word)}</div>
+          <div class="writing-demos">
+            ${strokeGroups.map((group) => `
+              <div class="writing-demo">
+                <div class="writing-demo-label">${currentLanguage === "zh"
+                  ? (group.length ? `第 ${group[0].number}-${group[group.length - 1].number} 筆` : "完成")
+                  : (group.length ? `Strokes ${group[0].number}-${group[group.length - 1].number}` : "Finish")
+                }</div>
+                <div class="writing-word">
+                  ${renderWritingGlyph(question.word, group.map((stroke) => stroke.number), group.length === 0)}
+                </div>
+                <div class="writing-stage-steps">
+                  ${group.length
+                    ? group.map((stroke) => `<span class="stroke-step">${stroke.number}. ${stroke.name}</span>`).join("")
+                    : `<span class="stroke-step empty">${currentLanguage === "zh" ? "完成跟寫" : "Trace and finish"}</span>`
+                  }
+                </div>
               </div>
-            </div>
-            <p class="writing-sentence">${question.sentence}</p>
+            `).join("")}
           </div>
+          <p class="writing-sentence">${question.sentence}</p>
           <div class="writing-practice" aria-label="${question.word} writing practice">
-            ${Array.from({ length: 4 }, () => '<div class="writing-box"></div>').join("")}
+            <div class="writing-box">
+              <canvas
+                class="writing-canvas"
+                data-writing-canvas="${question.id}"
+                aria-label="${question.word} writing canvas"
+              ></canvas>
+            </div>
+            <div class="writing-actions">
+              <button class="tiny ghost writing-clear" type="button" data-clear-writing="${question.id}">
+                ${currentLanguage === "zh" ? "清除筆跡" : "Clear Writing"}
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -2878,9 +3404,12 @@
       };
     }
 
-    function createBlendingQuestion(level = "normal") {
+    function createBlendingQuestion(level = "normal", usedWords = new Set()) {
       const levelWords = blendingWords.filter((item) => item.level === level);
-      const target = pick(levelWords.length ? levelWords : blendingWords);
+      const basePool = levelWords.length ? levelWords : blendingWords;
+      const freshPool = basePool.filter((item) => !usedWords.has(item.word));
+      const target = pick(freshPool.length ? freshPool : basePool);
+      usedWords.add(target.word);
       const pictureCount = level === "easy" ? 2 : 3;
       const blendCount = level === "easy" ? 3 : level === "challenge" ? 5 : 4;
       const picturePool = level === "challenge" ? blendingWords : levelWords;
@@ -2912,8 +3441,10 @@
       };
     }
 
-    function createChineseWritingQuestion() {
-      const target = pick(chineseWritingWords);
+    function createChineseWritingQuestion(usedWords = new Set()) {
+      const freshPool = chineseWritingWords.filter((item) => !usedWords.has(item.word));
+      const target = pick(freshPool.length ? freshPool : chineseWritingWords);
+      usedWords.add(target.word);
 
       return {
         type: "chineseWriting",
@@ -3013,6 +3544,8 @@
       const mode = modeSelect.value;
       const count = Number(countSelect.value);
       const level = sequenceLevel.value;
+      const usedBlendingWords = new Set();
+      const usedChineseWritingWords = new Set();
 
       currentQuestions = Array.from({ length: count }, (_, index) => {
         let question;
@@ -3033,9 +3566,9 @@
         } else if (mode === "tensSub") {
           question = createAddSubQuestion("tensSub", level);
         } else if (mode === "blending") {
-          question = createBlendingQuestion(level);
+          question = createBlendingQuestion(level, usedBlendingWords);
         } else if (mode === "chineseWriting") {
-          question = createChineseWritingQuestion();
+          question = createChineseWritingQuestion(usedChineseWritingWords);
         } else {
           const builders = [
             () => createSequenceQuestion(level),
@@ -3046,8 +3579,8 @@
             () => createAddSubQuestion("sub"),
             () => createAddSubQuestion("tensAdd", level),
             () => createAddSubQuestion("tensSub", level),
-            () => createBlendingQuestion(level),
-            () => createChineseWritingQuestion()
+            () => createBlendingQuestion(level, usedBlendingWords),
+            () => createChineseWritingQuestion(usedChineseWritingWords)
           ];
           question = pick(builders)();
         }
@@ -3076,11 +3609,14 @@
           <article class="card ${question.type} ${question.clockTask || ""}" data-id="${question.id}">
             <div class="card-head">
               <div class="section-chip ${question.type}">${currentLanguage === "zh" ? `第 ${question.id} 題・${view.title}` : `Q${question.id} · ${view.title}`}</div>
-              <div class="theme-mark" aria-label="${question.theme.label}">${question.theme.stamp}</div>
+              <div class="theme-mark" aria-label="${question.theme.label}">${pictureHtml(question.theme, question.theme.stamp)}</div>
             </div>
 
             <h3>${view.prompt}</h3>
-            <p class="story">${question.type === "blending" || currentLanguage !== "zh" ? "Hint: " : "提示："}${view.clue}</p>
+            ${question.type === "sequence"
+              ? ""
+              : `<p class="story">${question.type === "blending" || currentLanguage !== "zh" ? "Hint: " : "提示："}${view.clue}</p>`
+            }
 
             <div class="equation-box">
               ${renderBlending(question)}
@@ -3110,6 +3646,11 @@
           </article>
         `;
       }).join("");
+
+      requestAnimationFrame(() => {
+        setupWritingCanvases();
+        setupWritingStrokeDemos();
+      });
     }
 
     function normalizeClockAnswer(value) {
@@ -3218,8 +3759,9 @@
     }
 
     function updateBlendPattern(card, value) {
-      const letters = String(value || "").trim().toLowerCase().slice(0, 2).split("");
-      card.querySelectorAll("[data-blend-slot]").forEach((slot, index) => {
+      const slots = Array.from(card.querySelectorAll("[data-blend-slot]"));
+      const letters = String(value || "").trim().toLowerCase().slice(0, slots.length).split("");
+      slots.forEach((slot, index) => {
         const letter = letters[index] || "";
         slot.textContent = letter;
         slot.classList.toggle("blend-fill", Boolean(letter));
@@ -3448,6 +3990,204 @@
       window.speechSynthesis.speak(utterance);
     }
 
+    function speakBlendChoice(blend) {
+      if (soundToggle.value === "off" || !("speechSynthesis" in window) || !blend) {
+        return;
+      }
+
+      const speech = blendSpeechGuide[String(blend).toLowerCase()] || String(blend);
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(speech);
+      utterance.lang = "en-US";
+      utterance.rate = 0.78;
+      utterance.pitch = 1.02;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    const hanziCharacterCache = new Map();
+
+    function getHanziCharacterData(word) {
+      if (!window.HanziWriter?.loadCharacterData || !word) {
+        return Promise.resolve(null);
+      }
+
+      if (!hanziCharacterCache.has(word)) {
+        hanziCharacterCache.set(
+          word,
+          window.HanziWriter.loadCharacterData(word).catch(() => null)
+        );
+      }
+
+      return hanziCharacterCache.get(word);
+    }
+
+    function buildWritingDemoSvg(charData, strokeNumbers, showComplete) {
+      const svgSize = 100;
+      const transformInfo = window.HanziWriter?.getScalingTransform
+        ? window.HanziWriter.getScalingTransform(svgSize, svgSize, 8)
+        : null;
+      const transform = typeof transformInfo === "string"
+        ? transformInfo
+        : (transformInfo?.transform || "");
+      const highlighted = new Set(strokeNumbers);
+      const paths = charData.strokes.map((path, index) => {
+        const strokeNumber = index + 1;
+        const active = showComplete || highlighted.has(strokeNumber);
+        const fill = active ? "#4b4179" : "#d8d1f3";
+        const opacity = active ? "1" : "0.32";
+        return `<path d="${path}" fill="${fill}" opacity="${opacity}"></path>`;
+      }).join("");
+
+      return `
+        <svg class="writing-word-svg" viewBox="0 0 ${svgSize} ${svgSize}" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+          <g transform="${transform}">${paths}</g>
+        </svg>
+      `;
+    }
+
+    function setupWritingStrokeDemos() {
+      questionsEl.querySelectorAll(".writing-word-glyph").forEach(async (glyph) => {
+        if (glyph.dataset.strokeReady === "1") {
+          return;
+        }
+
+        const word = glyph.dataset.writingWord;
+        const strokeNumbers = (glyph.dataset.writingStrokes || "")
+          .split(",")
+          .map((value) => Number(value))
+          .filter((value) => Number.isFinite(value) && value > 0);
+        const showComplete = glyph.dataset.writingComplete === "1";
+        const charData = await getHanziCharacterData(word);
+        if (!charData) {
+          glyph.dataset.strokeReady = "1";
+          return;
+        }
+
+        glyph.innerHTML = buildWritingDemoSvg(charData, strokeNumbers, showComplete);
+        glyph.dataset.strokeReady = "1";
+      });
+    }
+
+    function clearWritingCanvas(canvas) {
+      if (!canvas) {
+        return;
+      }
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        return;
+      }
+
+      context.save();
+      context.setTransform(1, 0, 0, 1, 0, 0);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.restore();
+    }
+
+    function resizeWritingCanvas(canvas) {
+      if (!canvas) {
+        return;
+      }
+
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) {
+        return;
+      }
+
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = Math.round(rect.width * ratio);
+      canvas.height = Math.round(rect.height * ratio);
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        return;
+      }
+
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      context.lineCap = "round";
+      context.lineJoin = "round";
+      context.strokeStyle = "#574a8f";
+      context.lineWidth = 6;
+      clearWritingCanvas(canvas);
+    }
+
+    function setupWritingCanvases() {
+      questionsEl.querySelectorAll(".writing-canvas").forEach((canvas) => {
+        if (canvas.dataset.ready === "1") {
+          return;
+        }
+
+        canvas.dataset.ready = "1";
+        resizeWritingCanvas(canvas);
+
+        let drawing = false;
+        let activePointerId = null;
+
+        const getLocalPoint = (event) => {
+          const rect = canvas.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          const inside = x >= 0 && y >= 0 && x <= rect.width && y <= rect.height;
+          return { rect, x, y, inside };
+        };
+
+        const drawPoint = (event) => {
+          const context = canvas.getContext("2d");
+          const point = getLocalPoint(event);
+          if (!context || !point.rect.width || !point.rect.height || !point.inside) {
+            return;
+          }
+
+          if (!drawing) {
+            context.beginPath();
+            context.moveTo(point.x, point.y);
+            drawing = true;
+            return;
+          }
+
+          context.lineTo(point.x, point.y);
+          context.stroke();
+        };
+
+        canvas.addEventListener("pointerdown", (event) => {
+          if (event.pointerType === "mouse") {
+            return;
+          }
+          event.preventDefault();
+          activePointerId = event.pointerId;
+          drawing = false;
+          drawPoint(event);
+        });
+
+        canvas.addEventListener("pointermove", (event) => {
+          if (event.pointerId !== activePointerId) {
+            return;
+          }
+          const point = getLocalPoint(event);
+          if (!point.inside) {
+            drawing = false;
+            return;
+          }
+          drawPoint(event);
+        });
+
+        const finishDrawing = (event) => {
+          if (event.pointerId !== activePointerId) {
+            return;
+          }
+          drawing = false;
+          activePointerId = null;
+        };
+
+        canvas.addEventListener("pointerup", finishDrawing);
+        canvas.addEventListener("pointercancel", finishDrawing);
+        canvas.addEventListener("pointerleave", () => {
+          drawing = false;
+          activePointerId = null;
+        });
+      });
+    }
+
     const printPageStyle = document.createElement("style");
     document.head.appendChild(printPageStyle);
 
@@ -3545,6 +4285,7 @@
         const input = card.querySelector(".answer");
         card.querySelectorAll(".blend-choice").forEach((choice) => choice.classList.remove("selected"));
         blendChoice.classList.add("selected");
+        speakBlendChoice(blendChoice.dataset.blendChoice);
         if (input) {
           input.value = blendChoice.dataset.blendChoice;
           updateBlendPattern(card, input.value);
@@ -3559,6 +4300,13 @@
           choice.classList.remove("selected", "correct", "wrong");
         });
         shapeChoice.classList.add("selected");
+        return;
+      }
+
+      const clearWriting = event.target.closest("[data-clear-writing]");
+      if (clearWriting) {
+        const card = clearWriting.closest(".card");
+        clearWritingCanvas(card?.querySelector(".writing-canvas"));
         return;
       }
 
